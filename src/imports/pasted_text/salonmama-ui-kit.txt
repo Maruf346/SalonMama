@@ -1,0 +1,353 @@
+Create a modern, premium, minimalistic multi-vendor salon marketplace web app UI in Figma Make named “SalonMama”.
+The platform is Bangladesh-focused and allows customers to browse salons, select services, upload face photos for AI hairstyle recommendations, book appointments, and pay through Bangladeshi payment methods.
+
+Use a clean white background with modern blue gradient aesthetics similar to premium travel/lifestyle SaaS landing pages.
+Design language should feel elegant, soft, trustworthy, premium, and highly user-friendly.
+Use rounded corners, soft shadows, glassmorphism where needed, subtle gradients, clean typography, and responsive layouts.
+
+Primary Color Palette:
+
+* Gradient Blue: #36A2FF → #007BFF
+* Soft Sky Blue: #EAF6FF
+* White Background
+* Accent Purple/Blue Glow
+* Light Gray Borders
+* Text: #1E293B
+
+Style Reference:
+
+* Similar aesthetic to modern AI SaaS landing pages
+* Minimal but visually rich
+* Smooth gradients
+* Spacious layout
+* Mobile-first responsiveness
+* Card-based sections
+* Elegant animations/transitions implied in design
+
+Typography:
+
+* Modern sans-serif like Inter or Poppins
+* Large bold hero text
+* Clean readable body text
+
+Design the following FULL USER FLOW SCREENS:
+
+==================================================
+
+1. LANDING PAGE (Homepage)
+   ==================================================
+
+Hero Section:
+
+* Large gradient hero banner
+* Navbar:
+
+  * Logo: SalonMama
+  * Home
+  * Browse Salons
+  * AI Style Finder
+  * Rewards
+  * Login / Signup
+* CTA buttons:
+
+  * “Find Your Style”
+  * “Book Nearby Salon”
+
+Hero content:
+
+* Attractive female/male hairstyle visuals
+* Headline:
+  “Find Your Perfect Look”
+* Subtitle:
+  “Browse salons, discover hairstyles with AI, and book instantly.”
+
+Include:
+
+* Search bar:
+
+  * Search salon/service/location
+* Floating AI hairstyle recommendation card
+* Featured salon cards below hero
+
+Sections:
+
+* Top Rated Salons
+* Trending Hairstyles
+* AI Hair Recommendation Feature Showcase
+* How It Works (3-step cards)
+* Customer Testimonials
+* Loyalty / Reward Points Banner
+* Download App CTA
+* Footer
+
+==================================================
+2. SALON MARKETPLACE PAGE
+=========================
+
+Grid layout of salons.
+
+Each salon card should include:
+
+* Cover image
+* Salon logo
+* Rating
+* Location
+* Starting price
+* Services tags
+* Open/Closed badge
+* “View Salon” button
+
+Top filters:
+
+* Location
+* Rating
+* Service Type
+* Gender
+* Price Range
+* Nearby
+
+Map toggle optional.
+
+==================================================
+3. SALON PROFILE PAGE
+=====================
+
+Premium salon profile page with:
+
+Top Hero:
+
+* Cover image
+* Salon logo
+* Salon name
+* Rating
+* Address
+* Open hours
+* Follow/Favorite button
+
+Tabs:
+
+* Services
+* Stylists
+* Gallery
+* Reviews
+* About
+
+Services Section:
+Card layout showing:
+
+* Service name
+* Duration
+* Price
+* “Book Now”
+
+Stylists Section:
+
+* Barber/stylist cards
+* Expertise tags
+* Ratings
+
+Gallery:
+
+* Hairstyle photos
+* Interior photos
+
+Reviews:
+
+* User reviews with stars
+
+Sticky booking summary sidebar.
+
+==================================================
+4. SERVICE BOOKING FLOW
+=======================
+
+Step-by-step booking UI.
+
+Step 1:
+Choose service:
+
+* Haircut
+* Beard
+* Facial
+* Hair Color
+* Spa
+
+Step 2:
+Choose specific style.
+Example:
+For Haircut:
+
+* Fade
+* Taper
+* Undercut
+* Korean Cut
+* Messy Texture
+* Long Layer
+
+Use stylish image cards.
+
+Step 3:
+Choose stylist/barber.
+
+Step 4:
+Choose date & time slot.
+
+Step 5:
+Additional preferences:
+
+* Hair length
+* Notes
+* Home service toggle
+* Upload reference hairstyle image
+
+==================================================
+5. AI HAIRSTYLE RECOMMENDATION PAGE
+===================================
+
+Modern AI feature page.
+
+Layout:
+Left:
+
+* Upload face photo card
+* Drag & drop upload
+
+Right:
+AI results:
+
+* Recommended hairstyles based on face shape
+* Confidence percentage
+* Match score
+* Style cards
+
+Each hairstyle card:
+
+* Preview image
+* Style name
+* Suitable for:
+
+  * Oval
+  * Round
+  * Square face
+
+Buttons:
+
+* Save Style
+* Book This Style
+
+Add disclaimer:
+“AI recommendations are limited and may vary.”
+
+Show premium usage indicator:
+
+* “3 free AI scans remaining”
+
+==================================================
+6. BOOKING CONFIRMATION PAGE
+============================
+
+Summary card:
+
+* Salon
+* Stylist
+* Service
+* Date
+* Time
+* Selected hairstyle
+* Price breakdown
+
+Buttons:
+
+* Confirm Booking
+* Edit Booking
+
+Status flow:
+Pending → Confirmed by Salon
+
+==================================================
+7. PAYMENT PAGE
+===============
+
+Modern checkout UI.
+
+Payment methods:
+
+* SSLCommerz
+* bKash
+* Nagad
+* Rocket
+* Cash at Salon
+
+Show:
+
+* booking summary
+* subtotal
+* platform fee
+* total amount
+
+Success animation card after payment.
+
+==================================================
+8. USER DASHBOARD
+=================
+
+Minimal customer dashboard.
+
+Sidebar:
+
+* My Bookings
+* Favorite Salons
+* Saved Hairstyles
+* Rewards
+* Settings
+
+Dashboard widgets:
+
+* Upcoming appointments
+* Loyalty points
+* Recommended salons
+* AI recommendation history
+
+==================================================
+9. MOBILE RESPONSIVE DESIGNS
+============================
+
+Also generate:
+
+* Mobile homepage
+* Mobile salon profile
+* Mobile booking flow
+* Bottom navigation bar
+
+Ensure:
+
+* clean responsive spacing
+* touch-friendly UI
+* modern app-like feel
+
+==================================================
+10. DESIGN SYSTEM
+=================
+
+Create reusable components:
+
+* Buttons
+* Cards
+* Inputs
+* Modals
+* Tabs
+* Navigation
+* Gradient backgrounds
+* Booking stepper
+* Payment cards
+
+Use:
+
+* 8px spacing system
+* consistent border radius
+* subtle glassmorphism
+* modern SaaS visual hierarchy
+
+Overall Feel:
+Premium Bangladeshi startup meets modern AI beauty-tech platform.
+Minimalistic, elegant, scalable, and investor-pitch ready.
