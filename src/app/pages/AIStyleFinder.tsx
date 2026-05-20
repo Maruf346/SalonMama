@@ -1,12 +1,12 @@
 import { useState, useRef, useCallback } from 'react';
 import {
   Upload, Sparkles, Camera, RotateCcw, BookOpen,
-  Star, TrendingUp, X, ArrowRight, Check, Filter,
+  Star, TrendingUp, X, ArrowRight, Check, Filter, Heart,
 } from 'lucide-react';
 import { Link } from 'react-router';
 
 type UIState = 'upload' | 'preview' | 'analyzing' | 'results';
-type FilterKey = 'all' | 'short' | 'medium' | 'long' | 'straight' | 'wavy' | 'curly';
+type FilterKey = 'all' | 'saved' | 'short' | 'medium' | 'long' | 'straight' | 'wavy' | 'curly';
 
 interface Hairstyle {
   id: number;
@@ -182,7 +182,7 @@ const FACE_METRICS = [
   { label: 'Symmetry', value: 'High', score: 94 },
 ];
 
-const FILTERS: { key: FilterKey; label: string }[] = [
+const BASE_FILTERS: { key: FilterKey; label: string }[] = [
   { key: 'all', label: 'All Styles' },
   { key: 'short', label: 'Short' },
   { key: 'medium', label: 'Medium' },
@@ -199,6 +199,7 @@ export function AIStyleFinder() {
   const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
   const [currentStep, setCurrentStep] = useState(0);
   const [bookedStyles, setBookedStyles] = useState<Set<number>>(new Set());
+  const [savedStyles, setSavedStyles] = useState<Set<number>>(new Set());
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = useCallback((file: File) => {
@@ -247,9 +248,19 @@ export function AIStyleFinder() {
     });
   };
 
-  const filtered = HAIRSTYLES.filter(s =>
-    activeFilter === 'all' || s.category === activeFilter || s.type === activeFilter
-  );
+  const toggleSave = (id: number) => {
+    setSavedStyles(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+
+  const filtered = HAIRSTYLES.filter(s => {
+    if (activeFilter === 'saved') return savedStyles.has(s.id);
+    if (activeFilter === 'all') return true;
+    return s.category === activeFilter || s.type === activeFilter;
+  });
 
   const progressPct = Math.round((currentStep / ANALYSIS_STEPS.length) * 100);
 
@@ -550,16 +561,26 @@ export function AIStyleFinder() {
                   <Filter className="w-3.5 h-3.5" />
                   Filter:
                 </div>
-                {FILTERS.map(({ key, label }) => (
+                {[
+                  ...BASE_FILTERS,
+                  ...(savedStyles.size > 0
+                    ? [{ key: 'saved' as FilterKey, label: `Saved (${savedStyles.size})` }]
+                    : []),
+                ].map(({ key, label }) => (
                   <button
                     key={key}
                     onClick={() => setActiveFilter(key)}
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
                       activeFilter === key
-                        ? 'bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white shadow-sm shadow-blue-200'
-                        : 'bg-gray-100 text-[#64748b] hover:bg-gray-200'
+                        ? key === 'saved'
+                          ? 'bg-rose-500 text-white shadow-sm shadow-rose-200'
+                          : 'bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white shadow-sm shadow-blue-200'
+                        : key === 'saved'
+                          ? 'bg-rose-50 text-rose-500 hover:bg-rose-100'
+                          : 'bg-gray-100 text-[#64748b] hover:bg-gray-200'
                     }`}
                   >
+                    {key === 'saved' && <Heart className="w-3 h-3 inline mr-1 fill-current" />}
                     {label}
                   </button>
                 ))}
@@ -605,6 +626,20 @@ export function AIStyleFinder() {
                       )}
 
                       <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/35 to-transparent" />
+
+                      {/* Heart / Save */}
+                      <button
+                        onClick={e => { e.stopPropagation(); toggleSave(style.id); }}
+                        className={`absolute bottom-3 right-3 w-8 h-8 rounded-full backdrop-blur-sm flex items-center justify-center transition-all duration-200 shadow-sm ${
+                          savedStyles.has(style.id)
+                            ? 'bg-rose-500 scale-110'
+                            : 'bg-white/75 hover:bg-white hover:scale-110'
+                        }`}
+                      >
+                        <Heart className={`w-4 h-4 transition-colors ${
+                          savedStyles.has(style.id) ? 'fill-white text-white' : 'text-[#475569]'
+                        }`} />
+                      </button>
                     </div>
 
                     {/* Info */}

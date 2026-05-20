@@ -86,12 +86,16 @@ export function Navbar() {
                   AI Style Finder
                 </Link>
 
-                <a
-                  href="#rewards"
-                  className="px-4 py-2 rounded-full text-sm font-medium text-[#64748b] hover:text-[#007BFF] hover:bg-white/70 transition-all duration-200"
+                <Link
+                  to="/rewards"
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                    isActive('/rewards')
+                      ? 'bg-white text-[#007BFF] shadow-sm border border-blue-100/80'
+                      : 'text-[#64748b] hover:text-[#007BFF] hover:bg-white/70'
+                  }`}
                 >
                   Rewards
-                </a>
+                </Link>
 
               </div>
             </div>
@@ -165,13 +169,15 @@ export function Navbar() {
             AI Style Finder
           </Link>
 
-          <a
-            href="#rewards"
-            className="flex items-center px-4 py-3 rounded-xl text-sm font-medium text-[#475569] hover:bg-[#f8fafc] transition-all"
+          <Link
+            to="/rewards"
+            className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+              isActive('/rewards') ? 'bg-[#EAF6FF] text-[#007BFF] font-semibold' : 'text-[#475569] hover:bg-[#f8fafc]'
+            }`}
             onClick={() => setIsMenuOpen(false)}
           >
             Rewards
-          </a>
+          </Link>
 
           <div className="pt-3 pb-1 flex flex-col gap-2.5 border-t border-gray-100 mt-2">
             <button className="w-full py-3 rounded-xl border-2 border-gray-200 text-sm font-semibold text-[#475569] hover:border-[#007BFF] hover:text-[#007BFF] transition-all">

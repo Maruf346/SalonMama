@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Link } from 'react-router';
-import { MapPin, Star, Clock, DollarSign, Filter, X, Search, SlidersHorizontal } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router';
+import { MapPin, Star, Clock, Filter, X, Search, SlidersHorizontal } from 'lucide-react';
 import { Button } from '../components/Button';
 
 interface Salon {
@@ -21,6 +21,8 @@ interface Salon {
 }
 
 export function BrowseSalons() {
+  const [searchParams] = useSearchParams();
+
   const [selectedFilters, setSelectedFilters] = useState({
     location: 'all',
     rating: 'all',
@@ -30,7 +32,12 @@ export function BrowseSalons() {
   });
 
   const [showFilters, setShowFilters] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') ?? '');
+
+  useEffect(() => {
+    const q = searchParams.get('q') ?? '';
+    setSearchQuery(q);
+  }, [searchParams]);
 
   const salons: Salon[] = [
     {

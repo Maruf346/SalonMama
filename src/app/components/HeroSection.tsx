@@ -1,8 +1,17 @@
 import { Search, Sparkles, MapPin } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Button } from './Button';
+import { useState } from 'react';
 
 export function HeroSection() {
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    const q = query.trim();
+    navigate(q ? `/browse-salons?q=${encodeURIComponent(q)}` : '/browse-salons');
+  };
+
   return (
     <section className="relative pt-16 overflow-hidden">
       {/* Background Image with Gradient Overlay */}
@@ -42,12 +51,12 @@ export function HeroSection() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="#ai-style">
+            <Link to="/ai-style-finder">
               <Button variant="secondary" size="lg" className="group w-full sm:w-auto shadow-xl">
                 <Sparkles className="mr-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
                 Try AI Style Finder
               </Button>
-            </a>
+            </Link>
             <Link to="/browse-salons">
               <Button
                 variant="outline"
@@ -62,17 +71,25 @@ export function HeroSection() {
 
           {/* Search Bar */}
           <div className="max-w-3xl mx-auto pt-8">
-            <div className="relative">
+            <form
+              onSubmit={e => { e.preventDefault(); handleSearch(); }}
+              className="relative"
+            >
               <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-[#64748b]" />
               <input
                 type="text"
+                value={query}
+                onChange={e => setQuery(e.target.value)}
                 placeholder="Search salon, service, or location in Dhaka..."
                 className="w-full pl-16 pr-6 py-5 rounded-2xl bg-white border-none focus:ring-4 focus:ring-white/30 outline-none shadow-2xl text-[#1E293B] text-lg placeholder:text-[#94a3b8]"
               />
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-3 bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white rounded-xl font-medium hover:shadow-lg transition-all">
+              <button
+                type="submit"
+                className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-3 bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white rounded-xl font-medium hover:shadow-lg transition-all"
+              >
                 Search
               </button>
-            </div>
+            </form>
           </div>
 
           {/* Quick Stats */}
