@@ -110,14 +110,13 @@ export function HeroSection() {
         </svg>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 animate-float">
-        <div className="flex flex-col items-center gap-2">
-          <div className="w-6 h-10 rounded-full border-2 border-white/50 flex items-start justify-center p-2">
-            <div className="w-1.5 h-2 bg-white rounded-full animate-bounce" />
-          </div>
+      {/* Scroll Indicator — positioned above the wave (wave peak ~60px from bottom) */}
+      {/* <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20 animate-float hidden sm:flex flex-col items-center gap-2">
+        <span className="text-white/60 text-xs font-medium tracking-widest uppercase mb-1">Scroll</span>
+        <div className="w-6 h-10 rounded-full border-2 border-white/50 flex items-start justify-center p-1.5">
+          <div className="w-1.5 h-2.5 bg-white rounded-full animate-bounce" />
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

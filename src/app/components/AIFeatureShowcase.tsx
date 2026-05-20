@@ -1,4 +1,5 @@
 import { Upload, Sparkles, CheckCircle } from 'lucide-react';
+import { Link } from 'react-router';
 import { Button } from './Button';
 
 export function AIFeatureShowcase() {
@@ -50,10 +51,13 @@ export function AIFeatureShowcase() {
               </div>
             </div>
 
-            <Button variant="primary" size="lg" className="group">
+            <Link
+              to="/ai-style-finder"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white font-semibold shadow-md shadow-blue-200 hover:shadow-lg hover:shadow-blue-300 hover:-translate-y-0.5 transition-all group"
+            >
               Try AI Style Finder
-              <Sparkles className="ml-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
-            </Button>
+              <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+            </Link>
 
             <p className="text-sm text-[#64748b]">
               <span className="font-medium text-[#007BFF]">3 free AI scans remaining</span> this month

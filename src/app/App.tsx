@@ -4,6 +4,7 @@ import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
 import { BrowseSalons } from './pages/BrowseSalons';
 import { SalonDetails } from './pages/SalonDetails';
+import { AIStyleFinder } from './pages/AIStyleFinder';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/browse-salons" element={<BrowseSalons />} />
           <Route path="/salon/:id" element={<SalonDetails />} />
+          <Route path="/ai-style-finder" element={<AIStyleFinder />} />
         </Routes>
         <Footer />
       </div>
