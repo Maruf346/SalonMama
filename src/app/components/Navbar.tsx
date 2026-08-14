@@ -32,19 +32,17 @@ export function Navbar() {
           <div className="flex items-center h-16 gap-4">
 
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2.5 flex-shrink-0 group">
-              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-[#36A2FF] to-[#007BFF] flex items-center justify-center shadow-[0_4px_14px_rgba(0,123,255,0.35)] group-hover:shadow-[0_6px_20px_rgba(0,123,255,0.5)] group-hover:scale-105 transition-all duration-200">
-                <span className="text-white font-extrabold text-base leading-none select-none">S</span>
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-transparent to-white/15 pointer-events-none" />
+            <Link to="/" className="flex flex-col justify-center flex-shrink-0 group leading-none">
+              <div className="h-28 w-auto max-w-[250px]">
+                <img
+                  src="/logo.png"
+                  alt="SalonMama logo"
+                  className="h-full w-auto object-contain"
+                />
               </div>
-              <div className="flex flex-col leading-none">
-                <span className="text-[17px] font-bold bg-gradient-to-r from-[#007BFF] to-[#0056D2] bg-clip-text text-transparent tracking-tight">
-                  SalonMama
-                </span>
-                <span className="text-[9px] font-semibold text-[#94a3b8] tracking-[0.18em] uppercase mt-0.5">
-                  Beauty Redefined
-                </span>
-              </div>
+              {/* <span className="text-[9px] font-semibold text-[#94a3b8] tracking-[0.18em] uppercase mt-0.5">
+                Beauty Redefined
+              </span> */}
             </Link>
 
             {/* Center Pill Nav — Desktop */}

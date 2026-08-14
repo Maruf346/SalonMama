@@ -7,11 +7,12 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
-            <Link to="/" className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#36A2FF] to-[#007BFF] flex items-center justify-center">
-                <span className="text-white font-bold text-lg">S</span>
-              </div>
-              <span className="text-xl font-bold">SalonMama</span>
+            <Link to="/" className="inline-flex items-center mb-6">
+              <img
+                src="/logo2.png"
+                alt="SalonMama logo"
+                className="h-12 w-auto object-contain"
+              />
             </Link>
             <p className="text-white/70 mb-6">
               Your trusted platform for discovering and booking the best salons in Bangladesh.
@@ -75,7 +76,28 @@ export function Footer() {
                 <span className="text-white/70">Dhaka, Bangladesh</span>
               </li>
             </ul>
+            <div className="mt-6 border-t border-white/10 pt-5">
+              <a
+                href="http://qoderlabs.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-3 text-sm text-gray-400 transition-colors hover:text-white"
+              >
+                <span className="w-9 h-9 rounded-full bg-white p-2 flex items-center justify-center shadow-md flex-shrink-0">
+                  <img
+                    src="/qoderlabs.png"
+                    alt="QoderLabs"
+                    className="w-full h-full object-contain"
+                  />
+                </span>
+                <span>
+                  Made with care by{' '}
+                  <span className="font-semibold text-white">QoderLabs</span>
+                </span>
+              </a>
+            </div>
           </div>
+          
         </div>
 
         <div className="pt-8 border-t border-white/10">
