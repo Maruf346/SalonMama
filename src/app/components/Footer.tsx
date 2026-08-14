@@ -1,15 +1,21 @@
 import { Link } from 'react-router';
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Reveal, Stagger, StaggerItem } from './motion';
 
 export function Footer() {
   return (
     <footer className="bg-gradient-to-b from-[#1E293B] to-[#0f172a] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          <div>
+        <Stagger
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12"
+          amount={0.12}
+          staggerChildren={0.18}
+          delayChildren={0.08}
+        >
+          <StaggerItem>
             <Link to="/" className="inline-flex items-center mb-6">
               <img
-                src="/logo2.png"
+                src="/logo.png"
                 alt="SalonMama logo"
                 className="h-12 w-auto object-contain"
               />
@@ -37,9 +43,9 @@ export function Footer() {
                 <Twitter className="w-5 h-5" />
               </a>
             </div>
-          </div>
+          </StaggerItem>
 
-          <div>
+          <StaggerItem>
             <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-3">
               <li><Link to="/browse-salons" className="text-white/70 hover:text-white transition-colors">Browse Salons</Link></li>
@@ -48,9 +54,9 @@ export function Footer() {
               <li><a href="#rewards" className="text-white/70 hover:text-white transition-colors">Rewards Program</a></li>
               <li><a href="#" className="text-white/70 hover:text-white transition-colors">Download App</a></li>
             </ul>
-          </div>
+          </StaggerItem>
 
-          <div>
+          <StaggerItem>
             <h3 className="font-semibold text-lg mb-4">For Businesses</h3>
             <ul className="space-y-3">
               <li><a href="#" className="text-white/70 hover:text-white transition-colors">List Your Salon</a></li>
@@ -58,9 +64,9 @@ export function Footer() {
               <li><a href="#" className="text-white/70 hover:text-white transition-colors">Business Dashboard</a></li>
               <li><a href="#" className="text-white/70 hover:text-white transition-colors">Support</a></li>
             </ul>
-          </div>
+          </StaggerItem>
 
-          <div>
+          <StaggerItem>
             <h3 className="font-semibold text-lg mb-4">Contact Us</h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
@@ -96,11 +102,10 @@ export function Footer() {
                 </span>
               </a>
             </div>
-          </div>
-          
-        </div>
+          </StaggerItem>
+        </Stagger>
 
-        <div className="pt-8 border-t border-white/10">
+        <Reveal className="pt-8 border-t border-white/10" duration={0.9} amount={0.12}>
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-white/70 text-sm">
               © 2026 SalonMama. All rights reserved.
@@ -111,7 +116,7 @@ export function Footer() {
               <a href="#" className="text-white/70 hover:text-white transition-colors">Cookie Policy</a>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </footer>
   );

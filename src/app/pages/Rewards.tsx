@@ -1,5 +1,6 @@
 import { Star, Gift, Award, Crown, Zap, Calendar, Users, ChevronRight, Check, Sparkles } from 'lucide-react';
 import { Link } from 'react-router';
+import { MotionPage, Reveal } from '../components/motion';
 
 const TIERS = [
   {
@@ -73,7 +74,7 @@ export function Rewards() {
   const progressToNext = Math.round((MOCK_USER.points / (MOCK_USER.points + MOCK_USER.pointsToNext)) * 100);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#EAF6FF]/40 via-white to-white pt-16">
+    <MotionPage className="min-h-screen bg-gradient-to-b from-[#EAF6FF]/40 via-white to-white pt-16">
 
       {/* ─── Hero ─── */}
       <div className="relative overflow-hidden bg-gradient-to-br from-[#007BFF] via-[#1a8cff] to-[#0056D2] py-16 px-4 sm:px-6 lg:px-8">
@@ -157,6 +158,7 @@ export function Rewards() {
       </div>
 
       {/* ─── How to Earn ─── */}
+      <Reveal>
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
@@ -180,8 +182,10 @@ export function Rewards() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* ─── Tier Levels ─── */}
+      <Reveal>
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
@@ -234,8 +238,10 @@ export function Rewards() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* ─── Redemptions ─── */}
+      <Reveal>
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end justify-between mb-10">
@@ -294,8 +300,10 @@ export function Rewards() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* ─── Extra Perks ─── */}
+      <Reveal>
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#f8fafc]">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-[#1E293B] mb-8 text-center">Exclusive Member Perks</h2>
@@ -314,8 +322,10 @@ export function Rewards() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* ─── Bottom CTA ─── */}
+      <Reveal>
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#36A2FF] to-[#007BFF] relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.12),transparent_55%)] pointer-events-none" />
         <div className="max-w-3xl mx-auto text-center relative z-10">
@@ -329,7 +339,8 @@ export function Rewards() {
           </button>
         </div>
       </section>
+      </Reveal>
 
-    </div>
+    </MotionPage>
   );
 }

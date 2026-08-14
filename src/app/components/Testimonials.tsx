@@ -1,4 +1,5 @@
 import { Star, Quote } from 'lucide-react';
+import { Reveal, Stagger, StaggerItem } from './motion';
 
 export function Testimonials() {
   const testimonials = [
@@ -28,14 +29,14 @@ export function Testimonials() {
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
+        <Reveal className="text-center mb-12">
           <h2 className="text-4xl font-bold text-[#1E293B] mb-4">What Our Customers Say</h2>
           <p className="text-lg text-[#64748b]">Join thousands of satisfied customers</p>
-        </div>
+        </Reveal>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <Stagger className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div
+            <StaggerItem
               key={index}
               className="bg-gradient-to-br from-white to-[#EAF6FF]/30 rounded-2xl p-8 border border-gray-200 hover:border-[#36A2FF]/50 hover:shadow-xl transition-all duration-300"
             >
@@ -58,9 +59,9 @@ export function Testimonials() {
                   <p className="text-sm text-[#64748b]">{testimonial.role}</p>
                 </div>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

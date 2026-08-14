@@ -4,6 +4,7 @@ import {
   Star, TrendingUp, X, ArrowRight, Check, Filter, Heart,
 } from 'lucide-react';
 import { Link } from 'react-router';
+import { MotionPage } from '../components/motion';
 
 type UIState = 'upload' | 'preview' | 'analyzing' | 'results';
 type FilterKey = 'all' | 'saved' | 'short' | 'medium' | 'long' | 'straight' | 'wavy' | 'curly';
@@ -265,7 +266,7 @@ export function AIStyleFinder() {
   const progressPct = Math.round((currentStep / ANALYSIS_STEPS.length) * 100);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#EAF6FF]/50 via-white to-white pt-16">
+    <MotionPage className="min-h-screen bg-gradient-to-b from-[#EAF6FF]/50 via-white to-white pt-16">
 
       {/* ─── Page Header ─── */}
       <div className="relative overflow-hidden py-14 px-4 sm:px-6 lg:px-8">
@@ -720,6 +721,6 @@ export function AIStyleFinder() {
         </section>
       )}
 
-    </div>
+    </MotionPage>
   );
 }

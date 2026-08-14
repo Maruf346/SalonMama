@@ -1,4 +1,5 @@
 import { Heart, Bookmark } from 'lucide-react';
+import { Reveal, Stagger, StaggerItem } from './motion';
 
 interface Hairstyle {
   name: string;
@@ -50,17 +51,15 @@ export function TrendingHairstyles() {
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-[#EAF6FF]/30">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
+        <Reveal className="text-center mb-12">
           <h2 className="text-4xl font-bold text-[#1E293B] mb-4">Trending Hairstyles</h2>
           <p className="text-lg text-[#64748b]">Most popular styles this month</p>
-        </div>
+        </Reveal>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {hairstyles.map((style, index) => (
-            <div
-              key={index}
-              className="group relative bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-[#36A2FF]/50 hover:shadow-xl transition-all duration-300"
-            >
+            <StaggerItem key={index}>
+              <div className="group relative bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-[#36A2FF]/50 hover:shadow-xl transition-all duration-300">
               <div className="relative h-64 overflow-hidden">
                 <img
                   src={style.image}
@@ -97,9 +96,10 @@ export function TrendingHairstyles() {
                   <span className="text-sm font-medium text-[#007BFF]">{style.popularity}</span>
                 </div>
               </div>
-            </div>
+              </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

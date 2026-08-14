@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { Star, MapPin, Clock } from 'lucide-react';
+import { motion } from 'motion/react';
 import { Button } from './Button';
 
 interface SalonCardProps {
@@ -16,7 +17,11 @@ interface SalonCardProps {
 
 export function SalonCard({ id = 1, name, rating, reviews, location, price, services, isOpen, image }: SalonCardProps) {
   return (
-    <div className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-[#36A2FF]/50 hover:shadow-xl transition-all duration-300">
+    <motion.div
+      whileHover={{ y: -8 }}
+      transition={{ duration: 0.24, ease: 'easeOut' }}
+      className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-[#36A2FF]/50 hover:shadow-xl transition-all duration-300"
+    >
       <div className="relative h-48 bg-gradient-to-br from-[#EAF6FF] to-[#36A2FF]/20 overflow-hidden">
         {image ? (
           <>
@@ -88,6 +93,6 @@ export function SalonCard({ id = 1, name, rating, reviews, location, price, serv
           </Link>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

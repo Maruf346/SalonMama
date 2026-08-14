@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Sparkles, ArrowRight, Check } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import { AnimatePresence, motion } from 'motion/react';
 
 const STORAGE_KEY = 'salon-mama-onboarded';
 
@@ -82,18 +83,25 @@ export function OnboardingModal() {
   const canAdvance = prefs[current.key] !== '';
   const isLast = step === 2;
 
-  if (!open) return null;
-
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div
+    <AnimatePresence>
+      {open && (
+      <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={dismiss}
       />
 
-      {/* Modal */}
-      <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-scale-in">
+      <motion.div
+        initial={{ opacity: 0, y: 24, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 12, scale: 0.98 }}
+        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden"
+      >
 
         {/* Gradient top strip */}
         <div className="h-1.5 bg-gradient-to-r from-[#36A2FF] to-[#007BFF]" />
@@ -203,7 +211,9 @@ export function OnboardingModal() {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
+      )}
+    </AnimatePresence>
   );
 }

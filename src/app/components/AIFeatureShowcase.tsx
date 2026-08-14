@@ -1,13 +1,14 @@
 import { Upload, Sparkles, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router';
-import { Button } from './Button';
+import { motion } from 'motion/react';
+import { Reveal, Stagger, StaggerItem, fadeUpVariants } from './motion';
 
 export function AIFeatureShowcase() {
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
+          <Stagger className="space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#EAF6FF] border border-[#36A2FF]/20">
               <Sparkles className="w-4 h-4 text-[#007BFF]" />
               <span className="text-sm text-[#007BFF] font-medium">AI-Powered Technology</span>
@@ -26,29 +27,29 @@ export function AIFeatureShowcase() {
             </p>
 
             <div className="space-y-4">
-              <div className="flex items-start gap-3">
+              <StaggerItem className="flex items-start gap-3">
                 <CheckCircle className="w-6 h-6 text-[#007BFF] mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-medium text-[#1E293B] mb-1">Face Shape Analysis</h4>
                   <p className="text-[#64748b]">AI detects your face shape for personalized recommendations</p>
                 </div>
-              </div>
+              </StaggerItem>
 
-              <div className="flex items-start gap-3">
+              <StaggerItem className="flex items-start gap-3">
                 <CheckCircle className="w-6 h-6 text-[#007BFF] mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-medium text-[#1E293B] mb-1">Style Matching</h4>
                   <p className="text-[#64748b]">Get styles that complement your unique features</p>
                 </div>
-              </div>
+              </StaggerItem>
 
-              <div className="flex items-start gap-3">
+              <StaggerItem className="flex items-start gap-3">
                 <CheckCircle className="w-6 h-6 text-[#007BFF] mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-medium text-[#1E293B] mb-1">Instant Booking</h4>
                   <p className="text-[#64748b]">Book your chosen style directly with nearby salons</p>
                 </div>
-              </div>
+              </StaggerItem>
             </div>
 
             <Link
@@ -62,9 +63,9 @@ export function AIFeatureShowcase() {
             <p className="text-sm text-[#64748b]">
               <span className="font-medium text-[#007BFF]">3 free AI scans remaining</span> this month
             </p>
-          </div>
+          </Stagger>
 
-          <div className="relative">
+          <Reveal className="relative" variant={fadeUpVariants}>
             <div className="relative bg-gradient-to-br from-[#EAF6FF] to-white rounded-3xl p-8 border border-gray-200 shadow-xl">
               <div className="grid grid-cols-2 gap-4">
                 <div className="aspect-square rounded-2xl overflow-hidden border-2 border-[#36A2FF]/20 bg-white shadow-sm">
@@ -107,14 +108,18 @@ export function AIFeatureShowcase() {
                 </div>
               </div>
 
-              <div className="absolute -top-4 -right-4 bg-white rounded-2xl shadow-lg p-4 border border-gray-100 animate-float">
+              <motion.div
+                className="absolute -top-4 -right-4 bg-white rounded-2xl shadow-lg p-4 border border-gray-100"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+              >
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
                   <span className="text-sm font-medium text-[#1E293B]">AI Ready</span>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

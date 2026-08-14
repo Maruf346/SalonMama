@@ -1,4 +1,5 @@
 import { Search, Sparkles, Calendar } from 'lucide-react';
+import { Reveal, Stagger, StaggerItem } from './motion';
 
 export function HowItWorks() {
   const steps = [
@@ -25,16 +26,16 @@ export function HowItWorks() {
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#EAF6FF]/30 to-white">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <Reveal className="text-center mb-16">
           <h2 className="text-4xl font-bold text-[#1E293B] mb-4">How It Works</h2>
           <p className="text-lg text-[#64748b]">Get your perfect look in 3 simple steps</p>
-        </div>
+        </Reveal>
 
-        <div className="grid md:grid-cols-3 gap-8 relative">
+        <Stagger className="grid md:grid-cols-3 gap-8 relative">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
-              <div key={index} className="relative">
+              <StaggerItem key={index} className="relative">
                 <div className="bg-white rounded-2xl p-8 border border-gray-200 hover:border-[#36A2FF]/50 hover:shadow-xl transition-all duration-300 h-full">
                   <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-6`}>
                     <Icon className="w-8 h-8 text-white" />
@@ -51,10 +52,10 @@ export function HowItWorks() {
                 {index < steps.length - 1 && (
                   <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-[#36A2FF] to-transparent" />
                 )}
-              </div>
+              </StaggerItem>
             );
           })}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

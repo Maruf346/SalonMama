@@ -1,6 +1,8 @@
 import { Menu, X, Sparkles } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { fadeUpVariants, staggerContainer } from './motion';
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,7 +23,10 @@ export function Navbar() {
 
   return (
     <>
-      <nav
+      <motion.nav
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
           scrolled
             ? 'bg-white/95 backdrop-blur-2xl shadow-[0_2px_24px_rgba(0,123,255,0.10)] border-b border-gray-100'
@@ -33,7 +38,7 @@ export function Navbar() {
 
             {/* Logo */}
             <Link to="/" className="flex flex-col justify-center flex-shrink-0 group leading-none">
-              <div className="h-28 w-auto max-w-[250px]">
+              <div className="h-12 w-auto max-w-[200px]">
                 <img
                   src="/logo.png"
                   alt="SalonMama logo"
@@ -122,72 +127,88 @@ export function Navbar() {
 
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Mobile Slide-Down Menu */}
-      <div
-        className={`fixed inset-x-0 top-16 z-40 bg-white/98 backdrop-blur-2xl border-b border-gray-100 shadow-xl transition-all duration-300 ease-out md:hidden ${
-          isMenuOpen
-            ? 'opacity-100 translate-y-0 pointer-events-auto'
-            : 'opacity-0 -translate-y-3 pointer-events-none'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 py-4 space-y-1">
-
-          <Link
-            to="/"
-            className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-              isActive('/') ? 'bg-[#EAF6FF] text-[#007BFF] font-semibold' : 'text-[#475569] hover:bg-[#f8fafc]'
-            }`}
-            onClick={() => setIsMenuOpen(false)}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+            className="fixed inset-x-0 top-16 z-40 bg-white/98 backdrop-blur-2xl border-b border-gray-100 shadow-xl md:hidden"
           >
-            Home
-          </Link>
+            <motion.div
+              className="max-w-7xl mx-auto px-4 py-4 space-y-1"
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+            >
 
-          <Link
-            to="/browse-salons"
-            className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-              isActive('/browse-salons') ? 'bg-[#EAF6FF] text-[#007BFF] font-semibold' : 'text-[#475569] hover:bg-[#f8fafc]'
-            }`}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Browse Salons
-          </Link>
+              <motion.div variants={fadeUpVariants}>
+                <Link
+                  to="/"
+                  className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                    isActive('/') ? 'bg-[#EAF6FF] text-[#007BFF] font-semibold' : 'text-[#475569] hover:bg-[#f8fafc]'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Home
+                </Link>
+              </motion.div>
 
-          <Link
-            to="/ai-style-finder"
-            className={`flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
-              isActive('/ai-style-finder')
-                ? 'bg-gradient-to-r from-[#EAF6FF] to-[#dbeafe] text-[#007BFF]'
-                : 'text-[#007BFF] bg-[#EAF6FF]/50 hover:bg-[#EAF6FF]'
-            }`}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            <Sparkles className="w-4 h-4" />
-            AI Style Finder
-          </Link>
+              <motion.div variants={fadeUpVariants}>
+                <Link
+                  to="/browse-salons"
+                  className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                    isActive('/browse-salons') ? 'bg-[#EAF6FF] text-[#007BFF] font-semibold' : 'text-[#475569] hover:bg-[#f8fafc]'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Browse Salons
+                </Link>
+              </motion.div>
 
-          <Link
-            to="/rewards"
-            className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-              isActive('/rewards') ? 'bg-[#EAF6FF] text-[#007BFF] font-semibold' : 'text-[#475569] hover:bg-[#f8fafc]'
-            }`}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Rewards
-          </Link>
+              <motion.div variants={fadeUpVariants}>
+                <Link
+                  to="/ai-style-finder"
+                  className={`flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
+                    isActive('/ai-style-finder')
+                      ? 'bg-gradient-to-r from-[#EAF6FF] to-[#dbeafe] text-[#007BFF]'
+                      : 'text-[#007BFF] bg-[#EAF6FF]/50 hover:bg-[#EAF6FF]'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Sparkles className="w-4 h-4" />
+                  AI Style Finder
+                </Link>
+              </motion.div>
 
-          <div className="pt-3 pb-1 flex flex-col gap-2.5 border-t border-gray-100 mt-2">
-            <button className="w-full py-3 rounded-xl border-2 border-gray-200 text-sm font-semibold text-[#475569] hover:border-[#007BFF] hover:text-[#007BFF] transition-all">
-              Login
-            </button>
-            <button className="w-full py-3 rounded-xl bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white text-sm font-semibold shadow-md shadow-blue-200">
-              Sign Up Free
-            </button>
-          </div>
+              <motion.div variants={fadeUpVariants}>
+                <Link
+                  to="/rewards"
+                  className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                    isActive('/rewards') ? 'bg-[#EAF6FF] text-[#007BFF] font-semibold' : 'text-[#475569] hover:bg-[#f8fafc]'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Rewards
+                </Link>
+              </motion.div>
 
-        </div>
-      </div>
+              <motion.div variants={fadeUpVariants} className="pt-3 pb-1 flex flex-col gap-2.5 border-t border-gray-100 mt-2">
+                <button className="w-full py-3 rounded-xl border-2 border-gray-200 text-sm font-semibold text-[#475569] hover:border-[#007BFF] hover:text-[#007BFF] transition-all">
+                  Login
+                </button>
+                <button className="w-full py-3 rounded-xl bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white text-sm font-semibold shadow-md shadow-blue-200">
+                  Sign Up Free
+                </button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

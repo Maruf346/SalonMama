@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X, Calendar, Clock, User, Phone, Mail, CreditCard } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 import { Button } from './Button';
 
 interface BookingModalProps {
@@ -14,8 +15,6 @@ export function BookingModal({ isOpen, onClose, salonName }: BookingModalProps) 
   const [selectedStylist, setSelectedStylist] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
-
-  if (!isOpen) return null;
 
   const services = [
     { id: '1', name: 'Haircut', price: '৳500', duration: '45 min' },
@@ -36,8 +35,23 @@ export function BookingModal({ isOpen, onClose, salonName }: BookingModalProps) 
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+    <AnimatePresence>
+      {isOpen && (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <motion.div
+        initial={{ opacity: 0, y: 28, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 12, scale: 0.99 }}
+        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        className="relative bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+      >
         {/* Header */}
         <div className="sticky top-0 bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white p-6 rounded-t-3xl">
           <div className="flex items-center justify-between">
@@ -253,7 +267,9 @@ export function BookingModal({ isOpen, onClose, salonName }: BookingModalProps) 
             )}
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
+      )}
+    </AnimatePresence>
   );
 }

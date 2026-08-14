@@ -2,6 +2,8 @@ import { Search, Sparkles, MapPin } from 'lucide-react';
 import { Link, useNavigate } from 'react-router';
 import { Button } from './Button';
 import { useState } from 'react';
+import { motion } from 'motion/react';
+import { fadeUpVariants, staggerContainer } from './motion';
 
 export function HeroSection() {
   const [query, setQuery] = useState('');
@@ -29,7 +31,12 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24">
+      <motion.div
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24"
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible"
+      >
         <div className="text-center space-y-8 max-w-4xl mx-auto">
           {/* Badge */}
           {/* <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30">
@@ -38,19 +45,19 @@ export function HeroSection() {
           </div> */}
 
           {/* Main Heading */}
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight">
+          <motion.h1 variants={fadeUpVariants} className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight">
             Find Salons That Match
             <br />
             Your Style
-          </h1>
+          </motion.h1>
 
           {/* Subheading */}
-          <p className="text-xl sm:text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto">
+          <motion.p variants={fadeUpVariants} className="text-xl sm:text-2xl text-white/90 leading-relaxed max-w-2xl mx-auto">
             Browse salons, discover hairstyles with AI, and book instantly.
-          </p>
+          </motion.p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <motion.div variants={fadeUpVariants} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link to="/ai-style-finder">
               <Button variant="secondary" size="lg" className="group w-full sm:w-auto shadow-xl">
                 <Sparkles className="mr-2 w-5 h-5 group-hover:rotate-12 transition-transform" />
@@ -67,10 +74,10 @@ export function HeroSection() {
                 Browse Nearby Salons
               </Button>
             </Link>
-          </div>
+          </motion.div>
 
           {/* Search Bar */}
-          <div className="max-w-3xl mx-auto pt-8">
+          <motion.div variants={fadeUpVariants} className="max-w-3xl mx-auto pt-8">
             <form
               onSubmit={e => { e.preventDefault(); handleSearch(); }}
               className="relative"
@@ -90,10 +97,10 @@ export function HeroSection() {
                 Search
               </button>
             </form>
-          </div>
+          </motion.div>
 
           {/* Quick Stats */}
-          <div className="flex flex-wrap justify-center gap-8 pt-8">
+          <motion.div variants={fadeUpVariants} className="flex flex-wrap justify-center gap-8 pt-8">
             <div className="text-center">
               <div className="text-3xl font-bold text-white mb-1">500+</div>
               <div className="text-white/80 text-sm">Verified Salons</div>
@@ -108,9 +115,9 @@ export function HeroSection() {
               <div className="text-3xl font-bold text-white mb-1">50K+</div>
               <div className="text-white/80 text-sm">Bookings Done</div>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Bottom Wave Shape */}
       <div className="absolute bottom-0 left-0 right-0">

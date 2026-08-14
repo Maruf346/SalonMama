@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { MapPin, Star, Clock, Filter, X, Search, SlidersHorizontal } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 import { Button } from '../components/Button';
+import { MotionPage, Reveal, Stagger, fadeUpVariants } from '../components/motion';
 
 interface Salon {
   id: number;
@@ -212,24 +214,24 @@ export function BrowseSalons() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-[#EAF6FF]/20 to-white">
+    <MotionPage className="min-h-screen bg-gradient-to-b from-white via-[#EAF6FF]/20 to-white">
       {/* Hero Header */}
       <div className="relative bg-gradient-to-br from-[#36A2FF] to-[#007BFF] pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.1),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.05),transparent_50%)]" />
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-8">
+        <Stagger className="max-w-7xl mx-auto relative z-10" staggerChildren={0.18}>
+          <motion.div variants={fadeUpVariants} className="text-center mb-8">
             <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
               Browse Salons
             </h1>
             <p className="text-lg text-white/90 max-w-2xl mx-auto">
               Discover the best salons in Dhaka. Filter by location, services, and more.
             </p>
-          </div>
+          </motion.div>
 
           {/* Search Bar */}
-          <div className="max-w-3xl mx-auto">
+          <motion.div variants={fadeUpVariants} className="max-w-3xl mx-auto">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748b]" />
               <input
@@ -240,14 +242,14 @@ export function BrowseSalons() {
                 className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white border-none focus:ring-2 focus:ring-white/50 outline-none shadow-xl text-[#1E293B]"
               />
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </Stagger>
       </div>
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Filter Bar */}
-        <div className="mb-8">
+        <Reveal className="mb-8" duration={0.9} amount={0.15}>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <h2 className="text-2xl font-bold text-[#1E293B]">
@@ -280,8 +282,16 @@ export function BrowseSalons() {
           </div>
 
           {/* Filter Options */}
-          {showFilters && (
-            <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg mb-6">
+          <AnimatePresence initial={false}>
+            {showFilters && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, y: -12 }}
+              animate={{ opacity: 1, height: 'auto', y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -8 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden bg-white rounded-2xl border border-gray-200 shadow-lg mb-6"
+            >
+              <div className="p-6">
               <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
                 {/* Location */}
                 <div>
@@ -374,16 +384,22 @@ export function BrowseSalons() {
                   </select>
                 </div>
               </div>
-            </div>
+              </div>
+            </motion.div>
           )}
-        </div>
+          </AnimatePresence>
+        </Reveal>
 
         {/* Salons Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredSalons.map((salon) => (
-            <div
+          {filteredSalons.map((salon, index) => (
+            <Reveal
               key={salon.id}
               className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-[#36A2FF]/50 hover:shadow-xl transition-all duration-300"
+              variant={fadeUpVariants}
+              delay={(index % 3) * 0.1}
+              duration={0.85}
+              amount={0.35}
             >
               <div className="relative h-56 overflow-hidden">
                 <img
@@ -462,12 +478,12 @@ export function BrowseSalons() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
 
         {filteredSalons.length === 0 && (
-          <div className="text-center py-16">
+          <Reveal className="text-center py-16" duration={0.85}>
             <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-[#EAF6FF] flex items-center justify-center">
               <Filter className="w-12 h-12 text-[#007BFF]" />
             </div>
@@ -488,9 +504,9 @@ export function BrowseSalons() {
             >
               Clear All Filters
             </Button>
-          </div>
+          </Reveal>
         )}
       </div>
-    </div>
+    </MotionPage>
   );
 }

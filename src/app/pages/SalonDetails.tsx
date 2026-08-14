@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router';
+import { AnimatePresence, motion } from 'motion/react';
 import {
   Star, MapPin, Clock, Phone, Globe, Heart, Share2,
   CheckCircle, Award, Sparkles, ChevronLeft, ChevronRight,
   X, Calendar, ZoomIn, Users, ChevronDown, ChevronUp,
 } from 'lucide-react';
 import { BookingModal } from '../components/BookingModal';
+import { MotionPage, Reveal } from '../components/motion';
 
 const TODAY_SLOTS = [
   { time: '10:00 AM', available: true },
@@ -201,7 +203,7 @@ export function SalonDetails() {
   }, [lightboxIdx]);
 
   return (
-    <>
+    <MotionPage>
       <div className="min-h-screen bg-white">
 
         {/* ─── Hero Cover ─── */}
@@ -302,6 +304,7 @@ export function SalonDetails() {
             <div className="lg:col-span-2 space-y-10">
 
               {/* About */}
+              <Reveal>
               <section>
                 <h2 className="text-xl font-bold text-[#1E293B] mb-4 flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-[#007BFF]" />
@@ -319,6 +322,7 @@ export function SalonDetails() {
                   ))}
                 </div>
               </section>
+              </Reveal>
 
               {/* Services — Accordion */}
               <section>
@@ -344,8 +348,15 @@ export function SalonDetails() {
                         }
                       </button>
 
+                      <AnimatePresence initial={false}>
                       {expandedService === catIdx && (
-                        <div className="border-t border-gray-50 divide-y divide-gray-50">
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: 'easeOut' }}
+                          className="overflow-hidden border-t border-gray-50 divide-y divide-gray-50"
+                        >
                           {cat.items.map((item, itemIdx) => (
                             <div
                               key={itemIdx}
@@ -371,8 +382,9 @@ export function SalonDetails() {
                               </div>
                             </div>
                           ))}
-                        </div>
+                        </motion.div>
                       )}
+                      </AnimatePresence>
                     </div>
                   ))}
                 </div>
@@ -587,8 +599,12 @@ export function SalonDetails() {
       </div>
 
       {/* ─── Gallery Lightbox ─── */}
+      <AnimatePresence>
       {lightboxIdx !== null && (
-        <div
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           className="fixed inset-0 z-[100] bg-black/92 backdrop-blur-sm flex items-center justify-center"
           onClick={() => setLightboxIdx(null)}
         >
@@ -610,11 +626,14 @@ export function SalonDetails() {
           </button>
 
           {/* Image */}
-          <img
+          <motion.img
             src={gallery[lightboxIdx]}
             alt={`Gallery ${lightboxIdx + 1}`}
             className="max-w-[88vw] max-h-[82vh] object-contain rounded-xl shadow-2xl animate-scale-in"
             onClick={e => e.stopPropagation()}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
           />
 
           {/* Next */}
@@ -645,8 +664,9 @@ export function SalonDetails() {
               </button>
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
+      </AnimatePresence>
 
       {/* Booking Modal */}
       <BookingModal
@@ -654,6 +674,6 @@ export function SalonDetails() {
         onClose={() => setIsBookingOpen(false)}
         salonName={salon.name}
       />
-    </>
+    </MotionPage>
   );
 }
