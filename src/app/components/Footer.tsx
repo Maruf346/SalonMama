@@ -165,6 +165,27 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
+
+            <div className="mt-6 border-t border-white/10 pt-5">
+              <a
+                href="http://qoderlabs.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-3 text-xs text-gray-400 transition-colors hover:text-white group"
+              >
+                <span className="w-9 h-9 rounded-full bg-white p-1.5 flex items-center justify-center shadow-md flex-shrink-0 group-hover:scale-105 transition-transform">
+                  <img
+                    src="/qoderlabs.png"
+                    alt="QoderLabs"
+                    className="w-full h-full object-contain"
+                  />
+                </span>
+                <span>
+                  Powered by{' '}
+                  <span className="font-semibold text-white">QoderLabs</span>
+                </span>
+              </a>
+            </div>
           </StaggerItem>
         </Stagger>
 
@@ -179,9 +200,17 @@ export function Footer() {
               href="http://qoderlabs.com/"
               target="_blank"
               rel="noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors group"
             >
-              Powered by QoderLabs
+              <span>Powered by</span>
+              <span className="w-6 h-6 rounded-full bg-white p-1 flex items-center justify-center shadow-sm flex-shrink-0 group-hover:scale-105 transition-transform">
+                <img
+                  src="/qoderlabs.png"
+                  alt="QoderLabs"
+                  className="w-full h-full object-contain"
+                />
+              </span>
+              <span className="font-semibold text-white">QoderLabs</span>
             </a>
           </div>
         </div>
