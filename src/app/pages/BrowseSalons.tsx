@@ -1,9 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router';
-import { MapPin, Star, Clock, Filter, X, Search, SlidersHorizontal } from 'lucide-react';
+import {
+  MapPin,
+  Star,
+  Clock,
+  Filter,
+  X,
+  Search,
+  SlidersHorizontal,
+  LayoutGrid,
+  List,
+  Sparkles,
+  ArrowRight,
+  ShieldCheck,
+  ArrowUpDown,
+} from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Button } from '../components/Button';
-import { MotionPage, Reveal, Stagger, fadeUpVariants } from '../components/motion';
+import { MotionPage, Reveal, Stagger, StaggerItem, AnimatedTabPill, TiltCard } from '../components/motion';
+import { BookingModal } from '../components/BookingModal';
 
 interface Salon {
   id: number;
@@ -13,6 +28,7 @@ interface Salon {
   location: string;
   area: string;
   price: string;
+  priceNumeric: number;
   priceRange: number;
   services: string[];
   gender: string[];
@@ -20,6 +36,7 @@ interface Salon {
   image: string;
   hours: string;
   distance: string;
+  distanceNumeric: number;
 }
 
 export function BrowseSalons() {
@@ -33,8 +50,11 @@ export function BrowseSalons() {
     priceRange: 'all',
   });
 
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [sortBy, setSortBy] = useState<'rating' | 'price' | 'distance' | 'reviews'>('rating');
   const [showFilters, setShowFilters] = useState(false);
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') ?? '');
+  const [bookingSalon, setBookingSalon] = useState<string | null>(null);
 
   useEffect(() => {
     const q = searchParams.get('q') ?? '';
@@ -50,13 +70,16 @@ export function BrowseSalons() {
       location: 'Gulshan 2, Dhaka',
       area: 'Gulshan',
       price: '৳500',
+      priceNumeric: 500,
       priceRange: 2,
       services: ['Haircut', 'Facial', 'Spa', 'Massage'],
       gender: ['Women', 'Men'],
       isOpen: true,
-      image: 'https://images.unsplash.com/photo-1695527081874-b674c46f40fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      image:
+        'https://images.unsplash.com/photo-1695527081874-b674c46f40fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
       hours: '9:00 AM - 9:00 PM',
       distance: '2.3 km',
+      distanceNumeric: 2.3,
     },
     {
       id: 2,
@@ -66,13 +89,16 @@ export function BrowseSalons() {
       location: 'Banani, Dhaka',
       area: 'Banani',
       price: '৳400',
+      priceNumeric: 400,
       priceRange: 2,
       services: ['Haircut', 'Beard', 'Styling', 'Shave'],
       gender: ['Men'],
       isOpen: true,
-      image: 'https://images.unsplash.com/photo-1759134155377-4207d89b39ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      image:
+        'https://images.unsplash.com/photo-1759134155377-4207d89b39ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
       hours: '10:00 AM - 10:00 PM',
       distance: '3.1 km',
+      distanceNumeric: 3.1,
     },
     {
       id: 3,
@@ -82,13 +108,16 @@ export function BrowseSalons() {
       location: 'Dhanmondi, Dhaka',
       area: 'Dhanmondi',
       price: '৳600',
+      priceNumeric: 600,
       priceRange: 3,
       services: ['Hair Color', 'Treatment', 'Styling', 'Keratin'],
       gender: ['Women'],
       isOpen: false,
-      image: 'https://images.unsplash.com/photo-1773904215697-e6c21fc27ac2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      image:
+        'https://images.unsplash.com/photo-1773904215697-e6c21fc27ac2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
       hours: '10:00 AM - 8:00 PM',
       distance: '4.5 km',
+      distanceNumeric: 4.5,
     },
     {
       id: 4,
@@ -98,13 +127,16 @@ export function BrowseSalons() {
       location: 'Uttara, Dhaka',
       area: 'Uttara',
       price: '৳450',
+      priceNumeric: 450,
       priceRange: 2,
       services: ['Haircut', 'Facial', 'Massage', 'Waxing'],
       gender: ['Women', 'Men'],
       isOpen: true,
-      image: 'https://images.unsplash.com/photo-1630835425197-50feeba99ecd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      image:
+        'https://images.unsplash.com/photo-1630835425197-50feeba99ecd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
       hours: '9:00 AM - 9:00 PM',
       distance: '5.2 km',
+      distanceNumeric: 5.2,
     },
     {
       id: 5,
@@ -114,13 +146,16 @@ export function BrowseSalons() {
       location: 'Mirpur, Dhaka',
       area: 'Mirpur',
       price: '৳550',
+      priceNumeric: 550,
       priceRange: 3,
       services: ['Spa', 'Massage', 'Facial', 'Body Treatment'],
       gender: ['Women'],
       isOpen: true,
-      image: 'https://images.unsplash.com/photo-1695527081793-91a2d4b5b103?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      image:
+        'https://images.unsplash.com/photo-1695527081793-91a2d4b5b103?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
       hours: '10:00 AM - 8:00 PM',
       distance: '6.1 km',
+      distanceNumeric: 6.1,
     },
     {
       id: 6,
@@ -130,13 +165,16 @@ export function BrowseSalons() {
       location: 'Mohakhali, Dhaka',
       area: 'Mohakhali',
       price: '৳350',
+      priceNumeric: 350,
       priceRange: 1,
       services: ['Haircut', 'Styling', 'Beard'],
       gender: ['Men'],
       isOpen: true,
-      image: 'https://images.unsplash.com/photo-1759134198561-e2041049419c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      image:
+        'https://images.unsplash.com/photo-1759134198561-e2041049419c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
       hours: '9:00 AM - 10:00 PM',
       distance: '1.8 km',
+      distanceNumeric: 1.8,
     },
     {
       id: 7,
@@ -146,13 +184,16 @@ export function BrowseSalons() {
       location: 'Bashundhara, Dhaka',
       area: 'Bashundhara',
       price: '৳650',
+      priceNumeric: 650,
       priceRange: 3,
       services: ['Hair Color', 'Highlights', 'Treatment', 'Styling'],
       gender: ['Women'],
       isOpen: true,
-      image: 'https://images.unsplash.com/photo-1695527081882-a8b051dac51e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      image:
+        'https://images.unsplash.com/photo-1695527081882-a8b051dac51e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
       hours: '10:00 AM - 8:00 PM',
       distance: '7.3 km',
+      distanceNumeric: 7.3,
     },
     {
       id: 8,
@@ -162,13 +203,16 @@ export function BrowseSalons() {
       location: 'Banani, Dhaka',
       area: 'Banani',
       price: '৳700',
+      priceNumeric: 700,
       priceRange: 3,
       services: ['Premium Cut', 'Beard', 'Hot Towel Shave', 'Grooming'],
       gender: ['Men'],
       isOpen: true,
-      image: 'https://images.unsplash.com/photo-1759142235060-3191ee596c81?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      image:
+        'https://images.unsplash.com/photo-1759142235060-3191ee596c81?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
       hours: '11:00 AM - 10:00 PM',
       distance: '3.5 km',
+      distanceNumeric: 3.5,
     },
     {
       id: 9,
@@ -178,317 +222,454 @@ export function BrowseSalons() {
       location: 'Gulshan 1, Dhaka',
       area: 'Gulshan',
       price: '৳800',
+      priceNumeric: 800,
       priceRange: 3,
       services: ['Spa', 'Thai Massage', 'Aromatherapy', 'Body Scrub'],
       gender: ['Women', 'Men'],
       isOpen: false,
-      image: 'https://images.unsplash.com/photo-1695527081728-e3a42f0ce261?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+      image:
+        'https://images.unsplash.com/photo-1695527081728-e3a42f0ce261?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
       hours: '10:00 AM - 9:00 PM',
       distance: '2.7 km',
+      distanceNumeric: 2.7,
     },
   ];
 
-  const filteredSalons = salons.filter((salon) => {
-    if (searchQuery && !salon.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        !salon.location.toLowerCase().includes(searchQuery.toLowerCase())) {
-      return false;
-    }
-    if (selectedFilters.location !== 'all' && salon.area !== selectedFilters.location) {
-      return false;
-    }
-    if (selectedFilters.rating !== 'all') {
-      const minRating = parseFloat(selectedFilters.rating);
-      if (salon.rating < minRating) return false;
-    }
-    if (selectedFilters.serviceType !== 'all' && !salon.services.includes(selectedFilters.serviceType)) {
-      return false;
-    }
-    if (selectedFilters.gender !== 'all' && !salon.gender.includes(selectedFilters.gender)) {
-      return false;
-    }
-    if (selectedFilters.priceRange !== 'all') {
-      const range = parseInt(selectedFilters.priceRange);
-      if (salon.priceRange !== range) return false;
-    }
-    return true;
-  });
+  const DHAKA_AREAS = [
+    { id: 'all', label: 'All Dhaka' },
+    { id: 'Gulshan', label: 'Gulshan' },
+    { id: 'Banani', label: 'Banani' },
+    { id: 'Dhanmondi', label: 'Dhanmondi' },
+    { id: 'Uttara', label: 'Uttara' },
+    { id: 'Bashundhara', label: 'Bashundhara' },
+    { id: 'Mirpur', label: 'Mirpur' },
+  ];
+
+  const filteredSalons = salons
+    .filter((salon) => {
+      if (
+        searchQuery &&
+        !salon.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        !salon.location.toLowerCase().includes(searchQuery.toLowerCase())
+      ) {
+        return false;
+      }
+      if (selectedFilters.location !== 'all' && salon.area !== selectedFilters.location) {
+        return false;
+      }
+      if (selectedFilters.rating !== 'all') {
+        const minRating = parseFloat(selectedFilters.rating);
+        if (salon.rating < minRating) return false;
+      }
+      if (
+        selectedFilters.serviceType !== 'all' &&
+        !salon.services.includes(selectedFilters.serviceType)
+      ) {
+        return false;
+      }
+      if (selectedFilters.gender !== 'all' && !salon.gender.includes(selectedFilters.gender)) {
+        return false;
+      }
+      if (selectedFilters.priceRange !== 'all') {
+        const range = parseInt(selectedFilters.priceRange);
+        if (salon.priceRange !== range) return false;
+      }
+      return true;
+    })
+    .sort((a, b) => {
+      if (sortBy === 'rating') return b.rating - a.rating;
+      if (sortBy === 'price') return a.priceNumeric - b.priceNumeric;
+      if (sortBy === 'distance') return a.distanceNumeric - b.distanceNumeric;
+      if (sortBy === 'reviews') return b.reviews - a.reviews;
+      return 0;
+    });
 
   return (
-    <MotionPage className="min-h-screen bg-gradient-to-b from-white via-[#EAF6FF]/20 to-white">
-      {/* Hero Header */}
-      <div className="relative bg-gradient-to-br from-[#36A2FF] to-[#007BFF] pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.1),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.05),transparent_50%)]" />
+    <MotionPage className="min-h-screen bg-[#fafbfc] pt-16">
+      {/* Header Banner */}
+      <section className="bg-gradient-to-br from-[#005ECE] via-[#007BFF] to-[#004BB5] text-white pt-16 pb-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.15),transparent_50%)] pointer-events-none" />
 
-        <Stagger className="max-w-7xl mx-auto relative z-10" staggerChildren={0.18}>
-          <motion.div variants={fadeUpVariants} className="text-center mb-8">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-              Browse Salons
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="max-w-2xl space-y-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-xs font-semibold uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
+              Verified Studio Directory
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+              Discover Premier Salons in Dhaka
             </h1>
-            <p className="text-lg text-white/90 max-w-2xl mx-auto">
-              Discover the best salons in Dhaka. Filter by location, services, and more.
+            <p className="text-white/85 text-sm sm:text-base">
+              Explore 150+ audited studios with instant chair availability, master stylists, and
+              verified customer feedback.
             </p>
-          </motion.div>
-
-          {/* Search Bar */}
-          <motion.div variants={fadeUpVariants} className="max-w-3xl mx-auto">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748b]" />
-              <input
-                type="text"
-                placeholder="Search salons by name or location..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white border-none focus:ring-2 focus:ring-white/50 outline-none shadow-xl text-[#1E293B]"
-              />
-            </div>
-          </motion.div>
-        </Stagger>
-      </div>
-
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Filter Bar */}
-        <Reveal className="mb-8" duration={0.9} amount={0.15}>
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <h2 className="text-2xl font-bold text-[#1E293B]">
-                {filteredSalons.length} Salons Found
-              </h2>
-              {Object.values(selectedFilters).some(v => v !== 'all') && (
-                <button
-                  onClick={() => setSelectedFilters({
-                    location: 'all',
-                    rating: 'all',
-                    serviceType: 'all',
-                    gender: 'all',
-                    priceRange: 'all',
-                  })}
-                  className="text-sm text-[#007BFF] hover:text-[#36A2FF] flex items-center gap-1"
-                >
-                  <X className="w-4 h-4" />
-                  Clear Filters
-                </button>
-              )}
-            </div>
-
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-xl hover:border-[#36A2FF]/50 transition-colors"
-            >
-              <SlidersHorizontal className="w-4 h-4" />
-              <span>Filters</span>
-            </button>
           </div>
 
-          {/* Filter Options */}
-          <AnimatePresence initial={false}>
-            {showFilters && (
-            <motion.div
-              initial={{ opacity: 0, height: 0, y: -12 }}
-              animate={{ opacity: 1, height: 'auto', y: 0 }}
-              exit={{ opacity: 0, height: 0, y: -8 }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden bg-white rounded-2xl border border-gray-200 shadow-lg mb-6"
+          {/* Search bar inside header */}
+          <div className="mt-8 max-w-2xl relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search salon by name, service, or neighborhood..."
+              className="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-white text-slate-800 text-sm shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300/40"
+            />
+          </div>
+
+          {/* Dhaka Area Tabs with layoutId */}
+          <div className="mt-6 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            {DHAKA_AREAS.map((area) => {
+              const active = selectedFilters.location === area.id;
+              return (
+                <button
+                  key={area.id}
+                  onClick={() =>
+                    setSelectedFilters((prev) => ({ ...prev, location: area.id }))
+                  }
+                  className={`relative px-4 py-2 rounded-full text-xs font-semibold transition-colors whitespace-nowrap cursor-pointer z-10 ${
+                    active ? 'text-[#007BFF]' : 'text-white/80 hover:text-white'
+                  }`}
+                >
+                  {active && (
+                    <AnimatedTabPill
+                      layoutId="dhakaAreaPill"
+                      className="bg-white shadow-md text-[#007BFF]"
+                    />
+                  )}
+                  <span className="relative z-10">{area.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content Area */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        {/* Controls Toolbar: Filter toggle, Results count, Sort, View mode */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-100 mb-8">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
+                showFilters
+                  ? 'bg-[#007BFF] text-white border-[#007BFF] shadow-sm'
+                  : 'bg-white text-slate-700 border-gray-200 hover:border-gray-300'
+              }`}
             >
-              <div className="p-6">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                {/* Location */}
-                <div>
-                  <label className="block text-sm font-medium text-[#1E293B] mb-2">
-                    Location
-                  </label>
-                  <select
-                    value={selectedFilters.location}
-                    onChange={(e) => setSelectedFilters({ ...selectedFilters, location: e.target.value })}
-                    className="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-[#36A2FF] focus:ring-2 focus:ring-[#36A2FF]/20 outline-none"
-                  >
-                    <option value="all">All Areas</option>
-                    <option value="Gulshan">Gulshan</option>
-                    <option value="Banani">Banani</option>
-                    <option value="Dhanmondi">Dhanmondi</option>
-                    <option value="Uttara">Uttara</option>
-                    <option value="Mirpur">Mirpur</option>
-                    <option value="Mohakhali">Mohakhali</option>
-                    <option value="Bashundhara">Bashundhara</option>
-                  </select>
-                </div>
+              <SlidersHorizontal className="w-3.5 h-3.5" />
+              Filters
+              {Object.values(selectedFilters).filter((v) => v !== 'all').length > 0 && (
+                <span className="w-4 h-4 rounded-full bg-yellow-400 text-slate-900 text-[10px] flex items-center justify-center font-bold">
+                  {Object.values(selectedFilters).filter((v) => v !== 'all').length}
+                </span>
+              )}
+            </button>
 
-                {/* Rating */}
-                <div>
-                  <label className="block text-sm font-medium text-[#1E293B] mb-2">
-                    Minimum Rating
-                  </label>
-                  <select
-                    value={selectedFilters.rating}
-                    onChange={(e) => setSelectedFilters({ ...selectedFilters, rating: e.target.value })}
-                    className="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-[#36A2FF] focus:ring-2 focus:ring-[#36A2FF]/20 outline-none"
-                  >
-                    <option value="all">All Ratings</option>
-                    <option value="4.5">4.5+ Stars</option>
-                    <option value="4.7">4.7+ Stars</option>
-                    <option value="4.8">4.8+ Stars</option>
-                  </select>
-                </div>
+            <span className="text-xs text-[#64748b]">
+              Showing <strong className="text-slate-900">{filteredSalons.length}</strong> studios
+            </span>
+          </div>
 
-                {/* Service Type */}
+          <div className="flex items-center gap-3">
+            {/* Sort Dropdown */}
+            <div className="flex items-center gap-1.5 text-xs">
+              <ArrowUpDown className="w-3.5 h-3.5 text-[#64748b]" />
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as any)}
+                className="bg-white border border-gray-200 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
+              >
+                <option value="rating">Highest Rated</option>
+                <option value="price">Lowest Price</option>
+                <option value="distance">Nearest to You</option>
+                <option value="reviews">Most Reviewed</option>
+              </select>
+            </div>
+
+            {/* View Mode Toggle */}
+            <div className="flex items-center bg-gray-100 p-1 rounded-xl">
+              <button
+                onClick={() => setViewMode('grid')}
+                className={`p-1.5 rounded-lg transition-colors ${
+                  viewMode === 'grid' ? 'bg-white text-[#007BFF] shadow-sm' : 'text-gray-500'
+                }`}
+                aria-label="Grid View"
+              >
+                <LayoutGrid className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setViewMode('list')}
+                className={`p-1.5 rounded-lg transition-colors ${
+                  viewMode === 'list' ? 'bg-white text-[#007BFF] shadow-sm' : 'text-gray-500'
+                }`}
+                aria-label="List View"
+              >
+                <List className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Collapsible Filters Drawer */}
+        <AnimatePresence>
+          {showFilters && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden mb-8"
+            >
+              <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-[#1E293B] mb-2">
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">
                     Service Type
                   </label>
                   <select
                     value={selectedFilters.serviceType}
-                    onChange={(e) => setSelectedFilters({ ...selectedFilters, serviceType: e.target.value })}
-                    className="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-[#36A2FF] focus:ring-2 focus:ring-[#36A2FF]/20 outline-none"
+                    onChange={(e) =>
+                      setSelectedFilters({ ...selectedFilters, serviceType: e.target.value })
+                    }
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#007BFF] outline-none"
                   >
                     <option value="all">All Services</option>
                     <option value="Haircut">Haircut</option>
-                    <option value="Beard">Beard</option>
-                    <option value="Facial">Facial</option>
-                    <option value="Spa">Spa</option>
-                    <option value="Massage">Massage</option>
+                    <option value="Beard">Beard Sculpt</option>
+                    <option value="Facial">Facial & Skin</option>
+                    <option value="Spa">Spa & Massage</option>
                     <option value="Hair Color">Hair Color</option>
                   </select>
                 </div>
 
-                {/* Gender */}
                 <div>
-                  <label className="block text-sm font-medium text-[#1E293B] mb-2">
-                    Gender
-                  </label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">Gender</label>
                   <select
                     value={selectedFilters.gender}
-                    onChange={(e) => setSelectedFilters({ ...selectedFilters, gender: e.target.value })}
-                    className="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-[#36A2FF] focus:ring-2 focus:ring-[#36A2FF]/20 outline-none"
+                    onChange={(e) =>
+                      setSelectedFilters({ ...selectedFilters, gender: e.target.value })
+                    }
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#007BFF] outline-none"
                   >
-                    <option value="all">All</option>
-                    <option value="Men">Men</option>
-                    <option value="Women">Women</option>
+                    <option value="all">All Genders</option>
+                    <option value="Men">Men Only</option>
+                    <option value="Women">Women Only</option>
                   </select>
                 </div>
 
-                {/* Price Range */}
                 <div>
-                  <label className="block text-sm font-medium text-[#1E293B] mb-2">
-                    Price Range
-                  </label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">Minimum Rating</label>
                   <select
-                    value={selectedFilters.priceRange}
-                    onChange={(e) => setSelectedFilters({ ...selectedFilters, priceRange: e.target.value })}
-                    className="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-[#36A2FF] focus:ring-2 focus:ring-[#36A2FF]/20 outline-none"
+                    value={selectedFilters.rating}
+                    onChange={(e) =>
+                      setSelectedFilters({ ...selectedFilters, rating: e.target.value })
+                    }
+                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-[#007BFF] outline-none"
                   >
-                    <option value="all">All Prices</option>
-                    <option value="1">৳ - Budget</option>
-                    <option value="2">৳৳ - Moderate</option>
-                    <option value="3">৳৳৳ - Premium</option>
+                    <option value="all">Any Rating</option>
+                    <option value="4.5">4.5★ & Above</option>
+                    <option value="4.8">4.8★ & Above</option>
                   </select>
                 </div>
-              </div>
+
+                <div className="flex items-end">
+                  <button
+                    onClick={() => {
+                      setSelectedFilters({
+                        location: 'all',
+                        rating: 'all',
+                        serviceType: 'all',
+                        gender: 'all',
+                        priceRange: 'all',
+                      });
+                      setSearchQuery('');
+                    }}
+                    className="w-full py-2 rounded-xl border border-gray-200 hover:bg-gray-50 text-xs font-semibold text-slate-600 transition-colors"
+                  >
+                    Reset All Filters
+                  </button>
+                </div>
               </div>
             </motion.div>
           )}
-          </AnimatePresence>
-        </Reveal>
+        </AnimatePresence>
 
-        {/* Salons Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredSalons.map((salon, index) => (
-            <Reveal
-              key={salon.id}
-              className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-[#36A2FF]/50 hover:shadow-xl transition-all duration-300"
-              variant={fadeUpVariants}
-              delay={(index % 3) * 0.1}
-              duration={0.85}
-              amount={0.35}
-            >
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src={salon.image}
-                  alt={salon.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+        {/* Salons Render (Grid vs List) */}
+        {viewMode === 'grid' ? (
+          <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <AnimatePresence mode="popLayout">
+              {filteredSalons.map((salon) => (
+                <motion.div
+                  layout
+                  key={salon.id}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.25 }}
+                  className="group bg-white rounded-3xl overflow-hidden border border-gray-100 hover:border-blue-200 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,123,255,0.09)] transition-all flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="relative h-52 overflow-hidden bg-slate-100">
+                      <img
+                        src={salon.image}
+                        alt={salon.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
-                <div className="absolute top-3 right-3">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm ${
-                    salon.isOpen
-                      ? 'bg-green-100/90 text-green-700'
-                      : 'bg-red-100/90 text-red-700'
-                  }`}>
-                    {salon.isOpen ? 'Open' : 'Closed'}
-                  </span>
-                </div>
+                      <div className="absolute top-3 right-3">
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm ${
+                            salon.isOpen ? 'bg-emerald-500/90 text-white' : 'bg-rose-500/90 text-white'
+                          }`}
+                        >
+                          {salon.isOpen ? 'Open Now' : 'Closed'}
+                        </span>
+                      </div>
 
-                <div className="absolute bottom-3 left-3 right-3">
-                  <div className="flex items-center gap-2 text-white text-sm">
-                    <MapPin className="w-4 h-4" />
-                    <span>{salon.distance} away</span>
-                  </div>
-                </div>
-              </div>
+                      <div className="absolute bottom-3 left-3 text-white text-xs font-medium flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-blue-300" />
+                        <span>{salon.distance} away</span>
+                      </div>
+                    </div>
 
-              <div className="p-5 space-y-4">
-                <div>
-                  <h3 className="font-semibold text-xl text-[#1E293B] mb-2">{salon.name}</h3>
+                    <div className="p-5 space-y-3">
+                      <div>
+                        <h3 className="font-bold text-lg text-[#0f172a] group-hover:text-[#007BFF] transition-colors">
+                          {salon.name}
+                        </h3>
 
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      <span className="font-medium text-[#1E293B]">{salon.rating}</span>
-                      <span className="text-sm text-[#64748b]">({salon.reviews} reviews)</span>
+                        <div className="flex items-center gap-2 mt-1">
+                          <div className="flex items-center gap-1">
+                            <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                            <span className="font-bold text-xs text-[#0f172a]">{salon.rating}</span>
+                            <span className="text-xs text-[#94a3b8]">({salon.reviews})</span>
+                          </div>
+                          <span className="text-gray-300">•</span>
+                          <span className="text-xs text-[#64748b] truncate">{salon.location}</span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-1.5">
+                        {salon.services.slice(0, 3).map((serv, i) => (
+                          <span
+                            key={i}
+                            className="px-2.5 py-1 rounded-lg bg-blue-50 text-[#007BFF] text-[11px] font-semibold"
+                          >
+                            {serv}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 text-sm text-[#64748b] mb-1">
-                    <MapPin className="w-4 h-4" />
-                    <span>{salon.location}</span>
+                  <div className="p-5 pt-0">
+                    <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                      <div>
+                        <p className="text-[10px] uppercase text-[#94a3b8] font-medium">Starting from</p>
+                        <p className="text-base font-extrabold text-[#007BFF]">{salon.price}</p>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => setBookingSalon(salon.name)}
+                          className="px-3.5 py-2 rounded-xl bg-blue-50 text-[#007BFF] hover:bg-blue-100 text-xs font-bold transition-colors"
+                        >
+                          Book Slot
+                        </button>
+                        <Link to={`/salon/${salon.id}`}>
+                          <Button variant="primary" size="sm">
+                            Details
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        ) : (
+          /* List View Mode */
+          <motion.div layout className="space-y-4">
+            <AnimatePresence mode="popLayout">
+              {filteredSalons.map((salon) => (
+                <motion.div
+                  layout
+                  key={salon.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5"
+                >
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={salon.image}
+                      alt={salon.name}
+                      className="w-20 h-20 rounded-xl object-cover shrink-0"
+                    />
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-bold text-base text-[#0f172a]">{salon.name}</h3>
+                        <span
+                          className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                            salon.isOpen ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                          }`}
+                        >
+                          {salon.isOpen ? 'Open' : 'Closed'}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3 text-xs text-[#64748b] mt-1">
+                        <span className="flex items-center gap-1 font-semibold text-slate-800">
+                          <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                          {salon.rating} ({salon.reviews})
+                        </span>
+                        <span>•</span>
+                        <span>{salon.location}</span>
+                        <span>•</span>
+                        <span>{salon.distance}</span>
+                      </div>
+                      <p className="text-xs text-[#94a3b8] mt-1">{salon.services.join(' • ')}</p>
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-2 text-sm text-[#64748b]">
-                    <Clock className="w-4 h-4" />
-                    <span>{salon.hours}</span>
+                  <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-3 sm:pt-0 border-gray-100">
+                    <div className="text-right">
+                      <p className="text-[10px] uppercase text-[#94a3b8]">From</p>
+                      <p className="text-base font-bold text-[#007BFF]">{salon.price}</p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => setBookingSalon(salon.name)}
+                        className="px-3.5 py-2 rounded-xl bg-blue-50 text-[#007BFF] hover:bg-blue-100 text-xs font-bold transition-colors"
+                      >
+                        Book Slot
+                      </button>
+                      <Link to={`/salon/${salon.id}`}>
+                        <Button variant="primary" size="sm">
+                          Details
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
-                </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
 
-                <div className="flex flex-wrap gap-2">
-                  {salon.services.slice(0, 3).map((service, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 rounded-full bg-[#EAF6FF] text-[#007BFF] text-xs"
-                    >
-                      {service}
-                    </span>
-                  ))}
-                  {salon.services.length > 3 && (
-                    <span className="px-3 py-1 rounded-full bg-gray-100 text-[#64748b] text-xs">
-                      +{salon.services.length - 3} more
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <div>
-                    <p className="text-xs text-[#64748b]">Starting from</p>
-                    <p className="text-lg font-semibold text-[#007BFF]">{salon.price}</p>
-                  </div>
-                  <Link to={`/salon/${salon.id}`}>
-                    <Button variant="primary" size="sm">
-                      View Details
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
+        {/* Empty state */}
         {filteredSalons.length === 0 && (
-          <Reveal className="text-center py-16" duration={0.85}>
-            <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-[#EAF6FF] flex items-center justify-center">
-              <Filter className="w-12 h-12 text-[#007BFF]" />
+          <div className="text-center py-20 bg-white rounded-3xl border border-gray-100 p-8">
+            <div className="w-16 h-16 rounded-full bg-blue-50 text-[#007BFF] flex items-center justify-center mx-auto mb-4">
+              <Search className="w-8 h-8" />
             </div>
-            <h3 className="text-2xl font-bold text-[#1E293B] mb-2">No salons found</h3>
-            <p className="text-[#64748b] mb-6">Try adjusting your filters or search query</p>
+            <h3 className="text-xl font-bold text-[#0f172a] mb-1">No Studios Found</h3>
+            <p className="text-xs text-[#64748b] mb-6">
+              No salons matched your current filters. Try resetting to explore all areas.
+            </p>
             <Button
               variant="primary"
               onClick={() => {
@@ -502,11 +683,18 @@ export function BrowseSalons() {
                 setSearchQuery('');
               }}
             >
-              Clear All Filters
+              Reset Filters
             </Button>
-          </Reveal>
+          </div>
         )}
-      </div>
+      </section>
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={!!bookingSalon}
+        onClose={() => setBookingSalon(null)}
+        salonName={bookingSalon || 'Glamour Studio'}
+      />
     </MotionPage>
   );
 }
