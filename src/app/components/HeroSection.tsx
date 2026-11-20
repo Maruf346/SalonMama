@@ -49,11 +49,12 @@ export function HeroSection() {
         <img
           src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
           alt="Best salon in Dhaka Bangladesh"
-          className="w-full h-full object-cover opacity-35 scale-105"
+          className="w-full h-full object-cover opacity-60"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0B172E]/90 via-[#005ECE]/85 to-[#007BFF]/75" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.18),transparent_50%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,rgba(54,162,255,0.25),transparent_60%)] pointer-events-none" />
+        {/* Softened Blue & Navy Gradient to let the salon image shine through clearly while keeping text readable */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0B172E]/75 via-[#005ECE]/60 to-[#007BFF]/50" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.12),transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,rgba(54,162,255,0.18),transparent_60%)] pointer-events-none" />
       </div>
 
       {/* Content */}
