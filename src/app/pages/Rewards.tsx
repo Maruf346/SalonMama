@@ -26,6 +26,7 @@ import {
   Magnetic,
   AnimatedNumber,
 } from '../components/motion';
+import { SEOHead } from '../components/SEOHead';
 
 const TIERS = [
   {
@@ -162,6 +163,11 @@ export function Rewards() {
 
   return (
     <MotionPage className="min-h-screen bg-[#fafbfc] pt-16">
+      <SEOHead
+        title="SalonMama Rewards | Earn Free Haircuts & Discounts"
+        description="Earn points on every haircut and salon visit in Dhaka. Redeem points for free haircuts, facials, and exclusive discount vouchers across top salons."
+        keywords="salon rewards dhaka, free haircut points bangladesh, salon mama discounts, beauty salon offers dhaka"
+      />
       {/* ─── Hero ─── */}
       <div className="relative overflow-hidden bg-gradient-to-br from-[#005ECE] via-[#007BFF] to-[#004BB5] py-16 sm:py-20 px-4 sm:px-6 lg:px-8 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(255,255,255,0.18),transparent_55%)] pointer-events-none" />

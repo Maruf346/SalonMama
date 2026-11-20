@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router';
 import { MotionPage } from '../components/motion';
+import { SEOHead } from '../components/SEOHead';
 
 type UIState = 'upload' | 'preview' | 'analyzing' | 'results';
 type FilterKey = 'all' | 'saved' | 'short' | 'medium' | 'long' | 'straight' | 'wavy' | 'curly';
@@ -267,6 +268,11 @@ export function AIStyleFinder() {
 
   return (
     <MotionPage className="min-h-screen bg-gradient-to-b from-[#EAF6FF]/50 via-white to-white pt-16">
+      <SEOHead
+        title="Free AI Hairstyle Finder | Test Haircuts for Your Face Shape"
+        description="Upload a selfie to test which haircuts, hair lengths, and beard styles suit your face shape best. Free AI haircut recommender for Dhaka salon visitors."
+        keywords="ai hairstyle finder bangladesh, face shape haircut finder, virtual haircut test online, hair style for oval face dhaka, best haircut for men bangladesh"
+      />
 
       {/* ─── Page Header ─── */}
       <div className="relative overflow-hidden py-14 px-4 sm:px-6 lg:px-8">

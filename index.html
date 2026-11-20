@@ -1,17 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>SalonMama | Best Salons in Dhaka, Haircut & Beauty Booking App</title>
+    <meta name="title" content="SalonMama | Best Salons in Dhaka, Haircut & Beauty Booking App" />
+    <meta
+      name="description"
+      content="Find and book verified salons and ladies parlours in Dhaka (Gulshan, Banani, Dhanmondi, Uttara). Compare prices for haircuts, facial, hair spa, and bridal packages. Try our free AI Hairstyle Finder today!"
+    />
+    <meta
+      name="keywords"
+      content="salon in dhaka, best salon in gulshan, ladies parlour dhaka, men salon banani, haircut price in dhaka, beauty parlour dhanmondi, hair color salon dhaka, salon booking bangladesh, salon mama, bridal makeup package dhaka, ai hairstyle finder bangladesh"
+    />
+    <meta name="author" content="SalonMama Bangladesh" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="geo.region" content="BD-13" />
+    <meta name="geo.placename" content="Dhaka, Bangladesh" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://salonmama.com/" />
+    
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="theme-color" content="#007BFF" />
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="icon" type="image/png" href="/favicon.png" />
-      <title>SalonMama</title>
-      <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
-    </head>
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://salonmama.com/" />
+    <meta property="og:title" content="SalonMama | Best Salons in Dhaka, Haircut & Beauty Booking App" />
+    <meta
+      property="og:description"
+      content="Browse trusted salons in Dhaka, try on hairstyles with AI, and book appointments easily with bKash, Nagad, or pay at the salon."
+    />
+    <meta property="og:image" content="https://salonmama.com/logo.png" />
+    <meta property="og:locale" content="en_BD" />
+    <meta property="og:site_name" content="SalonMama" />
 
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
-  
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://salonmama.com/" />
+    <meta property="twitter:title" content="SalonMama | Best Salons in Dhaka & Instant Beauty Booking" />
+    <meta
+      property="twitter:description"
+      content="Book appointments at top salons in Dhaka. Haircuts, hair color, facials, and AI hairstyle matching."
+    />
+    <meta property="twitter:image" content="https://salonmama.com/logo.png" />
+
+    <!-- Structured Data: JSON-LD for Search Engines -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://salonmama.com/#website",
+            "url": "https://salonmama.com/",
+            "name": "SalonMama",
+            "description": "Best Salons in Dhaka and Beauty Booking Platform",
+            "inLanguage": "en-US",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://salonmama.com/browse-salons?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://salonmama.com/#organization",
+            "name": "SalonMama Bangladesh",
+            "url": "https://salonmama.com/",
+            "logo": "https://salonmama.com/logo.png",
+            "sameAs": [
+              "https://www.facebook.com/salonmama.bd",
+              "https://www.instagram.com/salonmama.bd"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+8801700000000",
+              "contactType": "customer service",
+              "areaServed": "BD",
+              "availableLanguage": ["English", "Bengali"]
+            }
+          },
+          {
+            "@type": "BeautySalon",
+            "@id": "https://salonmama.com/#service",
+            "name": "SalonMama Partner Salons Network",
+            "image": "https://salonmama.com/logo.png",
+            "priceRange": "৳300 - ৳15000",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Gulshan 2, Banani, Dhanmondi, Uttara",
+              "addressLocality": "Dhaka",
+              "addressRegion": "Dhaka Division",
+              "addressCountry": "BD"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 23.7925,
+              "longitude": 90.4078
+            },
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "09:00",
+              "closes": "22:00"
+            }
+          }
+        ]
+      }
+    </script>
+
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        scroll-behavior: smooth;
+      }
+      #root {
+        min-height: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

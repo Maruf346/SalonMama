@@ -11,6 +11,7 @@ import {
   Send,
   Search,
   ExternalLink,
+  HelpCircle,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
@@ -22,6 +23,7 @@ import {
   Magnetic,
 } from '../components/motion';
 import { Button } from '../components/Button';
+import { SEOHead } from '../components/SEOHead';
 
 interface FAQ {
   q: string;
@@ -33,27 +35,27 @@ const FAQ_DATA: FAQ[] = [
   {
     category: 'Booking & Payment',
     q: 'Can I pay directly at the salon or through bKash/Nagad?',
-    a: 'Both! You can pre-pay securely via bKash, Nagad, Visa/Mastercard to unlock instant discounts and bonus rewards points, or choose "Pay at Studio" upon arrival.',
+    a: 'Yes, you can pay using whatever is easiest for you! You can pre-pay with bKash, Nagad, or debit/credit card to get extra discount points, or simply choose "Pay at Salon" when you arrive.',
   },
   {
     category: 'Booking & Payment',
-    q: 'What happens if I need to reschedule or cancel my appointment?',
-    a: 'You can reschedule or cancel free of charge up to 2 hours before your reserved slot directly from your "My Bookings" page. Any prepaid balance is immediately converted to SalonMama credits or refunded.',
+    q: 'How do I cancel or reschedule my salon booking?',
+    a: 'You can cancel or change your time easily from the "My Bookings" page up to 2 hours before your appointment without any cancellation fee. Any pre-paid money is refunded immediately to your account.',
   },
   {
     category: 'AI Style Finder',
-    q: 'How does the AI Style Finder determine the best haircut for me?',
-    a: 'Our neural vision model evaluates 12 facial biometric landmarks (jawline angle, cheekbone-to-forehead proportion, forehead height) to identify your face shape, then filters styles that balance your unique geometry.',
+    q: 'How does the free AI Style Finder work?',
+    a: 'You just take or upload a selfie. Our tool automatically checks your face shape (Oval, Round, Square, or Heart) and recommends haircuts that look best on you, along with salons in Dhaka that do that style.',
   },
   {
-    category: 'VIP Concierge',
-    q: 'How do I book for a wedding party or corporate group?',
-    a: 'Our VIP Concierge coordinates group appointments, private bridal suites, and simultaneous stylists at top partner salons in Gulshan and Banani. Submit the concierge form on this page or message us directly on WhatsApp.',
+    category: 'Group Bookings',
+    q: 'Can I book for bridal makeup or a group of friends?',
+    a: 'Yes! If you have a wedding, party, or group of friends wanting haircuts or makeup together, send us a WhatsApp message or fill out the form below. We will coordinate everything with the salon.',
   },
   {
-    category: 'Salon Partners',
-    q: 'I own a salon in Dhaka. How do I get verified and listed on SalonMama?',
-    a: 'Visit our "For Salons" page or click "List Your Salon". Our Dhaka partner team audits hygiene standards, equips your front desk with our booking tablet, and gets you live in under 48 hours.',
+    category: 'Salon Owners',
+    q: 'How can a salon or parlour in Dhaka join SalonMama?',
+    a: 'If you run a salon in Gulshan, Banani, Dhanmondi, Uttara or anywhere in Dhaka, visit our "For Salon Owners" page or call us. We will set up your profile and tablet in less than 48 hours.',
   },
 ];
 
@@ -61,29 +63,29 @@ const DHAKA_HUBS = [
   {
     area: 'Gulshan 1 & 2',
     salons: 42,
-    badge: 'Premier Flagships',
-    address: 'Road 12 & Gulshan South Ave',
+    badge: 'Popular for Hair Color & Spa',
+    address: 'Road 11, Road 12 & South Avenue',
     image: 'https://images.unsplash.com/photo-1695527081874-b674c46f40fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   },
   {
     area: 'Banani',
     salons: 38,
-    badge: 'Barber & Aesthetic',
-    address: 'Road 11 & Kemal Ataturk Ave',
+    badge: 'Top Barbers & Ladies Parlours',
+    address: 'Road 11 & Kemal Ataturk Avenue',
     image: 'https://images.unsplash.com/photo-1759134155377-4207d89b39ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   },
   {
     area: 'Dhanmondi',
     salons: 29,
-    badge: 'Color & Hair Spa',
+    badge: 'Trending Haircuts & Treatments',
     address: 'Satmasjid Road & Road 27',
     image: 'https://images.unsplash.com/photo-1600948835780-9c4a8b55cf50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   },
   {
     area: 'Uttara',
     salons: 24,
-    badge: 'Family & Bridal',
-    address: 'Sector 3, 7 & 11',
+    badge: 'Family Salons & Bridal Care',
+    address: 'Sector 3, Sector 7 & Sector 11',
     image: 'https://images.unsplash.com/photo-1600948836587-02c1842c9140?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   },
 ];
@@ -91,11 +93,11 @@ const DHAKA_HUBS = [
 export function ContactConcierge() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [faqSearch, setFaqSearch] = useState('');
-  const [conciergeSent, setConciergeSent] = useState(false);
+  const [requestSent, setRequestSent] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    serviceType: 'Bridal Entourage',
+    serviceType: 'Bridal & Party Makeup',
     partySize: '1',
     preferredArea: 'Gulshan',
     notes: '',
@@ -109,28 +111,30 @@ export function ContactConcierge() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setConciergeSent(true);
+    setRequestSent(true);
   };
 
   return (
     <MotionPage className="min-h-screen bg-[#fafbfc] pt-16">
+      <SEOHead
+        title="Contact Us & Booking Help | Customer Support"
+        description="Need help booking a salon in Dhaka? Contact SalonMama customer support on WhatsApp or phone. Book bridal makeup, group appointments, and get quick assistance."
+        keywords="salon customer support dhaka, contact salon mama, salon booking help dhaka, bridal makeup booking dhaka, salon in gulshan contact"
+      />
+
       {/* Hero Header */}
       <section className="bg-gradient-to-b from-[#EAF6FF]/70 via-white to-[#fafbfc] py-16 sm:py-20 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-[#007BFF] text-xs font-semibold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5" />
-            24/7 Dedicated Client Concierge
+            <HelpCircle className="w-3.5 h-3.5" />
+            Customer Support & Booking Help
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#0f172a] leading-tight">
-            We’re Here to Perfect
-            <br />
-            <span className="bg-gradient-to-r from-[#007BFF] to-[#36A2FF] bg-clip-text text-transparent">
-              Your Beauty Experience.
-            </span>
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#0f172a] leading-tight">
+            How Can We Help You Today?
           </h1>
           <p className="text-base sm:text-lg text-[#64748b] mt-4 leading-relaxed">
-            Need bespoke bridal party scheduling, private salon room booking, or immediate assistance
-            with your reservation? Our Dhaka concierge team responds in under 15 minutes.
+            Need help booking a haircut, wedding makeup for your family, or finding a trusted parlour
+            near you in Dhaka? Our support team replies within a few minutes.
           </p>
 
           <div className="pt-6 flex flex-wrap items-center justify-center gap-4">
@@ -138,17 +142,17 @@ export function ContactConcierge() {
               href="https://wa.me/8801700000000"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-green-500 hover:bg-green-600 text-white font-semibold text-sm shadow-md transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow-md transition-all cursor-pointer"
             >
               <MessageSquare className="w-4 h-4" />
-              Chat on WhatsApp Concierge
+              Chat on WhatsApp (+880 1700-000000)
             </a>
             <a
               href="tel:+8801700000000"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-[#1E293B] font-semibold text-sm transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl border border-gray-200 bg-white hover:bg-gray-50 text-[#1E293B] font-bold text-sm transition-all"
             >
               <Phone className="w-4 h-4 text-[#007BFF]" />
-              Call +880 1700-000000
+              Call Customer Care
             </a>
           </div>
         </div>
@@ -157,33 +161,33 @@ export function ContactConcierge() {
       {/* Main Grid: Form + Dhaka Hubs */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-12 gap-12">
-          {/* Left: VIP Concierge Request Form */}
+          {/* Left: Booking Help Form */}
           <div className="lg:col-span-7">
             <div className="bg-white rounded-3xl p-8 sm:p-10 border border-gray-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
               <div className="mb-6">
                 <span className="text-xs font-bold text-[#007BFF] uppercase tracking-wider">
-                  Direct Request
+                  Quick Booking Help
                 </span>
                 <h3 className="text-2xl font-bold text-[#0f172a] mt-1">
-                  Book with VIP Concierge Desk
+                  Book for a Wedding, Group, or Special Occasion
                 </h3>
                 <p className="text-xs text-[#64748b] mt-1">
-                  Ideal for weddings, multi-stylist group bookings, or custom salon requests.
+                  Tell us what you need and our Dhaka team will confirm the best time and salon for you.
                 </p>
               </div>
 
-              {conciergeSent ? (
+              {requestSent ? (
                 <div className="py-12 text-center space-y-4">
                   <div className="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <h4 className="text-2xl font-bold text-[#0f172a]">Request Assigned to Concierge!</h4>
+                  <h4 className="text-2xl font-bold text-[#0f172a]">Request Received!</h4>
                   <p className="text-sm text-[#64748b] max-w-sm mx-auto">
-                    Thank you, {formData.name}. Our senior concierge agent will WhatsApp/call you at{' '}
+                    Thank you, {formData.name}. Our Dhaka support manager will message or call you at{' '}
                     <span className="font-semibold text-slate-800">{formData.phone}</span> shortly.
                   </p>
-                  <Button variant="outline" onClick={() => setConciergeSent(false)}>
-                    Submit Another Request
+                  <Button variant="outline" onClick={() => setRequestSent(false)}>
+                    Send Another Request
                   </Button>
                 </div>
               ) : (
@@ -220,31 +224,31 @@ export function ContactConcierge() {
                   <div className="grid sm:grid-cols-3 gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-[#1E293B] mb-1">
-                        Occasion / Service
+                        Service Needed
                       </label>
                       <select
                         value={formData.serviceType}
                         onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
                         className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
                       >
-                        <option value="Bridal Entourage">Bridal Entourage</option>
-                        <option value="VIP Private Suite">VIP Private Suite</option>
-                        <option value="Master Colorist Booking">Master Colorist</option>
-                        <option value="Corporate Grooming">Corporate Group</option>
-                        <option value="Special Event Styling">Gala / Eid Styling</option>
+                        <option value="Bridal & Party Makeup">Bridal / Party Makeup</option>
+                        <option value="Haircut & Styling">Haircut & Styling</option>
+                        <option value="Hair Color & Highlights">Hair Color & Highlights</option>
+                        <option value="Facial & Skin Care">Facial & Skin Care</option>
+                        <option value="Group / Family Grooming">Group or Family Package</option>
                       </select>
                     </div>
 
                     <div>
                       <label className="block text-xs font-semibold text-[#1E293B] mb-1">
-                        Party Size
+                        Number of People
                       </label>
                       <select
                         value={formData.partySize}
                         onChange={(e) => setFormData({ ...formData, partySize: e.target.value })}
                         className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
                       >
-                        <option value="1">1 Person (VIP Solo)</option>
+                        <option value="1">1 Person</option>
                         <option value="2-3">2 – 3 Persons</option>
                         <option value="4-7">4 – 7 Persons</option>
                         <option value="8+">8+ Persons</option>
@@ -253,7 +257,7 @@ export function ContactConcierge() {
 
                     <div>
                       <label className="block text-xs font-semibold text-[#1E293B] mb-1">
-                        Preferred Area
+                        Area in Dhaka
                       </label>
                       <select
                         value={formData.preferredArea}
@@ -267,17 +271,18 @@ export function ContactConcierge() {
                         <option value="Dhanmondi">Dhanmondi</option>
                         <option value="Uttara">Uttara</option>
                         <option value="Bashundhara">Bashundhara</option>
+                        <option value="Mirpur">Mirpur</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-xs font-semibold text-[#1E293B] mb-1">
-                      Specific Notes & Stylist Preferences
+                      Notes or Specific Preferences (Optional)
                     </label>
                     <textarea
                       rows={3}
-                      placeholder="Tell us dates, specific hairstyles from our Lookbook, or special requirements..."
+                      placeholder="Mention preferred dates, times, or any specific salon you want to visit..."
                       value={formData.notes}
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
@@ -286,7 +291,7 @@ export function ContactConcierge() {
 
                   <div className="pt-2">
                     <Button type="submit" variant="primary" size="lg" className="w-full">
-                      Submit Concierge Request
+                      Send Request
                       <Send className="ml-2 w-4 h-4" />
                     </Button>
                   </div>
@@ -299,13 +304,13 @@ export function ContactConcierge() {
           <div className="lg:col-span-5 space-y-6">
             <div>
               <span className="text-xs font-bold text-[#007BFF] uppercase tracking-wider">
-                Dhaka Network
+                Our Salons
               </span>
               <h3 className="text-2xl font-bold text-[#0f172a] mt-1">
-                Studio Hubs Across the City
+                Verified Salons Across Dhaka
               </h3>
               <p className="text-xs text-[#64748b] mt-1">
-                All salons undergo in-person hygiene checks and stylist skill verifications.
+                All listed salons follow strict cleanliness and fair pricing guidelines.
               </p>
             </div>
 
@@ -318,7 +323,7 @@ export function ContactConcierge() {
                   <div className="flex items-center gap-3">
                     <img
                       src={hub.image}
-                      alt={hub.area}
+                      alt={`Salons in ${hub.area} Dhaka`}
                       className="w-14 h-14 rounded-xl object-cover shrink-0"
                     />
                     <div>
@@ -333,7 +338,7 @@ export function ContactConcierge() {
                   </div>
                   <div className="text-right shrink-0">
                     <span className="text-sm font-bold text-[#007BFF]">{hub.salons}</span>
-                    <p className="text-[10px] text-[#94a3b8]">studios</p>
+                    <p className="text-[10px] text-[#94a3b8]">salons</p>
                   </div>
                 </div>
               ))}
@@ -342,21 +347,21 @@ export function ContactConcierge() {
         </div>
       </section>
 
-      {/* Interactive FAQ Section with Smooth Animated Accordion */}
+      {/* Interactive FAQ Section */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <Reveal className="text-center mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#007BFF] text-xs font-semibold mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             Frequently Asked Questions
           </div>
-          <h2 className="text-3xl font-bold text-[#0f172a]">Everything You Need to Know</h2>
+          <h2 className="text-3xl font-bold text-[#0f172a]">Questions & Answers</h2>
           <div className="mt-4 max-w-md mx-auto relative">
             <Search className="w-4 h-4 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={faqSearch}
               onChange={(e) => setFaqSearch(e.target.value)}
-              placeholder="Search questions (e.g. refund, bKash, wedding)..."
+              placeholder="Search (e.g. bKash, refund, bridal, booking)..."
               className="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-200 bg-white text-xs focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
             />
           </div>
@@ -379,7 +384,7 @@ export function ContactConcierge() {
                   </span>
                   <motion.div
                     animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.3 }}
                     className="shrink-0 text-[#007BFF]"
                   >
                     <ChevronDown className="w-5 h-5" />
@@ -392,7 +397,7 @@ export function ContactConcierge() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
                       className="overflow-hidden"
                     >
                       <div className="p-5 pt-0 text-xs sm:text-sm text-[#64748b] leading-relaxed border-t border-gray-50">

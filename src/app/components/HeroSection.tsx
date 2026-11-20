@@ -20,24 +20,26 @@ export function HeroSection() {
     navigate(q ? `/browse-salons?q=${encodeURIComponent(q)}` : '/browse-salons');
   };
 
+  // Bangladesh SEO-driven popular search terms
   const QUICK_TAGS = [
     'Gulshan 2',
-    'Banani',
-    'Korean Two-Block',
-    'Bridal Glow',
-    'Balayage',
-    'Beard Sculpt',
-    'Hair Spa',
+    'Banani 11',
+    'Dhanmondi',
+    'Uttara',
+    'Men Haircut',
+    'Ladies Parlour',
+    'Hair Color',
+    'Facial & Spa',
   ];
 
   const BRAND_PARTNERS = [
-    "L'Oréal Professionnel Official",
-    'Kérastase Paris Studio Network',
-    'Olaplex Certified Salons',
-    'Dyson Professional Lounges',
-    'Wella Professionals Bangladesh',
-    'Moroccanoil Partner Studios',
-    'bKash & Nagad Verified Booking Escrow',
+    '150+ Verified Salons in Dhaka',
+    'Top Parlours in Gulshan & Banani',
+    'bKash & Nagad Payment Accepted',
+    'Pay at Salon Available',
+    'Best Haircut & Beard Grooming',
+    'Bridal & Party Makeup Packages',
+    'Free AI Hairstyle Finder',
   ];
 
   return (
@@ -46,10 +48,9 @@ export function HeroSection() {
       <div className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
-          alt="Professional salon styling"
+          alt="Best salon in Dhaka Bangladesh"
           className="w-full h-full object-cover opacity-35 scale-105"
         />
-        {/* Vibrant Blue & Navy Gradient Overlays */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0B172E]/90 via-[#005ECE]/85 to-[#007BFF]/75" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.18),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,rgba(54,162,255,0.25),transparent_60%)] pointer-events-none" />
@@ -64,32 +65,35 @@ export function HeroSection() {
       >
         <div className="text-center space-y-8 max-w-4xl mx-auto">
           {/* Badge */}
-          <motion.div variants={fadeUpVariants} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-white shadow-lg">
-            <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-spin" style={{ animationDuration: '4s' }} />
+          <motion.div
+            variants={fadeUpVariants}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-white shadow-lg"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-spin" style={{ animationDuration: '6s' }} />
             <span className="text-xs sm:text-sm font-semibold tracking-wide">
-              Dhaka’s #1 AI Salon Booking Platform
+              Dhaka’s Trusted Salon Booking App
             </span>
           </motion.div>
 
-          {/* Main Heading */}
+          {/* Main Heading (Targeting top Bangladesh SEO keywords) */}
           <motion.h1
             variants={fadeUpVariants}
-            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.08] tracking-tight"
+            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] tracking-tight"
           >
-            Find Salons That Match
+            Find & Book the Best
             <br />
             <span className="bg-gradient-to-r from-white via-[#EAF6FF] to-blue-200 bg-clip-text text-transparent">
-              Your Personal Style
+              Salons in Dhaka
             </span>
           </motion.h1>
 
-          {/* Subheading */}
+          {/* Subheading (Clear, friendly, Bangladesh English) */}
           <motion.p
             variants={fadeUpVariants}
             className="text-lg sm:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto"
           >
-            Browse certified Dhaka studios, discover hairstyles with computer-vision AI, and book
-            instant appointments with live chair availability.
+            Discover top-rated barbers, ladies parlours, and hair spas near you. Test new hairstyles
+            with our free AI tool and book your slot in seconds.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -101,7 +105,7 @@ export function HeroSection() {
               <Link to="/ai-style-finder">
                 <Button variant="secondary" size="lg" className="group w-full sm:w-auto shadow-2xl">
                   <Sparkles className="mr-2 w-5 h-5 group-hover:rotate-12 transition-transform text-[#007BFF]" />
-                  Try AI Style Finder
+                  Try AI Hairstyle Finder
                 </Button>
               </Link>
             </Magnetic>
@@ -114,7 +118,7 @@ export function HeroSection() {
                   className="w-full sm:w-auto bg-white/10 backdrop-blur-md border-2 border-white/40 text-white hover:bg-white/20"
                 >
                   <MapPin className="mr-2 w-5 h-5 text-white" />
-                  Browse Nearby Salons
+                  Find Salons Near You
                 </Button>
               </Link>
             </Magnetic>
@@ -134,7 +138,7 @@ export function HeroSection() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search salon name, stylist, service, or area in Dhaka..."
+                placeholder="Search salon name, area (Gulshan, Banani, Dhanmondi, Uttara)..."
                 className="w-full pl-14 pr-32 py-4 sm:py-5 rounded-2xl bg-white/95 backdrop-blur-xl border border-white/60 focus:ring-4 focus:ring-blue-300/40 outline-none shadow-2xl text-[#1E293B] text-base placeholder:text-[#94a3b8] transition-all"
               />
               <button
@@ -147,12 +151,12 @@ export function HeroSection() {
 
             {/* Quick search tags */}
             <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
-              <span className="text-xs text-white/70 font-medium">Popular:</span>
+              <span className="text-xs text-white/75 font-medium">Popular Searches:</span>
               {QUICK_TAGS.map((tag) => (
                 <button
                   key={tag}
                   onClick={() => handleSearch(tag)}
-                  className="px-2.5 py-1 rounded-full bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs font-medium backdrop-blur-sm transition-all"
+                  className="px-3 py-1 rounded-full bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs font-medium backdrop-blur-sm transition-all cursor-pointer"
                 >
                   {tag}
                 </button>
@@ -179,14 +183,12 @@ export function HeroSection() {
                 <AnimatedNumber value={45} suffix="K+" />
               </div>
               <div className="text-white/80 text-xs uppercase tracking-wider font-medium">
-                Happy Clients
+                Happy Customers
               </div>
             </div>
             <div className="w-px h-10 bg-white/25 hidden sm:block" />
             <div className="text-center">
-              <div className="text-3xl font-extrabold text-yellow-300 mb-0.5">
-                4.9★
-              </div>
+              <div className="text-3xl font-extrabold text-yellow-300 mb-0.5">4.9★</div>
               <div className="text-white/80 text-xs uppercase tracking-wider font-medium">
                 Customer Rating
               </div>
@@ -195,13 +197,13 @@ export function HeroSection() {
         </div>
       </motion.div>
 
-      {/* Infinite Luxury Brands Marquee Ticker */}
+      {/* Infinite Marquee Ticker */}
       <div className="relative z-10 bg-white/10 backdrop-blur-md border-y border-white/15 py-3">
-        <Marquee speed={32}>
+        <Marquee speed={40}>
           {BRAND_PARTNERS.map((brand, i) => (
             <div
               key={i}
-              className="flex items-center gap-3 text-xs sm:text-sm font-semibold tracking-wider uppercase text-white/90 whitespace-nowrap px-4"
+              className="flex items-center gap-3 text-xs sm:text-sm font-semibold tracking-wider text-white/90 whitespace-nowrap px-4"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-blue-300" />
               {brand}

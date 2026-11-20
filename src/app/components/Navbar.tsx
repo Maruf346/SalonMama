@@ -1,4 +1,4 @@
-import { Menu, X, Sparkles, Calendar, BookOpen, Store, PhoneCall } from 'lucide-react';
+import { Menu, X, Sparkles, Calendar, BookOpen, Store, PhoneCall, HelpCircle } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
@@ -21,22 +21,23 @@ export function Navbar() {
 
   const isActive = (path: string) => location.pathname === path;
 
+  // Simple, friendly Bangladesh English navigation
   const NAV_ITEMS = [
     { path: '/', label: 'Home' },
-    { path: '/browse-salons', label: 'Browse Salons' },
-    { path: '/lookbook', label: 'Lookbook' },
+    { path: '/browse-salons', label: 'Find Salons' },
+    { path: '/lookbook', label: 'Style Guide' },
     { path: '/ai-style-finder', label: 'AI Style Finder', isSpecial: true },
     { path: '/rewards', label: 'Rewards' },
-    { path: '/for-salons', label: 'For Salons' },
-    { path: '/contact', label: 'Concierge' },
+    { path: '/for-salons', label: 'For Salon Owners' },
+    { path: '/contact', label: 'Help & Contact' },
   ];
 
   return (
     <>
       <motion.nav
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
           scrolled
             ? 'bg-white/95 backdrop-blur-2xl shadow-[0_4px_28px_rgba(0,123,255,0.08)] border-b border-gray-100/90 py-1'
@@ -50,12 +51,12 @@ export function Navbar() {
               <div className="h-11 w-auto max-w-[170px] flex items-center">
                 <img
                   src="/logo.png"
-                  alt="SalonMama logo"
+                  alt="SalonMama - Best Salon Booking in Dhaka"
                   className="h-full w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
-              <span className="hidden xl:inline-block px-2 py-0.5 rounded-full bg-blue-50 border border-blue-100 text-[10px] font-semibold text-[#007BFF] uppercase tracking-wider">
-                Luxe
+              <span className="hidden xl:inline-block px-2 py-0.5 rounded-full bg-blue-50 border border-blue-100 text-[10px] font-semibold text-[#007BFF] tracking-wide">
+                Dhaka
               </span>
             </Link>
 
@@ -70,7 +71,7 @@ export function Navbar() {
                       <Link
                         key={item.path}
                         to={item.path}
-                        className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-200 whitespace-nowrap z-10 ${
+                        className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 whitespace-nowrap z-10 ${
                           active
                             ? 'bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white shadow-md shadow-blue-300/60'
                             : 'bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white hover:opacity-95 shadow-sm'
@@ -86,10 +87,8 @@ export function Navbar() {
                     <Link
                       key={item.path}
                       to={item.path}
-                      className={`relative px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors duration-200 whitespace-nowrap z-10 ${
-                        active
-                          ? 'text-[#007BFF]'
-                          : 'text-[#64748b] hover:text-[#0f172a]'
+                      className={`relative px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors duration-300 whitespace-nowrap z-10 ${
+                        active ? 'text-[#007BFF]' : 'text-[#64748b] hover:text-[#0f172a]'
                       }`}
                     >
                       {active && (
@@ -109,7 +108,7 @@ export function Navbar() {
             <div className="hidden md:flex items-center gap-2.5 ml-auto">
               <Link
                 to="/my-bookings"
-                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold transition-all ${
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold transition-all duration-300 ${
                   isActive('/my-bookings')
                     ? 'bg-blue-50 text-[#007BFF] border border-blue-200'
                     : 'text-[#475569] hover:text-[#007BFF] hover:bg-slate-100/80'
@@ -117,7 +116,6 @@ export function Navbar() {
               >
                 <Calendar className="w-3.5 h-3.5 text-[#007BFF]" />
                 <span>My Bookings</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-ping" />
               </Link>
 
               <Magnetic>
@@ -125,7 +123,7 @@ export function Navbar() {
                   to="/browse-salons"
                   className="px-4 py-2 rounded-full bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white text-xs font-bold shadow-[0_4px_14px_rgba(0,123,255,0.25)] hover:shadow-[0_6px_20px_rgba(0,123,255,0.4)] transition-all flex items-center gap-1.5"
                 >
-                  Book Instant
+                  Book Salon
                 </Link>
               </Magnetic>
             </div>
@@ -134,7 +132,7 @@ export function Navbar() {
             <button
               className="lg:hidden ml-auto w-10 h-10 rounded-xl bg-[#f1f5f9] flex items-center justify-center hover:bg-[#e2e8f0] transition-colors cursor-pointer"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle navigation menu"
+              aria-label="Open menu"
             >
               {isMenuOpen ? (
                 <X className="w-5 h-5 text-[#475569]" />
@@ -153,7 +151,7 @@ export function Navbar() {
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
             className="fixed inset-x-0 top-16 z-40 bg-white/98 backdrop-blur-2xl border-b border-gray-100 shadow-2xl lg:hidden max-h-[calc(100vh-4rem)] overflow-y-auto"
           >
             <motion.div
@@ -187,10 +185,7 @@ export function Navbar() {
                 >
                   <span className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-[#007BFF]" />
-                    My Bookings & QR Pass
-                  </span>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-bold">
-                    Active
+                    My Bookings & Pass
                   </span>
                 </Link>
 
@@ -199,7 +194,7 @@ export function Navbar() {
                   onClick={() => setIsMenuOpen(false)}
                   className="block w-full py-3 rounded-xl bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white text-center text-sm font-bold shadow-md shadow-blue-200"
                 >
-                  Book Instant Appointment
+                  Book Salon Now
                 </Link>
               </div>
             </motion.div>

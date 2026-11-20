@@ -1,4 +1,4 @@
-import { useState, useId } from 'react';
+import { useState } from 'react';
 import {
   TrendingUp,
   Users,
@@ -15,6 +15,7 @@ import {
   ChevronRight,
   HelpCircle,
   X,
+  Store,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
@@ -28,14 +29,15 @@ import {
   GlowSpotlight,
 } from '../components/motion';
 import { Button } from '../components/Button';
+import { SEOHead } from '../components/SEOHead';
 
 export function ForSalons() {
   // Calculator state
   const [chairs, setChairs] = useState(4);
-  const [ticketPrice, setTicketPrice] = useState(850);
-  const [dailyClients, setDailyClients] = useState(6);
+  const [ticketPrice, setTicketPrice] = useState(700);
+  const [dailyClients, setDailyClients] = useState(5);
 
-  // Modal application state
+  // Application modal state
   const [isApplyOpen, setIsApplyOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -47,51 +49,51 @@ export function ForSalons() {
     chairsCount: '4',
   });
 
-  // Calculate monthly metrics (26 operating days per month)
+  // Calculate monthly earnings (26 working days per month)
   const baseMonthly = chairs * dailyClients * ticketPrice * 26;
-  const upliftPercentage = 0.32; // 32% increase via AI matching & off-peak fills
+  const upliftPercentage = 0.3; // 30% extra from off-peak slots and AI recommendations
   const extraRevenue = Math.round(baseMonthly * upliftPercentage);
   const totalRevenue = baseMonthly + extraRevenue;
-  const hoursSaved = chairs * 4.5;
+  const hoursSaved = chairs * 4;
 
   const handleApplySubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    setTimeout(() => {
-      // Keep state
-    }, 1500);
   };
 
   return (
     <MotionPage className="min-h-screen bg-[#fafbfc] pt-16">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B1528] via-[#0F1E36] to-[#0A1220] text-white py-20 sm:py-28">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-700/20 via-transparent to-transparent pointer-events-none" />
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#007BFF]/20 rounded-full blur-[100px] pointer-events-none" />
+      <SEOHead
+        title="List Your Salon & Grow Your Business | For Salon Owners"
+        description="Join SalonMama and get more customers for your salon or parlour in Dhaka. Free salon profile, automated WhatsApp reminders, and daily bKash/bank payouts."
+        keywords="list salon dhaka, salon partner bangladesh, parlour software dhaka, salon mama business, increase salon clients dhaka"
+      />
 
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B1528] via-[#0F1E36] to-[#0A1220] text-white py-20 sm:py-26">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-700/20 via-transparent to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             <Reveal className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[#36A2FF] text-xs font-semibold uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5" />
-                SalonMama Business Partner Platform
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[#36A2FF] text-xs font-semibold uppercase tracking-wider">
+                <Store className="w-3.5 h-3.5" />
+                For Salon & Parlour Owners in Dhaka
               </div>
 
-              <h1 className="text-4xl sm:text-6xl font-bold leading-[1.1] tracking-tight">
-                Turn Empty Chairs Into
+              <h1 className="text-4xl sm:text-6xl font-extrabold leading-[1.15] tracking-tight">
+                Grow Your Salon Business
                 <br />
                 <span className="bg-gradient-to-r from-[#36A2FF] via-[#60A5FA] to-white bg-clip-text text-transparent">
-                  Predictable Revenue.
+                  With More Regular Clients.
                 </span>
               </h1>
 
-              <p className="text-lg sm:text-xl text-white/80 leading-relaxed max-w-xl">
-                Bangladesh’s premier salon operating ecosystem. Fill slow hours with AI-matched
-                clients, eliminate no-shows with automated WhatsApp reminders, and streamline daily
-                billing.
+              <p className="text-base sm:text-lg text-white/80 leading-relaxed max-w-xl">
+                Get more customers every week, fill empty chairs on slow weekdays, and avoid missed
+                appointments with automatic WhatsApp reminders.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row gap-4 pt-2">
                 <Magnetic>
                   <Button
                     variant="primary"
@@ -108,7 +110,7 @@ export function ForSalons() {
                   href="#calculator"
                   className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-medium text-sm transition-all"
                 >
-                  Calculate Potential Revenue
+                  Estimate Monthly Earnings
                 </a>
               </div>
 
@@ -118,27 +120,27 @@ export function ForSalons() {
                   <div className="text-2xl sm:text-3xl font-bold text-white">
                     <AnimatedNumber value={150} suffix="+" />
                   </div>
-                  <p className="text-xs text-white/60 mt-1">Verified Dhaka Studios</p>
+                  <p className="text-xs text-white/60 mt-1">Salons in Dhaka</p>
                 </div>
                 <div>
                   <div className="text-2xl sm:text-3xl font-bold text-green-400">
-                    <AnimatedNumber value={32} suffix="%" />
+                    <AnimatedNumber value={30} suffix="%" />
                   </div>
-                  <p className="text-xs text-white/60 mt-1">Avg. Revenue Uplift</p>
+                  <p className="text-xs text-white/60 mt-1">More Bookings</p>
                 </div>
                 <div>
                   <div className="text-2xl sm:text-3xl font-bold text-[#36A2FF]">
-                    <AnimatedNumber value={98} suffix=".4%" />
+                    <AnimatedNumber value={98} suffix="%" />
                   </div>
-                  <p className="text-xs text-white/60 mt-1">Appointment Turnout</p>
+                  <p className="text-xs text-white/60 mt-1">Customer Turnout</p>
                 </div>
               </div>
             </Reveal>
 
-            {/* Right: Interactive Live CMS Dashboard Mockup */}
+            {/* Right: Live Schedule Mockup */}
             <Reveal className="lg:col-span-5" delay={0.2}>
-              <TiltCard maxTilt={6} className="w-full">
-                <div className="bg-[#16233B]/90 backdrop-blur-xl border border-white/15 rounded-3xl p-6 shadow-2xl text-white space-y-6">
+              <TiltCard maxTilt={5} className="w-full">
+                <div className="bg-[#16233B]/90 backdrop-blur-xl border border-white/15 rounded-3xl p-6 shadow-2xl text-white space-y-5">
                   <div className="flex items-center justify-between border-b border-white/10 pb-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#007BFF] to-[#36A2FF] flex items-center justify-center font-bold text-sm">
@@ -148,19 +150,19 @@ export function ForSalons() {
                         <h4 className="font-semibold text-sm">Glamour Studio — Gulshan</h4>
                         <span className="text-[11px] text-green-400 flex items-center gap-1">
                           <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                          Live Booking Stream Active
+                          Online Bookings Active
                         </span>
                       </div>
                     </div>
                     <span className="px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-medium">
-                      PRO Partner
+                      Verified Partner
                     </span>
                   </div>
 
                   {/* Today's Schedule Feed */}
-                  <div className="space-y-3">
+                  <div className="space-y-2.5">
                     <div className="text-xs text-white/60 uppercase tracking-wider font-semibold">
-                      Upcoming Today (7 Slots Booked)
+                      Today's Bookings (6 Slots)
                     </div>
 
                     <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
@@ -169,8 +171,8 @@ export function ForSalons() {
                           11:30
                         </div>
                         <div>
-                          <p className="text-xs font-semibold">Nusrat Khan • Korean Two-Block</p>
-                          <p className="text-[11px] text-white/60">Stylist: Ahmed • bKash Pre-paid</p>
+                          <p className="text-xs font-semibold">Nusrat Khan • Korean Haircut</p>
+                          <p className="text-[11px] text-white/60">bKash pre-paid • Stylist: Ahmed</p>
                         </div>
                       </div>
                       <span className="text-xs font-bold text-green-400">৳1,200</span>
@@ -179,14 +181,14 @@ export function ForSalons() {
                     <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center text-xs font-bold">
-                          01:00
+                          02:00
                         </div>
                         <div>
-                          <p className="text-xs font-semibold">Tanvir Alam • Beard & Keratin</p>
-                          <p className="text-[11px] text-white/60">Stylist: Mehedi • AI Match</p>
+                          <p className="text-xs font-semibold">Tanvir Alam • Fade & Beard</p>
+                          <p className="text-[11px] text-white/60">Pay at salon • Stylist: Mehedi</p>
                         </div>
                       </div>
-                      <span className="text-xs font-bold text-green-400">৳2,400</span>
+                      <span className="text-xs font-bold text-green-400">৳850</span>
                     </div>
                   </div>
 
@@ -194,11 +196,11 @@ export function ForSalons() {
                   <div className="grid grid-cols-2 gap-3 pt-2">
                     <div className="p-3 rounded-xl bg-white/5 border border-white/10">
                       <p className="text-[11px] text-white/60">This Week Bookings</p>
-                      <p className="text-lg font-bold text-white mt-0.5">84 Appointments</p>
+                      <p className="text-base font-bold text-white mt-0.5">84 Clients</p>
                     </div>
                     <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                      <p className="text-[11px] text-white/60">Net Payout (Auto)</p>
-                      <p className="text-lg font-bold text-[#36A2FF] mt-0.5">৳142,800</p>
+                      <p className="text-[11px] text-white/60">Weekly Earnings</p>
+                      <p className="text-base font-bold text-[#36A2FF] mt-0.5">৳72,400</p>
                     </div>
                   </div>
                 </div>
@@ -208,30 +210,28 @@ export function ForSalons() {
         </div>
       </section>
 
-      {/* Interactive Revenue Calculator */}
+      {/* Revenue Calculator */}
       <section id="calculator" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal className="text-center max-w-2xl mx-auto mb-14">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#007BFF] text-xs font-semibold mb-3">
             <DollarSign className="w-3.5 h-3.5" />
-            ROI & Revenue Estimator
+            Earnings Estimator
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#0f172a]">
-            Calculate Your Salon’s Growth Potential
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0f172a]">
+            How Much Could Your Salon Earn?
           </h2>
-          <p className="text-base text-[#64748b] mt-3">
-            Adjust your salon specs below to see how SalonMama unlocks off-peak bookings and repeat
-            client retention.
+          <p className="text-sm sm:text-base text-[#64748b] mt-2">
+            Move the sliders below to see your potential monthly income with SalonMama bookings.
           </p>
         </Reveal>
 
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           {/* Controls */}
           <div className="lg:col-span-7 bg-white p-8 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] space-y-8">
-            {/* Slider 1: Chairs */}
             <div className="space-y-3">
               <div className="flex justify-between items-center">
                 <label className="text-sm font-semibold text-[#1E293B]">
-                  Number of Active Styling Chairs / Stations
+                  Number of Chairs in Your Salon
                 </label>
                 <span className="text-base font-bold text-[#007BFF] px-3 py-1 bg-blue-50 rounded-lg">
                   {chairs} Chairs
@@ -240,23 +240,22 @@ export function ForSalons() {
               <input
                 type="range"
                 min="1"
-                max="20"
+                max="15"
                 value={chairs}
                 onChange={(e) => setChairs(Number(e.target.value))}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#007BFF]"
               />
               <div className="flex justify-between text-xs text-[#94a3b8]">
-                <span>1 Chair (Boutique)</span>
-                <span>10 Chairs</span>
-                <span>20 Chairs (Flagship)</span>
+                <span>1 Chair (Small Parlour)</span>
+                <span>8 Chairs</span>
+                <span>15 Chairs (Big Salon)</span>
               </div>
             </div>
 
-            {/* Slider 2: Average Service Ticket */}
             <div className="space-y-3">
               <div className="flex justify-between items-center">
                 <label className="text-sm font-semibold text-[#1E293B]">
-                  Average Service Ticket Value (BDT)
+                  Average Price per Customer (BDT)
                 </label>
                 <span className="text-base font-bold text-[#007BFF] px-3 py-1 bg-blue-50 rounded-lg">
                   ৳{ticketPrice.toLocaleString()}
@@ -265,41 +264,40 @@ export function ForSalons() {
               <input
                 type="range"
                 min="300"
-                max="3500"
+                max="2500"
                 step="50"
                 value={ticketPrice}
                 onChange={(e) => setTicketPrice(Number(e.target.value))}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#007BFF]"
               />
               <div className="flex justify-between text-xs text-[#94a3b8]">
-                <span>৳300 (Basic Haircut)</span>
-                <span>৳1,500</span>
-                <span>৳3,500 (Color & Spa)</span>
+                <span>৳300 (Haircut)</span>
+                <span>৳1,200</span>
+                <span>৳2,500 (Color & Spa)</span>
               </div>
             </div>
 
-            {/* Slider 3: Clients per Chair */}
             <div className="space-y-3">
               <div className="flex justify-between items-center">
                 <label className="text-sm font-semibold text-[#1E293B]">
-                  Avg. Clients Serviced Per Chair Per Day
+                  Customers per Chair Each Day
                 </label>
                 <span className="text-base font-bold text-[#007BFF] px-3 py-1 bg-blue-50 rounded-lg">
-                  {dailyClients} Clients/day
+                  {dailyClients} Customers/day
                 </span>
               </div>
               <input
                 type="range"
                 min="2"
-                max="12"
+                max="10"
                 value={dailyClients}
                 onChange={(e) => setDailyClients(Number(e.target.value))}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#007BFF]"
               />
               <div className="flex justify-between text-xs text-[#94a3b8]">
-                <span>2 Clients</span>
-                <span>6 Clients</span>
-                <span>12 Clients</span>
+                <span>2 Customers</span>
+                <span>5 Customers</span>
+                <span>10 Customers</span>
               </div>
             </div>
           </div>
@@ -307,42 +305,40 @@ export function ForSalons() {
           {/* Results Summary Card */}
           <div className="lg:col-span-5">
             <div className="bg-gradient-to-br from-[#007BFF] via-[#0066DF] to-[#004DBF] text-white rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden space-y-6">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none" />
-
               <div>
                 <span className="text-xs uppercase font-semibold text-blue-200 tracking-wider">
-                  Estimated Monthly Gross
+                  Estimated Monthly Earnings
                 </span>
                 <div className="text-4xl sm:text-5xl font-extrabold mt-1 tracking-tight">
                   ৳{totalRevenue.toLocaleString()}
                 </div>
                 <p className="text-xs text-blue-100 mt-2">
-                  Includes ~৳{extraRevenue.toLocaleString()} in incremental revenue from SalonMama
-                  smart slots & AI matching.
+                  Includes ~৳{extraRevenue.toLocaleString()} extra revenue from weekday appointments
+                  and AI recommendations.
                 </p>
               </div>
 
               <div className="space-y-3 pt-4 border-t border-white/20">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-white/80">Monthly Appointments</span>
+                  <span className="text-white/80">Monthly Customers</span>
                   <span className="font-bold">{(chairs * dailyClients * 26).toLocaleString()}</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-white/80">Phone Call Hours Saved</span>
-                  <span className="font-bold text-green-300">~{hoursSaved} hrs/mo</span>
+                  <span className="text-white/80">Phone Time Saved</span>
+                  <span className="font-bold text-green-300">~{hoursSaved} hrs/month</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-white/80">No-Show Reduction</span>
-                  <span className="font-bold text-yellow-300">Down to &lt; 2.5%</span>
+                  <span className="text-white/80">Missed Appointments</span>
+                  <span className="font-bold text-yellow-300">Reduced by 85%</span>
                 </div>
               </div>
 
               <div className="pt-2">
                 <button
                   onClick={() => setIsApplyOpen(true)}
-                  className="w-full py-4 rounded-xl bg-white text-[#007BFF] font-bold text-sm hover:bg-blue-50 transition-colors shadow-lg flex items-center justify-center gap-2"
+                  className="w-full py-4 rounded-xl bg-white text-[#007BFF] font-bold text-sm hover:bg-blue-50 transition-colors shadow-lg flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Join as Verified Partner
+                  List My Salon Free
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -355,11 +351,11 @@ export function ForSalons() {
       <section className="py-20 bg-white border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#0f172a]">
-              Engineered for Modern Salon Operations
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0f172a]">
+              Why Salons in Dhaka Love SalonMama
             </h2>
-            <p className="text-base text-[#64748b] mt-3">
-              Everything required to run, market, and scale your salon without hiring extra front-desk staff.
+            <p className="text-sm sm:text-base text-[#64748b] mt-2">
+              Everything you need to get new customers and manage your daily bookings without extra staff.
             </p>
           </Reveal>
 
@@ -368,9 +364,10 @@ export function ForSalons() {
               <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#007BFF] flex items-center justify-center mb-4">
                 <Calendar className="w-6 h-6" />
               </div>
-              <h3 className="font-bold text-lg text-[#0f172a]">Live Stylist Schedule</h3>
-              <p className="text-sm text-[#64748b] leading-relaxed">
-                Color-coded chair calendar that syncs instantly with both in-salon walk-ins and SalonMama app bookings.
+              <h3 className="font-bold text-lg text-[#0f172a]">Easy Booking Calendar</h3>
+              <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
+                See all your stylist chairs on your phone or tablet. Walk-ins and online bookings
+                stay organized in one place.
               </p>
             </StaggerItem>
 
@@ -378,9 +375,10 @@ export function ForSalons() {
               <div className="w-12 h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center mb-4">
                 <Smartphone className="w-6 h-6" />
               </div>
-              <h3 className="font-bold text-lg text-[#0f172a]">WhatsApp Automation</h3>
-              <p className="text-sm text-[#64748b] leading-relaxed">
-                Automated 2-hour and 24-hour reminder messages sent to clients in Bengali and English to virtually eliminate no-shows.
+              <h3 className="font-bold text-lg text-[#0f172a]">WhatsApp Reminders</h3>
+              <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
+                Customers automatically receive friendly reminder messages on WhatsApp so they don't
+                forget their appointment time.
               </p>
             </StaggerItem>
 
@@ -388,9 +386,10 @@ export function ForSalons() {
               <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4">
                 <Sparkles className="w-6 h-6" />
               </div>
-              <h3 className="font-bold text-lg text-[#0f172a]">AI Style Finder Leads</h3>
-              <p className="text-sm text-[#64748b] leading-relaxed">
-                When users try virtual hair colors or haircut styles on the app, your salon is recommended as the certified execution partner.
+              <h3 className="font-bold text-lg text-[#0f172a]">Free Customer Photoshoot</h3>
+              <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
+                Our Dhaka team visits your salon to take high-quality professional photos of your space
+                and haircut work for free.
               </p>
             </StaggerItem>
 
@@ -398,61 +397,13 @@ export function ForSalons() {
               <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4">
                 <ShieldCheck className="w-6 h-6" />
               </div>
-              <h3 className="font-bold text-lg text-[#0f172a]">Instant Next-Day Payouts</h3>
-              <p className="text-sm text-[#64748b] leading-relaxed">
-                Direct bank, bKash Merchant, or Nagad settlement every morning with zero delayed lock-ins.
+              <h3 className="font-bold text-lg text-[#0f172a]">Daily bKash Payouts</h3>
+              <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
+                Receive your pre-paid booking money directly into your bank account or bKash Merchant
+                wallet every morning.
               </p>
             </StaggerItem>
           </Stagger>
-        </div>
-      </section>
-
-      {/* Partner Testimonials */}
-      <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#0F172A] rounded-3xl p-8 sm:p-14 text-white">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div className="flex gap-1 text-yellow-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <blockquote className="text-2xl sm:text-3xl font-medium leading-relaxed">
-                "Before SalonMama, our Monday to Wednesday weekday mornings in Banani were nearly empty.
-                Now we run at 85%+ capacity all 7 days with zero phone coordination headache."
-              </blockquote>
-              <div>
-                <p className="font-bold text-lg text-white">Rafiqul Islam</p>
-                <p className="text-sm text-white/60">Founder, Elite Barber House (Banani & Dhanmondi)</p>
-              </div>
-            </div>
-
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 space-y-6">
-              <h4 className="text-lg font-bold">Partner Onboarding Guarantee</h4>
-              <ul className="space-y-3 text-sm text-white/80">
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 shrink-0" />
-                  Free high-resolution salon photoshoot by SalonMama team
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 shrink-0" />
-                  Staff onboarding & live POS tablet configuration in 48 hours
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-400 shrink-0" />
-                  0% platform commission on your first 50 bookings
-                </li>
-              </ul>
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={() => setIsApplyOpen(true)}
-                className="w-full bg-[#36A2FF] hover:bg-[#007BFF]"
-              >
-                Apply to Become a Partner
-              </Button>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -469,15 +420,15 @@ export function ForSalons() {
             />
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.95, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              exit={{ opacity: 0, scale: 0.95, y: 16 }}
               className="relative max-w-lg w-full bg-white rounded-3xl shadow-2xl p-6 sm:p-8 z-10 overflow-hidden"
             >
               <div className="flex items-center justify-between pb-4 border-b border-gray-100">
                 <div>
-                  <h3 className="text-xl font-bold text-[#0f172a]">Salon Partnership Request</h3>
-                  <p className="text-xs text-[#64748b]">Get your studio live in Dhaka within 48 hours</p>
+                  <h3 className="text-xl font-bold text-[#0f172a]">List Your Salon</h3>
+                  <p className="text-xs text-[#64748b]">Get your salon on SalonMama in 48 hours</p>
                 </div>
                 <button
                   onClick={() => setIsApplyOpen(false)}
@@ -494,7 +445,7 @@ export function ForSalons() {
                   </div>
                   <h4 className="text-2xl font-bold text-[#0f172a]">Application Received!</h4>
                   <p className="text-sm text-[#64748b] max-w-xs mx-auto">
-                    Our Dhaka partner account manager will contact you at {formData.phone || '+880 17...'} within 24 business hours to schedule your onboarding.
+                    Our Dhaka onboarding team will call you at {formData.phone || 'your phone number'} within 24 hours to set up your profile.
                   </p>
                   <Button
                     variant="outline"
@@ -515,7 +466,7 @@ export function ForSalons() {
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Hair Couture Lounge"
+                      placeholder="e.g. Dhaka Barber Lounge"
                       value={formData.salonName}
                       onChange={(e) => setFormData({ ...formData, salonName: e.target.value })}
                       className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
@@ -525,7 +476,7 @@ export function ForSalons() {
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-semibold text-[#1E293B] mb-1">
-                        Owner / Manager Name
+                        Owner Name
                       </label>
                       <input
                         type="text"
@@ -554,7 +505,7 @@ export function ForSalons() {
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-semibold text-[#1E293B] mb-1">
-                        Dhaka Location Area
+                        Area in Dhaka
                       </label>
                       <select
                         value={formData.area}
@@ -565,9 +516,9 @@ export function ForSalons() {
                         <option value="Banani">Banani</option>
                         <option value="Dhanmondi">Dhanmondi</option>
                         <option value="Uttara">Uttara</option>
-                        <option value="Bashundhara">Bashundhara R/A</option>
+                        <option value="Bashundhara">Bashundhara</option>
                         <option value="Mirpur">Mirpur</option>
-                        <option value="Mohakhali">Mohakhali / DOHS</option>
+                        <option value="Mohakhali">Mohakhali</option>
                       </select>
                     </div>
 
@@ -580,21 +531,21 @@ export function ForSalons() {
                         onChange={(e) => setFormData({ ...formData, salonType: e.target.value })}
                         className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
                       >
-                        <option value="Unisex">Unisex Salon & Spa</option>
-                        <option value="Women">Women Only Studio</option>
-                        <option value="Men">Men’s Barber House</option>
-                        <option value="Medispa">Aesthetic Medispa</option>
+                        <option value="Unisex">Unisex Salon</option>
+                        <option value="Women">Ladies Parlour</option>
+                        <option value="Men">Men’s Barber</option>
+                        <option value="Spa">Beauty Spa</option>
                       </select>
                     </div>
                   </div>
 
                   <div className="pt-2">
                     <Button type="submit" variant="primary" size="lg" className="w-full">
-                      Submit Partner Application
+                      Submit Salon Details
                     </Button>
                   </div>
                   <p className="text-[11px] text-center text-[#94a3b8]">
-                    No upfront setup fees. You can pause or cancel anytime.
+                    Zero setup fee. You can cancel anytime.
                   </p>
                 </form>
               )}

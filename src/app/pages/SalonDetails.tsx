@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { BookingModal } from '../components/BookingModal';
 import { MotionPage, Reveal } from '../components/motion';
+import { SEOHead } from '../components/SEOHead';
 
 const TODAY_SLOTS = [
   { time: '10:00 AM', available: true },
@@ -204,6 +205,11 @@ export function SalonDetails() {
 
   return (
     <MotionPage>
+      <SEOHead
+        title={`${salon.name} - ${salon.area}, Dhaka | Prices, Stylists & Booking`}
+        description={`Book appointment at ${salon.name} in ${salon.area}, Dhaka. Haircut starting from ${salon.priceStart}. Check stylists, reviews, services list, and available slots today.`}
+        keywords={`${salon.name.toLowerCase()}, salon in ${salon.area.toLowerCase()}, haircut price ${salon.area.toLowerCase()}, best salon dhaka, book ${salon.name.toLowerCase()}`}
+      />
       <div className="min-h-screen bg-white">
 
         {/* ─── Hero Cover ─── */}

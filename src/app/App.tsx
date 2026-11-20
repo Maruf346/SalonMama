@@ -34,6 +34,7 @@ function AppContent() {
             <Route path="/ai-style-finder" element={<AIStyleFinder />} />
             <Route path="/rewards" element={<Rewards />} />
             <Route path="/lookbook" element={<EditorialLookbook />} />
+            <Route path="/style-guide" element={<EditorialLookbook />} />
             <Route path="/for-salons" element={<ForSalons />} />
             <Route path="/my-bookings" element={<MyBookings />} />
             <Route path="/contact" element={<ContactConcierge />} />

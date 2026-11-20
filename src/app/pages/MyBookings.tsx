@@ -29,6 +29,7 @@ import {
 } from '../components/motion';
 import { Button } from '../components/Button';
 import { BookingModal } from '../components/BookingModal';
+import { SEOHead } from '../components/SEOHead';
 
 interface Appointment {
   id: string;
@@ -46,19 +47,17 @@ interface Appointment {
 
 export function MyBookings() {
   const [activeTab, setActiveTab] = useState<'upcoming' | 'history' | 'saved'>('upcoming');
-  const [selectedBooking, setSelectedBooking] = useState<Appointment | null>(null);
   const [showQRModal, setShowQRModal] = useState<Appointment | null>(null);
   const [isRebookOpen, setIsRebookOpen] = useState(false);
   const [rebookSalon, setRebookSalon] = useState('Glamour Studio');
   const [cancelToast, setCancelToast] = useState(false);
 
-  // Mock appointments
   const [appointments, setAppointments] = useState<Appointment[]>([
     {
       id: 'SM-8849',
       salonName: 'Glamour Studio',
       salonArea: 'House 45, Road 12, Gulshan 2',
-      service: 'Korean Two-Block & Scalp Treatment',
+      service: 'Korean Haircut & Hair Spa Wash',
       stylist: 'Ahmed Rahman (Senior Stylist)',
       date: 'Tomorrow, Nov 21',
       time: '03:30 PM',
@@ -71,7 +70,7 @@ export function MyBookings() {
       id: 'SM-7412',
       salonName: 'Elite Barber House',
       salonArea: 'Road 11, Banani',
-      service: 'Executive Fade & Beard Sculpt',
+      service: 'Low Fade Cut & Beard Trim',
       stylist: 'Mehedi Hasan',
       date: 'Nov 12, 2026',
       time: '05:00 PM',
@@ -84,7 +83,7 @@ export function MyBookings() {
       id: 'SM-6520',
       salonName: 'Royal Hair Lounge',
       salonArea: 'Satmasjid Road, Dhanmondi',
-      service: 'Balayage Color Melt & Blowout',
+      service: 'Balayage Hair Color & Setting',
       stylist: 'Farzana Arman',
       date: 'Oct 28, 2026',
       time: '11:00 AM',
@@ -134,32 +133,37 @@ export function MyBookings() {
 
   return (
     <MotionPage className="min-h-screen bg-[#fafbfc] pt-16">
-      {/* Client Header */}
+      <SEOHead
+        title="My Appointments & Booking Pass"
+        description="View your upcoming and past salon bookings in Dhaka. Show your digital pass, reschedule appointments, and rebook your favorite stylists in 1 click."
+      />
+
+      {/* Header */}
       <section className="bg-gradient-to-r from-[#007BFF] via-[#1689FF] to-[#005ECE] text-white py-12 sm:py-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.15),transparent_40%)] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-xs font-semibold">
                 <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
-                SalonMama VIP Client Pass
+                SalonMama Customer Account
               </div>
-              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                My Appointments & Studio Pass
+              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                My Appointments & Booking Pass
               </h1>
-              <p className="text-white/80 text-sm max-w-md">
-                Manage upcoming salon appointments, scannable QR passes, and instant re-bookings.
+              <p className="text-white/85 text-sm max-w-md">
+                Show your digital pass when you arrive at the salon. You can reschedule or rebook
+                anytime.
               </p>
             </div>
 
-            {/* VIP Card badge */}
-            <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 sm:p-5 flex items-center gap-4 text-white">
+            {/* Member Card */}
+            <div className="bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl p-4 sm:p-5 flex items-center gap-4 text-white">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center font-bold text-slate-900 shadow-md">
-                VIP
+                🥈
               </div>
               <div>
-                <p className="text-xs text-white/70">Membership Status</p>
-                <p className="text-base font-bold">Silver Tier (750 pts)</p>
+                <p className="text-xs text-white/70">Reward Status</p>
+                <p className="text-base font-bold">Silver Member (750 pts)</p>
                 <Link
                   to="/rewards"
                   className="text-xs text-yellow-300 hover:underline flex items-center gap-0.5 mt-0.5"
@@ -174,15 +178,15 @@ export function MyBookings() {
           <div className="mt-8 flex items-center gap-3">
             {[
               { id: 'upcoming', label: `Upcoming (${upcomingList.length})` },
-              { id: 'history', label: `Past Visits (${pastList.length})` },
-              { id: 'saved', label: `Saved Studios (${savedItems.length})` },
+              { id: 'history', label: `Past Appointments (${pastList.length})` },
+              { id: 'saved', label: `Saved Salons (${savedItems.length})` },
             ].map((tab) => {
               const active = activeTab === tab.id;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`relative px-5 py-2.5 rounded-full text-sm font-semibold transition-colors cursor-pointer z-10 ${
+                  className={`relative px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-colors cursor-pointer z-10 ${
                     active ? 'text-[#007BFF]' : 'text-white/80 hover:text-white'
                   }`}
                 >
@@ -209,11 +213,11 @@ export function MyBookings() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-sm flex items-center justify-between"
+              className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-xs sm:text-sm flex items-center justify-between"
             >
               <div className="flex items-center gap-3">
                 <AlertCircle className="w-5 h-5 text-amber-600" />
-                <span>Appointment cancelled. Your payment has been credited to points.</span>
+                <span>Appointment cancelled. Any pre-payment has been credited to your points.</span>
               </div>
               <button
                 onClick={() => setCancelToast(false)}
@@ -233,10 +237,9 @@ export function MyBookings() {
                 <div className="w-16 h-16 rounded-full bg-blue-50 text-[#007BFF] flex items-center justify-center mx-auto">
                   <Calendar className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-bold text-[#0f172a]">No Upcoming Appointments</h3>
-                <p className="text-sm text-[#64748b] max-w-sm mx-auto">
-                  Ready for a fresh look? Discover Dhaka’s top-rated studios or try our AI Style
-                  Finder.
+                <h3 className="text-xl font-bold text-[#0f172a]">No Upcoming Bookings</h3>
+                <p className="text-xs sm:text-sm text-[#64748b] max-w-sm mx-auto">
+                  Time for a fresh look? Discover trusted salons in Dhaka or try our free AI style tool.
                 </p>
                 <div className="pt-2">
                   <Link to="/browse-salons">
@@ -247,18 +250,18 @@ export function MyBookings() {
             ) : (
               upcomingList.map((app) => (
                 <TiltCard key={app.id} maxTilt={4} className="w-full">
-                  <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_40px_rgba(0,123,255,0.08)] transition-all">
-                    {/* VIP Header banner */}
-                    <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-4 sm:px-6 flex items-center justify-between text-xs">
+                  <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_40px_rgba(0,123,255,0.08)] transition-all">
+                    {/* Header bar */}
+                    <div className="bg-slate-900 text-white p-4 sm:px-6 flex items-center justify-between text-xs">
                       <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                        <span className="font-semibold tracking-wide">CONFIRMED PASS #{app.id}</span>
+                        <span className="font-semibold tracking-wide">CONFIRMED APPOINTMENT #{app.id}</span>
                       </div>
-                      <span className="text-white/70">Check-in via scannable QR</span>
+                      <span className="text-white/70">Show on your phone at reception</span>
                     </div>
 
                     <div className="p-6 sm:p-8 grid md:grid-cols-12 gap-6 items-center">
-                      {/* Left: Studio image & quick details */}
+                      {/* Left: Studio image & details */}
                       <div className="md:col-span-8 flex flex-col sm:flex-row gap-5 items-start sm:items-center">
                         <img
                           src={app.image}
@@ -286,14 +289,14 @@ export function MyBookings() {
                         </div>
                       </div>
 
-                      {/* Right: Actions & QR Pass Button */}
+                      {/* Right: Actions */}
                       <div className="md:col-span-4 flex flex-col gap-2.5 pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-gray-100 md:pl-6">
                         <button
                           onClick={() => setShowQRModal(app)}
-                          className="w-full py-3 rounded-xl bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-md shadow-blue-200 hover:shadow-lg transition-all"
+                          className="w-full py-3 rounded-xl bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-md shadow-blue-200 hover:shadow-lg transition-all cursor-pointer"
                         >
                           <QrCode className="w-4 h-4" />
-                          Show Digital Check-in Pass
+                          View Digital Pass
                         </button>
 
                         <div className="grid grid-cols-2 gap-2">
@@ -310,7 +313,7 @@ export function MyBookings() {
                           </a>
                           <button
                             onClick={() => handleCancel(app.id)}
-                            className="py-2.5 px-3 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 font-medium text-xs flex items-center justify-center gap-1 transition-colors"
+                            className="py-2.5 px-3 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 font-medium text-xs flex items-center justify-center gap-1 transition-colors cursor-pointer"
                           >
                             Cancel
                           </button>
@@ -330,7 +333,7 @@ export function MyBookings() {
             {pastList.map((app) => (
               <div
                 key={app.id}
-                className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
               >
                 <div className="flex items-center gap-4">
                   <img
@@ -354,20 +357,20 @@ export function MyBookings() {
                     <p className="text-xs text-[#64748b] mt-0.5">
                       {app.service} • {app.date} • {app.price}
                     </p>
-                    <p className="text-xs text-[#94a3b8]">Handled by {app.stylist}</p>
+                    <p className="text-xs text-[#94a3b8]">Stylist: {app.stylist}</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2 w-full sm:w-auto">
                   <button
                     onClick={() => handleRebook(app.salonName)}
-                    className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#007BFF] font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors"
+                    className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#007BFF] font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
-                    Rebook Look
+                    Book Again
                   </button>
                   <button
-                    onClick={() => alert(`Downloading official VAT invoice receipt for #${app.id}`)}
+                    onClick={() => alert(`Downloading payment receipt for booking #${app.id}`)}
                     className="px-3 py-2 rounded-xl border border-gray-200 hover:bg-gray-50 text-gray-700 text-xs flex items-center justify-center gap-1"
                   >
                     <Download className="w-3.5 h-3.5" />
@@ -436,14 +439,14 @@ export function MyBookings() {
             />
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              initial={{ opacity: 0, scale: 0.95, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 20 }}
+              exit={{ opacity: 0, scale: 0.95, y: 16 }}
               className="relative max-w-sm w-full bg-white rounded-3xl shadow-2xl p-6 z-10 text-center space-y-5"
             >
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                Verified Appointment Pass
+                Confirmed Booking Pass
               </div>
 
               <div>
@@ -454,14 +457,10 @@ export function MyBookings() {
                 </p>
               </div>
 
-              {/* High fidelity scannable barcode/QR visual */}
+              {/* Scannable QR Visual */}
               <div className="bg-[#f8fafc] border-2 border-dashed border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center">
-                <div className="w-44 h-44 bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center justify-center">
-                  {/* Generated QR pattern */}
-                  <svg
-                    viewBox="0 0 100 100"
-                    className="w-full h-full text-slate-900 fill-current"
-                  >
+                <div className="w-40 h-40 bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center justify-center">
+                  <svg viewBox="0 0 100 100" className="w-full h-full text-slate-900 fill-current">
                     <rect x="10" y="10" width="25" height="25" rx="3" />
                     <rect x="15" y="15" width="15" height="15" fill="white" />
                     <rect x="18" y="18" width="9" height="9" />
@@ -490,7 +489,7 @@ export function MyBookings() {
                   {showQRModal.bookingCode}
                 </span>
                 <span className="text-[11px] text-gray-400 mt-0.5">
-                  Scan at front-desk tablet for VIP check-in
+                  Show at front desk when you arrive
                 </span>
               </div>
 
@@ -504,7 +503,6 @@ export function MyBookings() {
         )}
       </AnimatePresence>
 
-      {/* Rebook Modal */}
       <BookingModal
         isOpen={isRebookOpen}
         onClose={() => setIsRebookOpen(false)}

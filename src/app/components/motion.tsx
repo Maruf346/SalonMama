@@ -10,58 +10,57 @@ import {
 } from 'motion/react';
 import { cn } from '../lib/utils';
 
-// Premium spring transitions inspired by Apple / Linear
+// Gentle, calm, and floating springs
 export const luxurySpring = {
   type: 'spring' as const,
-  stiffness: 380,
-  damping: 30,
+  stiffness: 140,
+  damping: 22,
 };
 
 export const gentleSpring = {
   type: 'spring' as const,
-  stiffness: 220,
-  damping: 24,
+  stiffness: 90,
+  damping: 20,
 };
 
 export const snappySpring = {
   type: 'spring' as const,
-  stiffness: 500,
-  damping: 35,
+  stiffness: 220,
+  damping: 26,
 };
 
-// Page transition variants
+// Gentle, slow page transition variants (0.8s)
 export const pageVariants: Variants = {
-  initial: { opacity: 0, y: 16, filter: 'blur(4px)' },
+  initial: { opacity: 0, y: 14 },
   animate: {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
     transition: {
-      duration: 0.45,
-      ease: [0.16, 1, 0.3, 1],
+      duration: 0.8,
+      ease: [0.25, 1, 0.5, 1],
       when: 'beforeChildren',
-      staggerChildren: 0.06,
+      staggerChildren: 0.1,
     },
   },
   exit: {
     opacity: 0,
-    y: -12,
-    filter: 'blur(2px)',
+    y: -10,
     transition: {
-      duration: 0.24,
-      ease: [0.4, 0, 1, 1],
+      duration: 0.45,
+      ease: [0.4, 0, 0.2, 1],
     },
   },
 };
 
+// Gentle fade up (0.95s duration)
 export const fadeUpVariants: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 22 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
-      ease: [0.16, 1, 0.3, 1],
+      duration: 0.95,
+      ease: [0.25, 1, 0.5, 1],
     },
   },
 };
@@ -71,21 +70,21 @@ export const fadeInVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.4,
+      duration: 0.85,
       ease: 'easeOut',
     },
   },
 };
 
 export const scaleInVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.94, y: 12 },
+  hidden: { opacity: 0, scale: 0.96, y: 12 },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
     transition: {
-      duration: 0.5,
-      ease: [0.16, 1, 0.3, 1],
+      duration: 0.85,
+      ease: [0.25, 1, 0.5, 1],
     },
   },
 };
@@ -94,8 +93,8 @@ export const staggerContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.05,
+      staggerChildren: 0.14,
+      delayChildren: 0.08,
     },
   },
 };
@@ -139,9 +138,9 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  duration = 0.6,
+  duration = 0.95,
   once = true,
-  amount = 0.15,
+  amount = 0.12,
   variant = fadeUpVariants,
 }: RevealProps) {
   const reduceMotion = useReducedMotion();
@@ -157,7 +156,7 @@ export function Reveal({
       initial="hidden"
       whileInView="visible"
       viewport={{ once, amount }}
-      transition={{ delay, duration, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ delay, duration, ease: [0.25, 1, 0.5, 1] }}
     >
       {children}
     </motion.div>
@@ -178,8 +177,8 @@ export function Stagger({
   className,
   once = true,
   amount = 0.1,
-  staggerChildren = 0.08,
-  delayChildren = 0,
+  staggerChildren = 0.14,
+  delayChildren = 0.08,
 }: StaggerProps) {
   const reduceMotion = useReducedMotion();
 
@@ -232,7 +231,7 @@ export function StaggerItem({
   );
 }
 
-// ─── 3D Perspective Tilt Card ───
+// ─── 3D Perspective Tilt Card (Gentle) ───
 interface TiltCardProps {
   children: ReactNode;
   className?: string;
@@ -243,7 +242,7 @@ interface TiltCardProps {
 export function TiltCard({
   children,
   className,
-  maxTilt = 7,
+  maxTilt = 5,
   glare = true,
 }: TiltCardProps) {
   const reduceMotion = useReducedMotion();
@@ -252,8 +251,8 @@ export function TiltCard({
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 25 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 25 });
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 24 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 24 });
 
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [maxTilt, -maxTilt]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [-maxTilt, maxTilt]);
@@ -289,14 +288,14 @@ export function TiltCard({
         rotateX,
         rotateY,
       }}
-      className={cn('relative transition-shadow duration-300', className)}
+      className={cn('relative transition-shadow duration-500', className)}
     >
       {children}
       {glare && (
         <motion.div
-          className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 hover:opacity-100 mix-blend-overlay"
+          className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-500 hover:opacity-100 mix-blend-overlay"
           style={{
-            background: `radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,0.35) 0%, transparent 60%)`,
+            background: `radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,0.25) 0%, transparent 60%)`,
           }}
         />
       )}
@@ -304,22 +303,22 @@ export function TiltCard({
   );
 }
 
-// ─── Magnetic Button ───
+// ─── Magnetic Button (Gentle) ───
 interface MagneticProps {
   children: ReactNode;
   className?: string;
   pullFactor?: number;
 }
 
-export function Magnetic({ children, className, pullFactor = 0.35 }: MagneticProps) {
+export function Magnetic({ children, className, pullFactor = 0.25 }: MagneticProps) {
   const reduceMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const springX = useSpring(x, { stiffness: 350, damping: 20 });
-  const springY = useSpring(y, { stiffness: 350, damping: 20 });
+  const springX = useSpring(x, { stiffness: 180, damping: 20 });
+  const springY = useSpring(y, { stiffness: 180, damping: 20 });
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!ref.current || reduceMotion) return;
@@ -364,7 +363,7 @@ interface GlowSpotlightProps {
 export function GlowSpotlight({
   children,
   className,
-  spotlightColor = 'rgba(54, 162, 255, 0.12)',
+  spotlightColor = 'rgba(54, 162, 255, 0.1)',
 }: GlowSpotlightProps) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState(0);
@@ -385,7 +384,7 @@ export function GlowSpotlight({
       className={cn('relative overflow-hidden', className)}
     >
       <div
-        className="pointer-events-none absolute -inset-px transition-opacity duration-300"
+        className="pointer-events-none absolute -inset-px transition-opacity duration-500"
         style={{
           opacity,
           background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 40%)`,
@@ -408,7 +407,7 @@ interface MarqueeProps {
 export function Marquee({
   children,
   className,
-  speed = 28,
+  speed = 36,
   reverse = false,
   pauseOnHover = true,
 }: MarqueeProps) {
@@ -445,7 +444,7 @@ export function Marquee({
   );
 }
 
-// ─── Smooth Animated Spring Number ───
+// ─── Smooth Animated Spring Number (Gentle) ───
 interface AnimatedNumberProps {
   value: number;
   prefix?: string;
@@ -461,10 +460,9 @@ export function AnimatedNumber({
   decimals = 0,
   className,
 }: AnimatedNumberProps) {
-  const spring = useSpring(0, { stiffness: 120, damping: 20 });
+  const spring = useSpring(0, { stiffness: 70, damping: 18 });
   const [displayValue, setDisplayValue] = useState(0);
 
-  // Animate on mount and change
   useState(() => {
     spring.set(value);
     const unsubscribe = spring.on('change', (latest) => {
@@ -482,7 +480,7 @@ export function AnimatedNumber({
   );
 }
 
-// ─── Animated Tab Pill ───
+// ─── Animated Tab Pill (Gentle, smooth glide) ───
 interface AnimatedTabPillProps {
   layoutId?: string;
   className?: string;
@@ -496,7 +494,7 @@ export function AnimatedTabPill({
     <motion.div
       layoutId={layoutId}
       className={cn('absolute inset-0 rounded-full z-0', className)}
-      transition={{ type: 'spring', bounce: 0.18, duration: 0.5 }}
+      transition={{ type: 'spring', bounce: 0.1, duration: 0.7 }}
     />
   );
 }

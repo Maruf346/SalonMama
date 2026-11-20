@@ -19,6 +19,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Button } from '../components/Button';
 import { MotionPage, Reveal, Stagger, StaggerItem, AnimatedTabPill, TiltCard } from '../components/motion';
 import { BookingModal } from '../components/BookingModal';
+import { SEOHead } from '../components/SEOHead';
 
 interface Salon {
   id: number;
@@ -286,6 +287,11 @@ export function BrowseSalons() {
 
   return (
     <MotionPage className="min-h-screen bg-[#fafbfc] pt-16">
+      <SEOHead
+        title="Find Top Salons & Ladies Parlours in Dhaka"
+        description="Browse 150+ verified salons in Dhaka (Gulshan, Banani, Dhanmondi, Uttara). Compare prices for haircut, facial, beard trim, hair color, and book instantly."
+        keywords="salons in dhaka, best salon gulshan, ladies parlour banani, men haircut price dhaka, beauty parlour dhanmondi, facial salon dhaka"
+      />
       {/* Header Banner */}
       <section className="bg-gradient-to-br from-[#005ECE] via-[#007BFF] to-[#004BB5] text-white pt-16 pb-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.15),transparent_50%)] pointer-events-none" />
@@ -294,14 +300,13 @@ export function BrowseSalons() {
           <div className="max-w-2xl space-y-4">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-xs font-semibold uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
-              Verified Studio Directory
+              Verified Dhaka Salons & Parlours
             </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-              Discover Premier Salons in Dhaka
+              Find Trusted Salons in Dhaka
             </h1>
             <p className="text-white/85 text-sm sm:text-base">
-              Explore 150+ audited studios with instant chair availability, master stylists, and
-              verified customer feedback.
+              Browse 150+ verified barbers and ladies parlours across Dhaka. See exact prices, read customer reviews, and book easily.
             </p>
           </div>
 
