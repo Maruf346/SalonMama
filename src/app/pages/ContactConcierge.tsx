@@ -17,6 +17,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import {
   MotionPage,
   Reveal,
+  PageHeaderReveal,
   Stagger,
   StaggerItem,
   TiltCard,
@@ -122,44 +123,47 @@ export function ContactConcierge() {
         keywords="salon customer support dhaka, contact salon mama, salon booking help dhaka, bridal makeup booking dhaka, salon in gulshan contact"
       />
 
-      {/* Hero Header */}
-      <section className="bg-gradient-to-b from-[#EAF6FF]/70 via-white to-[#fafbfc] py-16 sm:py-20 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-[#007BFF] text-xs font-semibold uppercase tracking-wider mb-4">
-            <HelpCircle className="w-3.5 h-3.5" />
-            Customer Support & Booking Help
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#0f172a] leading-tight">
-            How Can We Help You Today?
-          </h1>
-          <p className="text-base sm:text-lg text-[#64748b] mt-4 leading-relaxed">
-            Need help booking a haircut, wedding makeup for your family, or finding a trusted parlour
-            near you in Dhaka? Our support team replies within a few minutes.
-          </p>
+      {/* Hero Header - Gentle initial load entrance */}
+      <PageHeaderReveal>
+        <section className="bg-gradient-to-b from-[#EAF6FF]/70 via-white to-[#fafbfc] py-16 sm:py-20 border-b border-gray-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-[#007BFF] text-xs font-semibold uppercase tracking-wider mb-4">
+              <HelpCircle className="w-3.5 h-3.5" />
+              Customer Support & Booking Help
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#0f172a] leading-tight">
+              How Can We Help You Today?
+            </h1>
+            <p className="text-base sm:text-lg text-[#64748b] mt-4 leading-relaxed">
+              Need help booking a haircut, wedding makeup for your family, or finding a trusted parlour
+              near you in Dhaka? Our support team replies within a few minutes.
+            </p>
 
-          <div className="pt-6 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href="https://wa.me/8801700000000"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow-md transition-all cursor-pointer"
-            >
-              <MessageSquare className="w-4 h-4" />
-              Chat on WhatsApp (+880 1700-000000)
-            </a>
-            <a
-              href="tel:+8801700000000"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl border border-gray-200 bg-white hover:bg-gray-50 text-[#1E293B] font-bold text-sm transition-all"
-            >
-              <Phone className="w-4 h-4 text-[#007BFF]" />
-              Call Customer Care
-            </a>
+            <div className="pt-6 flex flex-wrap items-center justify-center gap-4">
+              <a
+                href="https://wa.me/8801700000000"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm shadow-md transition-all cursor-pointer"
+              >
+                <MessageSquare className="w-4 h-4" />
+                Chat on WhatsApp (+880 1700-000000)
+              </a>
+              <a
+                href="tel:+8801700000000"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl border border-gray-200 bg-white hover:bg-gray-50 text-[#1E293B] font-bold text-sm transition-all"
+              >
+                <Phone className="w-4 h-4 text-[#007BFF]" />
+                Call Customer Care
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </PageHeaderReveal>
 
-      {/* Main Grid: Form + Dhaka Hubs */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* Main Grid: Form + Dhaka Hubs - Scroll Reveal */}
+      <Reveal amount={0.12}>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-12 gap-12">
           {/* Left: Booking Help Form */}
           <div className="lg:col-span-7">
@@ -346,26 +350,28 @@ export function ContactConcierge() {
           </div>
         </div>
       </section>
+      </Reveal>
 
-      {/* Interactive FAQ Section */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <Reveal className="text-center mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#007BFF] text-xs font-semibold mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
-            Frequently Asked Questions
+      {/* Interactive FAQ Section - Scroll Reveal */}
+      <Reveal amount={0.12}>
+        <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#007BFF] text-xs font-semibold mb-3">
+              <Sparkles className="w-3.5 h-3.5" />
+              Frequently Asked Questions
+            </div>
+            <h2 className="text-3xl font-bold text-[#0f172a]">Questions & Answers</h2>
+            <div className="mt-4 max-w-md mx-auto relative">
+              <Search className="w-4 h-4 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={faqSearch}
+                onChange={(e) => setFaqSearch(e.target.value)}
+                placeholder="Search (e.g. bKash, refund, bridal, booking)..."
+                className="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-200 bg-white text-xs focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
+              />
+            </div>
           </div>
-          <h2 className="text-3xl font-bold text-[#0f172a]">Questions & Answers</h2>
-          <div className="mt-4 max-w-md mx-auto relative">
-            <Search className="w-4 h-4 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              value={faqSearch}
-              onChange={(e) => setFaqSearch(e.target.value)}
-              placeholder="Search (e.g. bKash, refund, bridal, booking)..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-200 bg-white text-xs focus:outline-none focus:ring-2 focus:ring-[#007BFF]"
-            />
-          </div>
-        </Reveal>
 
         <div className="space-y-3">
           {filteredFaqs.map((faq, index) => {
@@ -411,6 +417,7 @@ export function ContactConcierge() {
           })}
         </div>
       </section>
+      </Reveal>
     </MotionPage>
   );
 }

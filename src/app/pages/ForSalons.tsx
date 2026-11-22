@@ -21,6 +21,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import {
   MotionPage,
   Reveal,
+  PageHeaderReveal,
   Stagger,
   StaggerItem,
   TiltCard,
@@ -69,161 +70,164 @@ export function ForSalons() {
         keywords="list salon dhaka, salon partner bangladesh, parlour software dhaka, salon mama business, increase salon clients dhaka"
       />
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0B1528] via-[#0F1E36] to-[#0A1220] text-white py-20 sm:py-26">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-700/20 via-transparent to-transparent pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            <Reveal className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[#36A2FF] text-xs font-semibold uppercase tracking-wider">
-                <Store className="w-3.5 h-3.5" />
-                For Salon & Parlour Owners in Dhaka
-              </div>
+      {/* Hero Section - Immediate gentle load entrance */}
+      <PageHeaderReveal>
+        <section className="relative overflow-hidden bg-gradient-to-br from-[#0B1528] via-[#0F1E36] to-[#0A1220] text-white py-20 sm:py-26">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-700/20 via-transparent to-transparent pointer-events-none" />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid lg:grid-cols-12 gap-12 items-center">
+              <div className="lg:col-span-7 space-y-6">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[#36A2FF] text-xs font-semibold uppercase tracking-wider">
+                  <Store className="w-3.5 h-3.5" />
+                  For Salon & Parlour Owners in Dhaka
+                </div>
 
-              <h1 className="text-4xl sm:text-6xl font-extrabold leading-[1.15] tracking-tight">
-                Grow Your Salon Business
-                <br />
-                <span className="bg-gradient-to-r from-[#36A2FF] via-[#60A5FA] to-white bg-clip-text text-transparent">
-                  With More Regular Clients.
-                </span>
-              </h1>
+                <h1 className="text-4xl sm:text-6xl font-extrabold leading-[1.15] tracking-tight">
+                  Grow Your Salon Business
+                  <br />
+                  <span className="bg-gradient-to-r from-[#36A2FF] via-[#60A5FA] to-white bg-clip-text text-transparent">
+                    With More Regular Clients.
+                  </span>
+                </h1>
 
-              <p className="text-base sm:text-lg text-white/80 leading-relaxed max-w-xl">
-                Get more customers every week, fill empty chairs on slow weekdays, and avoid missed
-                appointments with automatic WhatsApp reminders.
-              </p>
+                <p className="text-base sm:text-lg text-white/80 leading-relaxed max-w-xl">
+                  Get more customers every week, fill empty chairs on slow weekdays, and avoid missed
+                  appointments with automatic WhatsApp reminders.
+                </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <Magnetic>
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    onClick={() => setIsApplyOpen(true)}
-                    className="shadow-xl shadow-blue-500/25 px-8"
+                <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                  <Magnetic>
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      onClick={() => setIsApplyOpen(true)}
+                      className="shadow-xl shadow-blue-500/25 px-8"
+                    >
+                      List Your Salon (Free 30 Days)
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
+                  </Magnetic>
+
+                  <a
+                    href="#calculator"
+                    className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-medium text-sm transition-all"
                   >
-                    List Your Salon (Free 30 Days)
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </Magnetic>
-
-                <a
-                  href="#calculator"
-                  className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-medium text-sm transition-all"
-                >
-                  Estimate Monthly Earnings
-                </a>
-              </div>
-
-              {/* Fast credibility metrics */}
-              <div className="grid grid-cols-3 gap-6 pt-6 border-t border-white/10">
-                <div>
-                  <div className="text-2xl sm:text-3xl font-bold text-white">
-                    <AnimatedNumber value={150} suffix="+" />
-                  </div>
-                  <p className="text-xs text-white/60 mt-1">Salons in Dhaka</p>
+                    Estimate Monthly Earnings
+                  </a>
                 </div>
-                <div>
-                  <div className="text-2xl sm:text-3xl font-bold text-green-400">
-                    <AnimatedNumber value={30} suffix="%" />
+
+                {/* Fast credibility metrics */}
+                <div className="grid grid-cols-3 gap-6 pt-6 border-t border-white/10">
+                  <div>
+                    <div className="text-2xl sm:text-3xl font-bold text-white">
+                      <AnimatedNumber value={150} suffix="+" />
+                    </div>
+                    <p className="text-xs text-white/60 mt-1">Salons in Dhaka</p>
                   </div>
-                  <p className="text-xs text-white/60 mt-1">More Bookings</p>
-                </div>
-                <div>
-                  <div className="text-2xl sm:text-3xl font-bold text-[#36A2FF]">
-                    <AnimatedNumber value={98} suffix="%" />
+                  <div>
+                    <div className="text-2xl sm:text-3xl font-bold text-green-400">
+                      <AnimatedNumber value={30} suffix="%" />
+                    </div>
+                    <p className="text-xs text-white/60 mt-1">More Bookings</p>
                   </div>
-                  <p className="text-xs text-white/60 mt-1">Customer Turnout</p>
+                  <div>
+                    <div className="text-2xl sm:text-3xl font-bold text-[#36A2FF]">
+                      <AnimatedNumber value={98} suffix="%" />
+                    </div>
+                    <p className="text-xs text-white/60 mt-1">Customer Turnout</p>
+                  </div>
                 </div>
               </div>
-            </Reveal>
 
-            {/* Right: Live Schedule Mockup */}
-            <Reveal className="lg:col-span-5" delay={0.2}>
-              <TiltCard maxTilt={5} className="w-full">
-                <div className="bg-[#16233B]/90 backdrop-blur-xl border border-white/15 rounded-3xl p-6 shadow-2xl text-white space-y-5">
-                  <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#007BFF] to-[#36A2FF] flex items-center justify-center font-bold text-sm">
-                        GS
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-sm">Glamour Studio — Gulshan</h4>
-                        <span className="text-[11px] text-green-400 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                          Online Bookings Active
-                        </span>
-                      </div>
-                    </div>
-                    <span className="px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-medium">
-                      Verified Partner
-                    </span>
-                  </div>
-
-                  {/* Today's Schedule Feed */}
-                  <div className="space-y-2.5">
-                    <div className="text-xs text-white/60 uppercase tracking-wider font-semibold">
-                      Today's Bookings (6 Slots)
-                    </div>
-
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
+              {/* Right: Live Schedule Mockup */}
+              <div className="lg:col-span-5">
+                <TiltCard maxTilt={5} className="w-full">
+                  <div className="bg-[#16233B]/90 backdrop-blur-xl border border-white/15 rounded-3xl p-6 shadow-2xl text-white space-y-5">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-blue-500/20 text-[#36A2FF] flex items-center justify-center text-xs font-bold">
-                          11:30
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#007BFF] to-[#36A2FF] flex items-center justify-center font-bold text-sm">
+                          GS
                         </div>
                         <div>
-                          <p className="text-xs font-semibold">Nusrat Khan • Korean Haircut</p>
-                          <p className="text-[11px] text-white/60">bKash pre-paid • Stylist: Ahmed</p>
+                          <h4 className="font-semibold text-sm">Glamour Studio — Gulshan</h4>
+                          <span className="text-[11px] text-green-400 flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                            Online Bookings Active
+                          </span>
                         </div>
                       </div>
-                      <span className="text-xs font-bold text-green-400">৳1,200</span>
+                      <span className="px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-medium">
+                        Verified Partner
+                      </span>
                     </div>
 
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center text-xs font-bold">
-                          02:00
-                        </div>
-                        <div>
-                          <p className="text-xs font-semibold">Tanvir Alam • Fade & Beard</p>
-                          <p className="text-[11px] text-white/60">Pay at salon • Stylist: Mehedi</p>
-                        </div>
+                    {/* Today's Schedule Feed */}
+                    <div className="space-y-2.5">
+                      <div className="text-xs text-white/60 uppercase tracking-wider font-semibold">
+                        Today's Bookings (6 Slots)
                       </div>
-                      <span className="text-xs font-bold text-green-400">৳850</span>
+
+                      <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-full bg-blue-500/20 text-[#36A2FF] flex items-center justify-center text-xs font-bold">
+                            11:30
+                          </div>
+                          <div>
+                            <p className="text-xs font-semibold">Nusrat Khan • Korean Haircut</p>
+                            <p className="text-[11px] text-white/60">bKash pre-paid • Stylist: Ahmed</p>
+                          </div>
+                        </div>
+                        <span className="text-xs font-bold text-green-400">৳1,200</span>
+                      </div>
+
+                      <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center text-xs font-bold">
+                            02:00
+                          </div>
+                          <div>
+                            <p className="text-xs font-semibold">Tanvir Alam • Fade & Beard</p>
+                            <p className="text-[11px] text-white/60">Pay at salon • Stylist: Mehedi</p>
+                          </div>
+                        </div>
+                        <span className="text-xs font-bold text-green-400">৳850</span>
+                      </div>
+                    </div>
+
+                    {/* Performance Snapshot */}
+                    <div className="grid grid-cols-2 gap-3 pt-2">
+                      <div className="p-3 rounded-xl bg-white/5 border border-white/10">
+                        <p className="text-[11px] text-white/60">This Week Bookings</p>
+                        <p className="text-base font-bold text-white mt-0.5">84 Clients</p>
+                      </div>
+                      <div className="p-3 rounded-xl bg-white/5 border border-white/10">
+                        <p className="text-[11px] text-white/60">Weekly Earnings</p>
+                        <p className="text-base font-bold text-[#36A2FF] mt-0.5">৳72,400</p>
+                      </div>
                     </div>
                   </div>
-
-                  {/* Performance Snapshot */}
-                  <div className="grid grid-cols-2 gap-3 pt-2">
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                      <p className="text-[11px] text-white/60">This Week Bookings</p>
-                      <p className="text-base font-bold text-white mt-0.5">84 Clients</p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                      <p className="text-[11px] text-white/60">Weekly Earnings</p>
-                      <p className="text-base font-bold text-[#36A2FF] mt-0.5">৳72,400</p>
-                    </div>
-                  </div>
-                </div>
-              </TiltCard>
-            </Reveal>
+                </TiltCard>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </PageHeaderReveal>
 
-      {/* Revenue Calculator */}
-      <section id="calculator" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#007BFF] text-xs font-semibold mb-3">
-            <DollarSign className="w-3.5 h-3.5" />
-            Earnings Estimator
+      {/* Revenue Calculator - Scroll Reveal */}
+      <Reveal amount={0.12}>
+        <section id="calculator" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#007BFF] text-xs font-semibold mb-3">
+              <DollarSign className="w-3.5 h-3.5" />
+              Earnings Estimator
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0f172a]">
+              How Much Could Your Salon Earn?
+            </h2>
+            <p className="text-sm sm:text-base text-[#64748b] mt-2">
+              Move the sliders below to see your potential monthly income with SalonMama bookings.
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0f172a]">
-            How Much Could Your Salon Earn?
-          </h2>
-          <p className="text-sm sm:text-base text-[#64748b] mt-2">
-            Move the sliders below to see your potential monthly income with SalonMama bookings.
-          </p>
-        </Reveal>
 
         <div className="grid lg:grid-cols-12 gap-10 items-center">
           {/* Controls */}
@@ -346,66 +350,69 @@ export function ForSalons() {
           </div>
         </div>
       </section>
+      </Reveal>
 
-      {/* Feature Pillars */}
-      <section className="py-20 bg-white border-y border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0f172a]">
-              Why Salons in Dhaka Love SalonMama
-            </h2>
-            <p className="text-sm sm:text-base text-[#64748b] mt-2">
-              Everything you need to get new customers and manage your daily bookings without extra staff.
-            </p>
-          </Reveal>
-
-          <Stagger className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <StaggerItem className="p-6 rounded-2xl bg-[#fafbfc] border border-gray-100 hover:border-blue-200 hover:shadow-lg transition-all space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#007BFF] flex items-center justify-center mb-4">
-                <Calendar className="w-6 h-6" />
-              </div>
-              <h3 className="font-bold text-lg text-[#0f172a]">Easy Booking Calendar</h3>
-              <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
-                See all your stylist chairs on your phone or tablet. Walk-ins and online bookings
-                stay organized in one place.
+      {/* Feature Pillars - Scroll Reveal */}
+      <Reveal amount={0.12}>
+        <section className="py-20 bg-white border-y border-gray-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0f172a]">
+                Why Salons in Dhaka Love SalonMama
+              </h2>
+              <p className="text-sm sm:text-base text-[#64748b] mt-2">
+                Everything you need to get new customers and manage your daily bookings without extra staff.
               </p>
-            </StaggerItem>
+            </div>
 
-            <StaggerItem className="p-6 rounded-2xl bg-[#fafbfc] border border-gray-100 hover:border-blue-200 hover:shadow-lg transition-all space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center mb-4">
-                <Smartphone className="w-6 h-6" />
-              </div>
-              <h3 className="font-bold text-lg text-[#0f172a]">WhatsApp Reminders</h3>
-              <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
-                Customers automatically receive friendly reminder messages on WhatsApp so they don't
-                forget their appointment time.
-              </p>
-            </StaggerItem>
+            <Stagger className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              <StaggerItem className="p-6 rounded-2xl bg-[#fafbfc] border border-gray-100 hover:border-blue-200 hover:shadow-lg transition-all space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#007BFF] flex items-center justify-center mb-4">
+                  <Calendar className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-lg text-[#0f172a]">Easy Booking Calendar</h3>
+                <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
+                  See all your stylist chairs on your phone or tablet. Walk-ins and online bookings
+                  stay organized in one place.
+                </p>
+              </StaggerItem>
 
-            <StaggerItem className="p-6 rounded-2xl bg-[#fafbfc] border border-gray-100 hover:border-blue-200 hover:shadow-lg transition-all space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4">
-                <Sparkles className="w-6 h-6" />
-              </div>
-              <h3 className="font-bold text-lg text-[#0f172a]">Free Customer Photoshoot</h3>
-              <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
-                Our Dhaka team visits your salon to take high-quality professional photos of your space
-                and haircut work for free.
-              </p>
-            </StaggerItem>
+              <StaggerItem className="p-6 rounded-2xl bg-[#fafbfc] border border-gray-100 hover:border-blue-200 hover:shadow-lg transition-all space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center mb-4">
+                  <Smartphone className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-lg text-[#0f172a]">WhatsApp Reminders</h3>
+                <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
+                  Customers automatically receive friendly reminder messages on WhatsApp so they don't
+                  forget their appointment time.
+                </p>
+              </StaggerItem>
 
-            <StaggerItem className="p-6 rounded-2xl bg-[#fafbfc] border border-gray-100 hover:border-blue-200 hover:shadow-lg transition-all space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <h3 className="font-bold text-lg text-[#0f172a]">Daily bKash Payouts</h3>
-              <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
-                Receive your pre-paid booking money directly into your bank account or bKash Merchant
-                wallet every morning.
-              </p>
-            </StaggerItem>
-          </Stagger>
-        </div>
-      </section>
+              <StaggerItem className="p-6 rounded-2xl bg-[#fafbfc] border border-gray-100 hover:border-blue-200 hover:shadow-lg transition-all space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4">
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-lg text-[#0f172a]">Free Customer Photoshoot</h3>
+                <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
+                  Our Dhaka team visits your salon to take high-quality professional photos of your space
+                  and haircut work for free.
+                </p>
+              </StaggerItem>
+
+              <StaggerItem className="p-6 rounded-2xl bg-[#fafbfc] border border-gray-100 hover:border-blue-200 hover:shadow-lg transition-all space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4">
+                  <ShieldCheck className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-lg text-[#0f172a]">Daily bKash Payouts</h3>
+                <p className="text-xs sm:text-sm text-[#64748b] leading-relaxed">
+                  Receive your pre-paid booking money directly into your bank account or bKash Merchant
+                  wallet every morning.
+                </p>
+              </StaggerItem>
+            </Stagger>
+          </div>
+        </section>
+      </Reveal>
 
       {/* Application Drawer / Modal */}
       <AnimatePresence>

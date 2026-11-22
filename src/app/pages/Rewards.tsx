@@ -20,6 +20,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import {
   MotionPage,
   Reveal,
+  PageHeaderReveal,
   Stagger,
   StaggerItem,
   TiltCard,
@@ -168,104 +169,106 @@ export function Rewards() {
         description="Earn points on every haircut and salon visit in Dhaka. Redeem points for free haircuts, facials, and exclusive discount vouchers across top salons."
         keywords="salon rewards dhaka, free haircut points bangladesh, salon mama discounts, beauty salon offers dhaka"
       />
-      {/* ─── Hero ─── */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#005ECE] via-[#007BFF] to-[#004BB5] py-16 sm:py-20 px-4 sm:px-6 lg:px-8 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(255,255,255,0.18),transparent_55%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_50%,rgba(0,56,200,0.4),transparent_55%)] pointer-events-none" />
+      {/* ─── Hero - Gentle initial load entrance ─── */}
+      <PageHeaderReveal>
+        <div className="relative overflow-hidden bg-gradient-to-br from-[#005ECE] via-[#007BFF] to-[#004BB5] py-16 sm:py-20 px-4 sm:px-6 lg:px-8 text-white">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(255,255,255,0.18),transparent_55%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_50%,rgba(0,56,200,0.4),transparent_55%)] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/25">
-                <Gift className="w-4 h-4 text-yellow-300" />
-                <span className="text-xs font-semibold uppercase tracking-wider">
-                  SalonMama Loyalty Rewards
-                </span>
-              </div>
-              <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight">
-                Beauty That
-                <br />
-                <span className="text-yellow-300">Pays Back Every Visit</span>
-              </h1>
-              <p className="text-base sm:text-lg text-white/90 leading-relaxed max-w-md">
-                Earn points with every booking, verified review, and friend referral. Redeem for
-                free services, salon vouchers, and exclusive VIP passes.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <button
-                  onClick={handleClaimDailyBonus}
-                  disabled={scratchedBonus}
-                  className={`px-7 py-3.5 rounded-full font-bold text-sm shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                    scratchedBonus
-                      ? 'bg-green-400 text-slate-900 cursor-default'
-                      : 'bg-white text-[#007BFF] hover:bg-yellow-300 hover:text-slate-900 hover:scale-105'
-                  }`}
-                >
-                  <PartyPopper className="w-4 h-4" />
-                  {scratchedBonus ? 'Daily +50 Pts Claimed!' : 'Claim Daily Bonus (+50 pts)'}
-                </button>
-                <Link
-                  to="/browse-salons"
-                  className="px-7 py-3.5 rounded-full bg-white/15 border-2 border-white/30 text-white font-semibold hover:bg-white/25 transition-all text-center text-sm"
-                >
-                  Book & Earn Points
-                </Link>
-              </div>
-            </div>
-
-            {/* Mock Points Card */}
-            <div className="flex justify-center lg:justify-end">
-              <TiltCard maxTilt={6} className="w-full max-w-sm">
-                <div className="bg-white/15 backdrop-blur-xl rounded-3xl border border-white/25 p-6 w-full shadow-2xl space-y-5">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-white/70 text-xs font-semibold uppercase tracking-widest mb-1">
-                        Your Points Balance
-                      </p>
-                      <div className="text-4xl font-extrabold text-white">
-                        <AnimatedNumber value={userPoints} />
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/20 border border-white/25 text-sm font-bold">
-                        🥈 Silver Tier
-                      </span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between text-xs text-white/80 mb-2">
-                      <span>Silver Tier</span>
-                      <span className="font-semibold text-yellow-300">
-                        {pointsToNext} pts to Gold
-                      </span>
-                    </div>
-                    <div className="h-2.5 bg-white/20 rounded-full overflow-hidden">
-                      <motion.div
-                        className="h-full bg-gradient-to-r from-yellow-300 to-amber-400 rounded-full"
-                        style={{ width: `${progressToNext}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-3 pt-3 border-t border-white/15">
-                    {[
-                      { label: 'Total Earned', value: '1,840' },
-                      { label: 'Redeemed', value: '3' },
-                      { label: 'Bookings', value: '12' },
-                    ].map((stat, i) => (
-                      <div key={i} className="text-center">
-                        <div className="text-lg font-bold text-white">{stat.value}</div>
-                        <div className="text-[10px] text-white/70 mt-0.5">{stat.label}</div>
-                      </div>
-                    ))}
-                  </div>
+          <div className="max-w-7xl mx-auto relative z-10">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/25">
+                  <Gift className="w-4 h-4 text-yellow-300" />
+                  <span className="text-xs font-semibold uppercase tracking-wider">
+                    SalonMama Loyalty Rewards
+                  </span>
                 </div>
-              </TiltCard>
+                <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight">
+                  Beauty That
+                  <br />
+                  <span className="text-yellow-300">Pays Back Every Visit</span>
+                </h1>
+                <p className="text-base sm:text-lg text-white/90 leading-relaxed max-w-md">
+                  Earn points with every booking, verified review, and friend referral. Redeem for
+                  free services, salon vouchers, and exclusive VIP passes.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                  <button
+                    onClick={handleClaimDailyBonus}
+                    disabled={scratchedBonus}
+                    className={`px-7 py-3.5 rounded-full font-bold text-sm shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                      scratchedBonus
+                        ? 'bg-green-400 text-slate-900 cursor-default'
+                        : 'bg-white text-[#007BFF] hover:bg-yellow-300 hover:text-slate-900 hover:scale-105'
+                    }`}
+                  >
+                    <PartyPopper className="w-4 h-4" />
+                    {scratchedBonus ? 'Daily +50 Pts Claimed!' : 'Claim Daily Bonus (+50 pts)'}
+                  </button>
+                  <Link
+                    to="/browse-salons"
+                    className="px-7 py-3.5 rounded-full bg-white/15 border-2 border-white/30 text-white font-semibold hover:bg-white/25 transition-all text-center text-sm"
+                  >
+                    Book & Earn Points
+                  </Link>
+                </div>
+              </div>
+
+              {/* Mock Points Card */}
+              <div className="flex justify-center lg:justify-end">
+                <TiltCard maxTilt={6} className="w-full max-w-sm">
+                  <div className="bg-white/15 backdrop-blur-xl rounded-3xl border border-white/25 p-6 w-full shadow-2xl space-y-5">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-white/70 text-xs font-semibold uppercase tracking-widest mb-1">
+                          Your Points Balance
+                        </p>
+                        <div className="text-4xl font-extrabold text-white">
+                          <AnimatedNumber value={userPoints} />
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/20 border border-white/25 text-sm font-bold">
+                          🥈 Silver Tier
+                        </span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex justify-between text-xs text-white/80 mb-2">
+                        <span>Silver Tier</span>
+                        <span className="font-semibold text-yellow-300">
+                          {pointsToNext} pts to Gold
+                        </span>
+                      </div>
+                      <div className="h-2.5 bg-white/20 rounded-full overflow-hidden">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-yellow-300 to-amber-400 rounded-full"
+                          style={{ width: `${progressToNext}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-3 pt-3 border-t border-white/15">
+                      {[
+                        { label: 'Total Earned', value: '1,840' },
+                        { label: 'Redeemed', value: '3' },
+                        { label: 'Bookings', value: '12' },
+                      ].map((stat, i) => (
+                        <div key={i} className="text-center">
+                          <div className="text-lg font-bold text-white">{stat.value}</div>
+                          <div className="text-[10px] text-white/70 mt-0.5">{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </TiltCard>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </PageHeaderReveal>
 
       {/* ─── How to Earn ─── */}
       <Reveal>

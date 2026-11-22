@@ -29,14 +29,14 @@ export const snappySpring = {
   damping: 26,
 };
 
-// Gentle, slow page transition variants (0.8s)
+// Gentle, slow page transition variants
 export const pageVariants: Variants = {
-  initial: { opacity: 0, y: 14 },
+  initial: { opacity: 0, y: 12 },
   animate: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.75,
       ease: [0.25, 1, 0.5, 1],
       when: 'beforeChildren',
       staggerChildren: 0.1,
@@ -44,22 +44,22 @@ export const pageVariants: Variants = {
   },
   exit: {
     opacity: 0,
-    y: -10,
+    y: -8,
     transition: {
-      duration: 0.45,
+      duration: 0.4,
       ease: [0.4, 0, 0.2, 1],
     },
   },
 };
 
-// Gentle fade up (0.95s duration)
+// Gentle fade up (0.9s duration)
 export const fadeUpVariants: Variants = {
   hidden: { opacity: 0, y: 22 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.95,
+      duration: 0.9,
       ease: [0.25, 1, 0.5, 1],
     },
   },
@@ -124,6 +124,39 @@ export function MotionPage({ children, className }: MotionPageProps) {
   );
 }
 
+// ─── Top of Page Header Entrance Animation (Triggered immediately on page load) ───
+interface PageHeaderRevealProps {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+  duration?: number;
+}
+
+export function PageHeaderReveal({
+  children,
+  className,
+  delay = 0.05,
+  duration = 0.85,
+}: PageHeaderRevealProps) {
+  const reduceMotion = useReducedMotion();
+
+  if (reduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration, ease: [0.25, 1, 0.5, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// ─── Per-Section Scroll Reveal (Triggered when scrolled to that specific section) ───
 interface RevealProps {
   children: ReactNode;
   className?: string;
@@ -138,7 +171,7 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  duration = 0.95,
+  duration = 0.9,
   once = true,
   amount = 0.12,
   variant = fadeUpVariants,
@@ -177,8 +210,8 @@ export function Stagger({
   className,
   once = true,
   amount = 0.1,
-  staggerChildren = 0.14,
-  delayChildren = 0.08,
+  staggerChildren = 0.12,
+  delayChildren = 0.06,
 }: StaggerProps) {
   const reduceMotion = useReducedMotion();
 

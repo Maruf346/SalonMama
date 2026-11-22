@@ -21,6 +21,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import {
   MotionPage,
   Reveal,
+  PageHeaderReveal,
   Stagger,
   StaggerItem,
   TiltCard,
@@ -138,74 +139,77 @@ export function MyBookings() {
         description="View your upcoming and past salon bookings in Dhaka. Show your digital pass, reschedule appointments, and rebook your favorite stylists in 1 click."
       />
 
-      {/* Header */}
-      <section className="bg-gradient-to-r from-[#007BFF] via-[#1689FF] to-[#005ECE] text-white py-12 sm:py-16 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-xs font-semibold">
-                <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
-                SalonMama Customer Account
+      {/* Header - Immediate gentle load entrance */}
+      <PageHeaderReveal>
+        <section className="bg-gradient-to-r from-[#007BFF] via-[#1689FF] to-[#005ECE] text-white py-12 sm:py-16 relative overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md text-xs font-semibold">
+                  <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
+                  SalonMama Customer Account
+                </div>
+                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                  My Appointments & Booking Pass
+                </h1>
+                <p className="text-white/85 text-sm max-w-md">
+                  Show your digital pass when you arrive at the salon. You can reschedule or rebook
+                  anytime.
+                </p>
               </div>
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-                My Appointments & Booking Pass
-              </h1>
-              <p className="text-white/85 text-sm max-w-md">
-                Show your digital pass when you arrive at the salon. You can reschedule or rebook
-                anytime.
-              </p>
+
+              {/* Member Card */}
+              <div className="bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl p-4 sm:p-5 flex items-center gap-4 text-white">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center font-bold text-slate-900 shadow-md">
+                  🥈
+                </div>
+                <div>
+                  <p className="text-xs text-white/70">Reward Status</p>
+                  <p className="text-base font-bold">Silver Member (750 pts)</p>
+                  <Link
+                    to="/rewards"
+                    className="text-xs text-yellow-300 hover:underline flex items-center gap-0.5 mt-0.5"
+                  >
+                    View Rewards & Free Perks <ChevronRight className="w-3 h-3" />
+                  </Link>
+                </div>
+              </div>
             </div>
 
-            {/* Member Card */}
-            <div className="bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl p-4 sm:p-5 flex items-center gap-4 text-white">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center font-bold text-slate-900 shadow-md">
-                🥈
-              </div>
-              <div>
-                <p className="text-xs text-white/70">Reward Status</p>
-                <p className="text-base font-bold">Silver Member (750 pts)</p>
-                <Link
-                  to="/rewards"
-                  className="text-xs text-yellow-300 hover:underline flex items-center gap-0.5 mt-0.5"
-                >
-                  View Rewards & Free Perks <ChevronRight className="w-3 h-3" />
-                </Link>
-              </div>
+            {/* Navigation Pill Tabs with animated layoutId */}
+            <div className="mt-8 flex items-center gap-3">
+              {[
+                { id: 'upcoming', label: `Upcoming (${upcomingList.length})` },
+                { id: 'history', label: `Past Appointments (${pastList.length})` },
+                { id: 'saved', label: `Saved Salons (${savedItems.length})` },
+              ].map((tab) => {
+                const active = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as any)}
+                    className={`relative px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-colors cursor-pointer z-10 ${
+                      active ? 'text-[#007BFF]' : 'text-white/80 hover:text-white'
+                    }`}
+                  >
+                    {active && (
+                      <AnimatedTabPill
+                        layoutId="clientNavPill"
+                        className="bg-white shadow-md shadow-blue-900/20"
+                      />
+                    )}
+                    <span className="relative z-10">{tab.label}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
+        </section>
+      </PageHeaderReveal>
 
-          {/* Navigation Pill Tabs with animated layoutId */}
-          <div className="mt-8 flex items-center gap-3">
-            {[
-              { id: 'upcoming', label: `Upcoming (${upcomingList.length})` },
-              { id: 'history', label: `Past Appointments (${pastList.length})` },
-              { id: 'saved', label: `Saved Salons (${savedItems.length})` },
-            ].map((tab) => {
-              const active = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`relative px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-colors cursor-pointer z-10 ${
-                    active ? 'text-[#007BFF]' : 'text-white/80 hover:text-white'
-                  }`}
-                >
-                  {active && (
-                    <AnimatedTabPill
-                      layoutId="clientNavPill"
-                      className="bg-white shadow-md shadow-blue-900/20"
-                    />
-                  )}
-                  <span className="relative z-10">{tab.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Main Tab Content */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Main Tab Content - Scroll Reveal */}
+      <Reveal amount={0.12}>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Cancel Toast */}
         <AnimatePresence>
           {cancelToast && (
@@ -425,6 +429,7 @@ export function MyBookings() {
           </div>
         )}
       </section>
+      </Reveal>
 
       {/* Scannable Digital QR Pass Modal */}
       <AnimatePresence>

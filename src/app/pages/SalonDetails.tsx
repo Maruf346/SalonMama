@@ -7,7 +7,7 @@ import {
   X, Calendar, ZoomIn, Users, ChevronDown, ChevronUp,
 } from 'lucide-react';
 import { BookingModal } from '../components/BookingModal';
-import { MotionPage, Reveal } from '../components/motion';
+import { MotionPage, Reveal, PageHeaderReveal } from '../components/motion';
 import { SEOHead } from '../components/SEOHead';
 
 const TODAY_SLOTS = [
@@ -212,95 +212,97 @@ export function SalonDetails() {
       />
       <div className="min-h-screen bg-white">
 
-        {/* ─── Hero Cover ─── */}
-        <div className="relative h-[480px] sm:h-[540px] overflow-hidden">
-          <img
-            src={salon.coverImage}
-            alt={salon.name}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
+        {/* ─── Hero Cover - Immediate gentle load entrance ─── */}
+        <PageHeaderReveal>
+          <div className="relative h-[480px] sm:h-[540px] overflow-hidden">
+            <img
+              src={salon.coverImage}
+              alt={salon.name}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
 
-          {/* Breadcrumb */}
-          <div className="absolute top-20 left-0 right-0 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
-              <div className="flex items-center gap-2 text-white/70 text-sm">
-                <Link to="/" className="hover:text-white transition-colors">Home</Link>
-                <ChevronRight className="w-4 h-4" />
-                <Link to="/browse-salons" className="hover:text-white transition-colors">Browse Salons</Link>
-                <ChevronRight className="w-4 h-4" />
-                <span className="text-white font-medium">{salon.name}</span>
+            {/* Breadcrumb */}
+            <div className="absolute top-20 left-0 right-0 px-4 sm:px-6 lg:px-8">
+              <div className="max-w-7xl mx-auto">
+                <div className="flex items-center gap-2 text-white/70 text-sm">
+                  <Link to="/" className="hover:text-white transition-colors">Home</Link>
+                  <ChevronRight className="w-4 h-4" />
+                  <Link to="/browse-salons" className="hover:text-white transition-colors">Browse Salons</Link>
+                  <ChevronRight className="w-4 h-4" />
+                  <span className="text-white font-medium">{salon.name}</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Action buttons top-right */}
-          <div className="absolute top-20 right-4 sm:right-6 lg:right-8 flex gap-2">
-            <div className="max-w-7xl mx-auto flex gap-2">
-              <button
-                onClick={() => setSaved(s => !s)}
-                className={`w-10 h-10 rounded-full backdrop-blur-sm flex items-center justify-center transition-all ${
-                  saved ? 'bg-rose-500 shadow-lg' : 'bg-white/20 border border-white/30 hover:bg-white/30'
-                }`}
-              >
-                <Heart className={`w-5 h-5 ${saved ? 'fill-white text-white' : 'text-white'}`} />
-              </button>
-              <button className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center hover:bg-white/30 transition-colors">
-                <Share2 className="w-5 h-5 text-white" />
-              </button>
+            {/* Action buttons top-right */}
+            <div className="absolute top-20 right-4 sm:right-6 lg:right-8 flex gap-2">
+              <div className="max-w-7xl mx-auto flex gap-2">
+                <button
+                  onClick={() => setSaved(s => !s)}
+                  className={`w-10 h-10 rounded-full backdrop-blur-sm flex items-center justify-center transition-all ${
+                    saved ? 'bg-rose-500 shadow-lg' : 'bg-white/20 border border-white/30 hover:bg-white/30'
+                  }`}
+                >
+                  <Heart className={`w-5 h-5 ${saved ? 'fill-white text-white' : 'text-white'}`} />
+                </button>
+                <button className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center hover:bg-white/30 transition-colors">
+                  <Share2 className="w-5 h-5 text-white" />
+                </button>
+              </div>
             </div>
-          </div>
 
-          {/* Salon Info Glass Card */}
-          <div className="absolute bottom-0 left-0 right-0 px-4 sm:px-6 lg:px-8 pb-8">
-            <div className="max-w-7xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 sm:p-6 shadow-xl">
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  <div>
-                    <div className="flex items-center gap-3 mb-2 flex-wrap">
-                      <h1 className="text-2xl sm:text-3xl font-bold text-white">{salon.name}</h1>
-                      <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                        salon.isOpen
-                          ? 'bg-green-500/20 text-green-300 border border-green-400/30'
-                          : 'bg-red-500/20 text-red-300 border border-red-400/30'
-                      }`}>
-                        <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1.5 ${salon.isOpen ? 'bg-green-400' : 'bg-red-400'} animate-pulse`} />
-                        {salon.isOpen ? 'Open Now' : 'Closed'}
-                      </span>
+            {/* Salon Info Glass Card */}
+            <div className="absolute bottom-0 left-0 right-0 px-4 sm:px-6 lg:px-8 pb-8">
+              <div className="max-w-7xl mx-auto">
+                <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 sm:p-6 shadow-xl">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <div className="flex items-center gap-3 mb-2 flex-wrap">
+                        <h1 className="text-2xl sm:text-3xl font-bold text-white">{salon.name}</h1>
+                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                          salon.isOpen
+                            ? 'bg-green-500/20 text-green-300 border border-green-400/30'
+                            : 'bg-red-500/20 text-red-300 border border-red-400/30'
+                        }`}>
+                          <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1.5 ${salon.isOpen ? 'bg-green-400' : 'bg-red-400'} animate-pulse`} />
+                          {salon.isOpen ? 'Open Now' : 'Closed'}
+                        </span>
+                      </div>
+                      <p className="text-white/80 text-sm mb-3">{salon.tagline}</p>
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-white/80">
+                        <div className="flex items-center gap-1.5">
+                          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          <span className="font-semibold text-white">{salon.rating}</span>
+                          <span>({salon.reviews} reviews)</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <MapPin className="w-4 h-4" />
+                          <span>{salon.area}, Dhaka</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Clock className="w-4 h-4" />
+                          <span>{salon.hours}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Calendar className="w-4 h-4 text-green-400" />
+                          <span className="text-green-300 font-semibold">{availableCount} slots today</span>
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-white/80 text-sm mb-3">{salon.tagline}</p>
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-white/80">
-                      <div className="flex items-center gap-1.5">
-                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        <span className="font-semibold text-white">{salon.rating}</span>
-                        <span>({salon.reviews} reviews)</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <MapPin className="w-4 h-4" />
-                        <span>{salon.area}, Dhaka</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <Clock className="w-4 h-4" />
-                        <span>{salon.hours}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <Calendar className="w-4 h-4 text-green-400" />
-                        <span className="text-green-300 font-semibold">{availableCount} slots today</span>
-                      </div>
-                    </div>
+                    <button
+                      onClick={() => setIsBookingOpen(true)}
+                      className="hidden sm:flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white font-semibold shadow-lg shadow-blue-900/30 hover:shadow-xl hover:-translate-y-0.5 transition-all"
+                    >
+                      <Calendar className="w-4 h-4" />
+                      Book Appointment
+                    </button>
                   </div>
-                  <button
-                    onClick={() => setIsBookingOpen(true)}
-                    className="hidden sm:flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#36A2FF] to-[#007BFF] text-white font-semibold shadow-lg shadow-blue-900/30 hover:shadow-xl hover:-translate-y-0.5 transition-all"
-                  >
-                    <Calendar className="w-4 h-4" />
-                    Book Appointment
-                  </button>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </PageHeaderReveal>
 
         {/* ─── Main Layout ─── */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -331,6 +333,7 @@ export function SalonDetails() {
               </Reveal>
 
               {/* Services — Accordion */}
+              <Reveal>
               <section>
                 <h2 className="text-xl font-bold text-[#1E293B] mb-5 flex items-center gap-2">
                   <span className="text-lg">🗂️</span>
@@ -395,8 +398,10 @@ export function SalonDetails() {
                   ))}
                 </div>
               </section>
+              </Reveal>
 
               {/* Gallery */}
+              <Reveal>
               <section>
                 <div className="flex items-center justify-between mb-5">
                   <h2 className="text-xl font-bold text-[#1E293B] flex items-center gap-2">
@@ -424,8 +429,10 @@ export function SalonDetails() {
                   ))}
                 </div>
               </section>
+              </Reveal>
 
               {/* Team */}
+              <Reveal>
               <section>
                 <h2 className="text-xl font-bold text-[#1E293B] mb-5 flex items-center gap-2">
                   <Users className="w-5 h-5 text-[#007BFF]" />
@@ -466,8 +473,10 @@ export function SalonDetails() {
                   ))}
                 </div>
               </section>
+              </Reveal>
 
               {/* Reviews */}
+              <Reveal>
               <section>
                 <div className="flex items-center justify-between mb-5">
                   <h2 className="text-xl font-bold text-[#1E293B] flex items-center gap-2">
@@ -514,11 +523,14 @@ export function SalonDetails() {
                   ))}
                 </div>
               </section>
+              </Reveal>
 
             </div>
 
             {/* ── Right — Sticky Sidebar ── */}
-            <div className="space-y-5 lg:sticky lg:top-24">
+            <div className="lg:col-span-1">
+              <Reveal delay={0.15}>
+                <div className="space-y-5 lg:sticky lg:top-24">
 
               {/* Book CTA */}
               <div className="bg-gradient-to-br from-[#36A2FF] to-[#007BFF] rounded-2xl p-6 text-white shadow-xl shadow-blue-200/50 relative overflow-hidden">
@@ -588,6 +600,8 @@ export function SalonDetails() {
                 </div>
               </div>
 
+                </div>
+              </Reveal>
             </div>
           </div>
         </div>

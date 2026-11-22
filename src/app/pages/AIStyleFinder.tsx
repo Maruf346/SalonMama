@@ -4,7 +4,7 @@ import {
   Star, TrendingUp, X, ArrowRight, Check, Filter, Heart,
 } from 'lucide-react';
 import { Link } from 'react-router';
-import { MotionPage } from '../components/motion';
+import { MotionPage, PageHeaderReveal, Reveal } from '../components/motion';
 import { SEOHead } from '../components/SEOHead';
 
 type UIState = 'upload' | 'preview' | 'analyzing' | 'results';
@@ -274,45 +274,48 @@ export function AIStyleFinder() {
         keywords="ai hairstyle finder bangladesh, face shape haircut finder, virtual haircut test online, hair style for oval face dhaka, best haircut for men bangladesh"
       />
 
-      {/* ─── Page Header ─── */}
-      <div className="relative overflow-hidden py-14 px-4 sm:px-6 lg:px-8">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#EAF6FF]/60 via-white to-white pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_50%,rgba(54,162,255,0.1),transparent_55%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_40%,rgba(0,123,255,0.07),transparent_60%)] pointer-events-none" />
+      {/* ─── Page Header - Gentle initial load entrance ─── */}
+      <PageHeaderReveal>
+        <div className="relative overflow-hidden py-14 px-4 sm:px-6 lg:px-8">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#EAF6FF]/60 via-white to-white pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_50%,rgba(54,162,255,0.1),transparent_55%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_40%,rgba(0,123,255,0.07),transparent_60%)] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm border border-blue-100 shadow-sm mb-5 animate-fade-in">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <Sparkles className="w-4 h-4 text-[#007BFF]" />
-            <span className="text-sm font-semibold text-[#007BFF]">AI-Powered Recommendations</span>
+          <div className="max-w-7xl mx-auto relative z-10 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm border border-blue-100 shadow-sm mb-5 animate-fade-in">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <Sparkles className="w-4 h-4 text-[#007BFF]" />
+              <span className="text-sm font-semibold text-[#007BFF]">AI-Powered Recommendations</span>
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1E293B] mb-4 leading-tight animate-slide-up">
+              Your{' '}
+              <span className="bg-gradient-to-r from-[#36A2FF] to-[#007BFF] bg-clip-text text-transparent">
+                Perfect Style
+              </span>
+              , Found
+            </h1>
+
+            <p className="text-lg sm:text-xl text-[#64748b] max-w-2xl mx-auto leading-relaxed animate-slide-up">
+              Upload your photo — our AI analyzes your face shape and recommends the most flattering hairstyles, personalized just for you.
+            </p>
+
+            {uiState === 'results' && (
+              <button
+                onClick={reset}
+                className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-gray-200 text-sm font-medium text-[#475569] hover:border-[#007BFF] hover:text-[#007BFF] shadow-sm hover:shadow transition-all animate-fade-in"
+              >
+                <RotateCcw className="w-4 h-4" />
+                Try Another Photo
+              </button>
+            )}
           </div>
-
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1E293B] mb-4 leading-tight animate-slide-up">
-            Your{' '}
-            <span className="bg-gradient-to-r from-[#36A2FF] to-[#007BFF] bg-clip-text text-transparent">
-              Perfect Style
-            </span>
-            , Found
-          </h1>
-
-          <p className="text-lg sm:text-xl text-[#64748b] max-w-2xl mx-auto leading-relaxed animate-slide-up">
-            Upload your photo — our AI analyzes your face shape and recommends the most flattering hairstyles, personalized just for you.
-          </p>
-
-          {uiState === 'results' && (
-            <button
-              onClick={reset}
-              className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-gray-200 text-sm font-medium text-[#475569] hover:border-[#007BFF] hover:text-[#007BFF] shadow-sm hover:shadow transition-all animate-fade-in"
-            >
-              <RotateCcw className="w-4 h-4" />
-              Try Another Photo
-            </button>
-          )}
         </div>
-      </div>
+      </PageHeaderReveal>
 
-      {/* ─── Main Content ─── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      {/* ─── Main Content - Scroll Reveal ─── */}
+      <Reveal amount={0.08}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
 
         {/* ── UPLOAD STATE ── */}
         {uiState === 'upload' && (
@@ -698,33 +701,36 @@ export function AIStyleFinder() {
           </div>
         )}
       </div>
+      </Reveal>
 
-      {/* ─── Bottom CTA ─── */}
+      {/* ─── Bottom CTA - Scroll Reveal ─── */}
       {uiState !== 'analyzing' && (
-        <section className="mt-8 py-18 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#36A2FF] to-[#007BFF] relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_50%,rgba(255,255,255,0.12),transparent_55%)] pointer-events-none" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_50%,rgba(0,56,200,0.3),transparent_55%)] pointer-events-none" />
+        <Reveal amount={0.15}>
+          <section className="mt-8 py-18 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#36A2FF] to-[#007BFF] relative overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_50%,rgba(255,255,255,0.12),transparent_55%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_50%,rgba(0,56,200,0.3),transparent_55%)] pointer-events-none" />
 
-          <div className="max-w-3xl mx-auto text-center relative z-10 py-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
-              Ready to Book Your Perfect Look?
-            </h2>
-            <p className="text-lg text-white/85 mb-8 max-w-xl mx-auto">
-              Sign up free to save your style results, get personalized weekly picks, and book directly with top-rated salons near you.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <button className="px-8 py-3.5 rounded-full bg-white text-[#007BFF] font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
-                Sign Up Free
-              </button>
-              <Link
-                to="/browse-salons"
-                className="px-8 py-3.5 rounded-full bg-white/15 border-2 border-white/35 text-white font-semibold hover:bg-white/25 hover:border-white/50 transition-all"
-              >
-                Browse Salons
-              </Link>
+            <div className="max-w-3xl mx-auto text-center relative z-10 py-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
+                Ready to Book Your Perfect Look?
+              </h2>
+              <p className="text-lg text-white/85 mb-8 max-w-xl mx-auto">
+                Sign up free to save your style results, get personalized weekly picks, and book directly with top-rated salons near you.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <button className="px-8 py-3.5 rounded-full bg-white text-[#007BFF] font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
+                  Sign Up Free
+                </button>
+                <Link
+                  to="/browse-salons"
+                  className="px-8 py-3.5 rounded-full bg-white/15 border-2 border-white/35 text-white font-semibold hover:bg-white/25 hover:border-white/50 transition-all"
+                >
+                  Browse Salons
+                </Link>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </Reveal>
       )}
 
     </MotionPage>

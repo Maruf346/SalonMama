@@ -18,6 +18,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import {
   MotionPage,
   Reveal,
+  PageHeaderReveal,
   Stagger,
   StaggerItem,
   TiltCard,
@@ -231,170 +232,174 @@ export function EditorialLookbook() {
         keywords="popular hairstyles in dhaka, haircut styles for men dhaka, ladies haircut trends bangladesh, bridal makeup ideas dhaka, balayage hair color price dhaka"
       />
 
-      {/* Style Guide Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#EAF6FF]/60 via-white to-[#fafbfc] py-16 sm:py-20 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <Reveal className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-[#007BFF] text-xs font-semibold tracking-wider uppercase mb-4">
-              <BookOpen className="w-3.5 h-3.5" />
-              Dhaka Hairstyle & Beauty Guide
+      {/* Style Guide Hero - Gentle entrance on first load */}
+      <PageHeaderReveal>
+        <section className="relative overflow-hidden bg-gradient-to-b from-[#EAF6FF]/60 via-white to-[#fafbfc] py-16 sm:py-20 border-b border-gray-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-[#007BFF] text-xs font-semibold tracking-wider uppercase mb-4">
+                <BookOpen className="w-3.5 h-3.5" />
+                Dhaka Hairstyle & Beauty Guide
+              </div>
+              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#0f172a] leading-tight mb-4">
+                Trending Hairstyles &
+                <br />
+                <span className="bg-gradient-to-r from-[#007BFF] to-[#36A2FF] bg-clip-text text-transparent">
+                  Beauty Looks in Dhaka
+                </span>
+              </h1>
+              <p className="text-base sm:text-lg text-[#64748b] leading-relaxed max-w-2xl">
+                Wondering what hairstyle to try next? Explore popular cuts, hair colors, and bridal
+                looks done by top stylists in Gulshan, Banani, and Dhanmondi. See prices and book the look easily.
+              </p>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#0f172a] leading-tight mb-4">
-              Trending Hairstyles &
-              <br />
-              <span className="bg-gradient-to-r from-[#007BFF] to-[#36A2FF] bg-clip-text text-transparent">
-                Beauty Looks in Dhaka
-              </span>
-            </h1>
-            <p className="text-base sm:text-lg text-[#64748b] leading-relaxed max-w-2xl">
-              Wondering what hairstyle to try next? Explore popular cuts, hair colors, and bridal
-              looks done by top stylists in Gulshan, Banani, and Dhanmondi. See prices and book the look easily.
-            </p>
-          </Reveal>
 
-          {/* Category Pill Bar with gentle motion */}
-          <div className="mt-10 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-            {categories.map((cat) => {
-              const active = activeCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
-                  className={`relative px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap cursor-pointer z-10 ${
-                    active ? 'text-[#007BFF]' : 'text-[#64748b] hover:text-[#1E293B]'
-                  }`}
-                >
-                  {active && (
-                    <AnimatedTabPill
-                      layoutId="editorialFilter"
-                      className="bg-white shadow-[0_4px_16px_rgba(0,123,255,0.12)] border border-blue-100"
-                    />
-                  )}
-                  <span className="relative z-10">{cat.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Style Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-2xl font-bold text-[#0f172a]">
-              {categories.find((c) => c.id === activeCategory)?.label}
-            </h2>
-            <p className="text-xs sm:text-sm text-[#64748b]">
-              Showing {filteredItems.length} popular styles
-            </p>
-          </div>
-        </div>
-
-        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence mode="popLayout">
-            {filteredItems.map((item) => {
-              const isSaved = savedLooks.includes(item.id);
-              return (
-                <motion.article
-                  layout
-                  key={item.id}
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
-                  className="group relative bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,123,255,0.09)] transition-all duration-300 flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Image Canvas */}
-                    <div className="relative h-64 sm:h-72 overflow-hidden bg-gray-100">
-                      <img
-                        src={item.image}
-                        alt={`${item.title} at ${item.salon} Dhaka`}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+            {/* Category Pill Bar with gentle motion */}
+            <div className="mt-10 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+              {categories.map((cat) => {
+                const active = activeCategory === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveCategory(cat.id)}
+                    className={`relative px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap cursor-pointer z-10 ${
+                      active ? 'text-[#007BFF]' : 'text-[#64748b] hover:text-[#1E293B]'
+                    }`}
+                  >
+                    {active && (
+                      <AnimatedTabPill
+                        layoutId="editorialFilter"
+                        className="bg-white shadow-[0_4px_16px_rgba(0,123,255,0.12)] border border-blue-100"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                    )}
+                    <span className="relative z-10">{cat.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      </PageHeaderReveal>
 
-                      <div className="absolute top-4 left-4 flex items-center gap-2">
-                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/95 text-[#007BFF] shadow-sm">
-                          {item.categoryLabel}
-                        </span>
-                        <span className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-black/40 text-white border border-white/20">
-                          {item.duration}
-                        </span>
-                      </div>
+      {/* Style Grid - Reveals on scroll */}
+      <Reveal amount={0.08}>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-2xl font-bold text-[#0f172a]">
+                {categories.find((c) => c.id === activeCategory)?.label}
+              </h2>
+              <p className="text-xs sm:text-sm text-[#64748b]">
+                Showing {filteredItems.length} popular styles
+              </p>
+            </div>
+          </div>
 
-                      <button
-                        onClick={() => toggleSave(item.id)}
-                        aria-label="Save Look"
-                        className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-gray-700 hover:text-red-500 shadow-sm transition-all"
-                      >
-                        <Heart
-                          className={`w-4 h-4 ${
-                            isSaved ? 'fill-red-500 text-red-500' : 'text-gray-700'
-                          }`}
+          <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <AnimatePresence mode="popLayout">
+              {filteredItems.map((item) => {
+                const isSaved = savedLooks.includes(item.id);
+                return (
+                  <motion.article
+                    layout
+                    key={item.id}
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+                    className="group relative bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,123,255,0.09)] transition-all duration-300 flex flex-col justify-between"
+                  >
+                    <div>
+                      {/* Image Canvas */}
+                      <div className="relative h-64 sm:h-72 overflow-hidden bg-gray-100">
+                        <img
+                          src={item.image}
+                          alt={`${item.title} at ${item.salon} Dhaka`}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                         />
-                      </button>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 
-                      <div className="absolute bottom-3 left-4 right-4 text-white flex items-center justify-between text-xs">
-                        <span>By {item.stylist}</span>
-                        <span className="font-semibold text-yellow-300">
-                          ★ {item.trendingScore}% popular
-                        </span>
+                        <div className="absolute top-4 left-4 flex items-center gap-2">
+                          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/95 text-[#007BFF] shadow-sm">
+                            {item.categoryLabel}
+                          </span>
+                          <span className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-black/40 text-white border border-white/20">
+                            {item.duration}
+                          </span>
+                        </div>
+
+                        <button
+                          onClick={() => toggleSave(item.id)}
+                          aria-label="Save Look"
+                          className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-gray-700 hover:text-red-500 shadow-sm transition-all"
+                        >
+                          <Heart
+                            className={`w-4 h-4 ${
+                              isSaved ? 'fill-red-500 text-red-500' : 'text-gray-700'
+                            }`}
+                          />
+                        </button>
+
+                        <div className="absolute bottom-3 left-4 right-4 text-white flex items-center justify-between text-xs">
+                          <span>By {item.stylist}</span>
+                          <span className="font-semibold text-yellow-300">
+                            ★ {item.trendingScore}% popular
+                          </span>
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Body Content */}
-                    <div className="p-6 space-y-3">
-                      <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#007BFF] transition-colors leading-snug line-clamp-2">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs text-[#64748b] leading-relaxed line-clamp-2">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Salon attribution & actions */}
-                  <div className="p-6 pt-0 space-y-4">
-                    <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs">
-                      <div>
-                        <p className="text-[#94a3b8]">Done at</p>
-                        <p className="font-bold text-[#1E293B]">
-                          {item.salon}{' '}
-                          <span className="font-normal text-[#64748b]">({item.location})</span>
+                      {/* Body Content */}
+                      <div className="p-6 space-y-3">
+                        <h3 className="text-lg font-bold text-[#0f172a] group-hover:text-[#007BFF] transition-colors leading-snug line-clamp-2">
+                          {item.title}
+                        </h3>
+                        <p className="text-xs text-[#64748b] leading-relaxed line-clamp-2">
+                          {item.description}
                         </p>
                       </div>
+                    </div>
 
-                      <div className="text-right">
-                        <p className="text-[#94a3b8]">Est. Price</p>
-                        <p className="font-bold text-sm text-[#007BFF]">{item.priceEstimate}</p>
+                    {/* Salon attribution & actions */}
+                    <div className="p-6 pt-0 space-y-4">
+                      <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs">
+                        <div>
+                          <p className="text-[#94a3b8]">Done at</p>
+                          <p className="font-bold text-[#1E293B]">
+                            {item.salon}{' '}
+                            <span className="font-normal text-[#64748b]">({item.location})</span>
+                          </p>
+                        </div>
+
+                        <div className="text-right">
+                          <p className="text-[#94a3b8]">Est. Price</p>
+                          <p className="font-bold text-sm text-[#007BFF]">{item.priceEstimate}</p>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => setSelectedLook(item)}
+                          className="w-full py-2.5 px-3 rounded-xl text-xs font-semibold text-[#007BFF] bg-blue-50 hover:bg-blue-100 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          Details
+                        </button>
+                        <button
+                          onClick={() => handleBookLook(item.salon)}
+                          className="w-full py-2.5 px-3 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#36A2FF] to-[#007BFF] hover:shadow-md transition-all flex items-center justify-center gap-1 cursor-pointer"
+                        >
+                          Book Look
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
                       </div>
                     </div>
-
-                    <div className="grid grid-cols-2 gap-2">
-                      <button
-                        onClick={() => setSelectedLook(item)}
-                        className="w-full py-2.5 px-3 rounded-xl text-xs font-semibold text-[#007BFF] bg-blue-50 hover:bg-blue-100 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                        Details
-                      </button>
-                      <button
-                        onClick={() => handleBookLook(item.salon)}
-                        className="w-full py-2.5 px-3 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-[#36A2FF] to-[#007BFF] hover:shadow-md transition-all flex items-center justify-center gap-1 cursor-pointer"
-                      >
-                        Book Look
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </div>
-                </motion.article>
-              );
-            })}
-          </AnimatePresence>
-        </motion.div>
-      </section>
+                  </motion.article>
+                );
+              })}
+            </AnimatePresence>
+          </motion.div>
+        </section>
+      </Reveal>
 
       {/* Style Details Modal */}
       <AnimatePresence>
