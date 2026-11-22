@@ -1,10 +1,12 @@
-import { useState, useRef, type ReactNode, type MouseEvent } from 'react';
+import { useState, useRef, useEffect, type ReactNode, type MouseEvent } from 'react';
 import {
   motion,
   useReducedMotion,
   useMotionValue,
   useTransform,
   useSpring,
+  useInView,
+  animate,
   AnimatePresence,
   type Variants,
 } from 'motion/react';
@@ -477,37 +479,75 @@ export function Marquee({
   );
 }
 
-// ─── Smooth Animated Spring Number (Gentle) ───
+// ─── Smooth Animated Number Counter (In-View, Gentle Deceleration) ───
 interface AnimatedNumberProps {
   value: number;
+  from?: number;
+  duration?: number;
   prefix?: string;
   suffix?: string;
   decimals?: number;
   className?: string;
+  once?: boolean;
 }
 
 export function AnimatedNumber({
   value,
+  from = 0,
+  duration = 1.6,
   prefix = '',
   suffix = '',
   decimals = 0,
   className,
+  once = true,
 }: AnimatedNumberProps) {
-  const spring = useSpring(0, { stiffness: 70, damping: 18 });
-  const [displayValue, setDisplayValue] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once, amount: 0.1 });
+  const reduceMotion = useReducedMotion();
+  const prevValueRef = useRef(from);
+  const hasAnimatedRef = useRef(false);
 
-  useState(() => {
-    spring.set(value);
-    const unsubscribe = spring.on('change', (latest) => {
-      setDisplayValue(Number(latest.toFixed(decimals)));
+  const formatNum = (num: number) => {
+    if (decimals > 0) {
+      return num.toFixed(decimals);
+    }
+    return Math.round(num).toLocaleString();
+  };
+
+  const [displayValue, setDisplayValue] = useState<string>(() =>
+    reduceMotion ? formatNum(value) : formatNum(from)
+  );
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setDisplayValue(formatNum(value));
+      prevValueRef.current = value;
+      return;
+    }
+
+    if (!isInView) return;
+
+    const startVal = hasAnimatedRef.current ? prevValueRef.current : from;
+    hasAnimatedRef.current = true;
+
+    const controls = animate(startVal, value, {
+      duration,
+      ease: [0.16, 1, 0.3, 1], // Gentle, luxurious deceleration
+      onUpdate: (latest) => {
+        setDisplayValue(formatNum(latest));
+      },
+      onComplete: () => {
+        prevValueRef.current = value;
+      },
     });
-    return () => unsubscribe();
-  });
+
+    return () => controls.stop();
+  }, [isInView, value, from, duration, decimals, reduceMotion]);
 
   return (
-    <span className={className}>
+    <span ref={ref} className={className}>
       {prefix}
-      {displayValue.toLocaleString()}
+      {displayValue}
       {suffix}
     </span>
   );

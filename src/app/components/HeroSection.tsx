@@ -189,7 +189,9 @@ export function HeroSection() {
             </div>
             <div className="w-px h-10 bg-white/25 hidden sm:block" />
             <div className="text-center">
-              <div className="text-3xl font-extrabold text-yellow-300 mb-0.5">4.9★</div>
+              <div className="text-3xl font-extrabold text-yellow-300 mb-0.5">
+                <AnimatedNumber value={4.9} decimals={1} suffix="★" />
+              </div>
               <div className="text-white/80 text-xs uppercase tracking-wider font-medium">
                 Customer Rating
               </div>

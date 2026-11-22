@@ -1,5 +1,6 @@
 import { Gift, Star, Award, Crown } from 'lucide-react';
 import { Button } from './Button';
+import { AnimatedNumber } from './motion';
 
 const REWARD_CARDS = [
   {
@@ -75,17 +76,23 @@ export function RewardsBanner() {
             {/* Mini stats */}
             <div className="flex items-center gap-6">
               <div className="text-center">
-                <div className="text-2xl font-bold">50K+</div>
+                <div className="text-2xl font-bold">
+                  <AnimatedNumber value={50} suffix="K+" />
+                </div>
                 <div className="text-white/70 text-xs mt-0.5">Active Members</div>
               </div>
               <div className="h-10 w-px bg-white/20" />
               <div className="text-center">
-                <div className="text-2xl font-bold">৳2M+</div>
+                <div className="text-2xl font-bold">
+                  <AnimatedNumber value={2} prefix="৳" suffix="M+" />
+                </div>
                 <div className="text-white/70 text-xs mt-0.5">Rewards Redeemed</div>
               </div>
               <div className="h-10 w-px bg-white/20" />
               <div className="text-center">
-                <div className="text-2xl font-bold">4.9★</div>
+                <div className="text-2xl font-bold">
+                  <AnimatedNumber value={4.9} decimals={1} suffix="★" />
+                </div>
                 <div className="text-white/70 text-xs mt-0.5">Member Rating</div>
               </div>
             </div>
